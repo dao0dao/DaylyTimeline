@@ -1,0 +1,77 @@
+<div class="container">
+    <div #timeTable class="timeTable">
+        <div class="backgroundGrid">
+            <app-background-grid #backGrid [hours]="hours"></app-background-grid>
+        </div>
+        <div class="schedule">
+            <div class="title">
+                <p>Godzina</p>
+            </div>
+            <div #hour *ngFor="let element of hours" class="hour" [attr.data-row-start]="element.rowStart"
+                [attr.data-cell-start]="offsetTop(this.hour)" [attr.data-cell-end]="offsetTop(this.hour)+60">
+                <p class="number">{{element.hour}}</p>
+            </div>
+        </div>
+        <div data-drop-zone="true" data-court="1" class="reservation schedule courtOne"
+            (click)="dropReservation($event)">
+            <div class="title">
+                <p>Kort 1</p>
+            </div>
+            <div data-draggable="true" *ngFor="let reservation of courtOne" class="cell"
+                [ngStyle]="{gridRowStart : reservation.rowStart, gridRowEnd : reservation.rowEnd}"
+                [ngClass]="{'cell--active' : reservation.isActive}">
+                <p class="time" (click)="dragStart(reservation)" >{{reservation.timeStart}} - {{reservation.timeEnd}}</p>
+                <div class="user">
+                    <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
+                        {{reservation.user.lastName}}</p>
+                    <div class="user_actions">
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i class="fas fa-user-edit"></i></button>
+                        <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div data-drop-zone="true" data-court="2" class="reservation schedule courtTwo"
+            (click)="dropReservation($event)">
+            <div class="title">
+                <p>Kort 2</p>
+            </div>
+            <div data-draggable="true" *ngFor="let reservation of courtTwo" class="cell"
+                [ngStyle]="{gridRowStart : reservation.rowStart, gridRowEnd : reservation.rowEnd}"
+                [ngClass]="{'cell--active' : reservation.isActive}">
+                <p class="time" (click)="dragStart(reservation)" >{{reservation.timeStart}} - {{reservation.timeEnd}}</p>
+                <div class="user">
+                    <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
+                        {{reservation.user.lastName}}</p>
+                    <div class="user_actions">
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i class="fas fa-user-edit"></i></button>
+                        <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div data-drop-zone="true" data-court="dressroom" class="reservation schedule dressRoom"
+            (click)="dropReservation($event)">
+            <div class="title">
+                <p>Zapasowi</p>
+            </div>
+            <div data-draggable="true" *ngFor="let reservation of dressroom" class="cell"
+                [ngStyle]="{gridRowStart : reservation.rowStart, gridRowEnd : reservation.rowEnd}"
+                [ngClass]="{'cell--active' : reservation.isActive}">
+                <p class="time" (click)="dragStart(reservation)" >{{reservation.timeStart}} - {{reservation.timeEnd}}</p>
+                <div class="user">
+                    <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
+                        {{reservation.user.lastName}}</p>
+                    <div class="user_actions">
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i class="fas fa-user-edit"></i></button>
+                        <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

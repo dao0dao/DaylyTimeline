@@ -1,0 +1,14 @@
+<div *ngIf="isOpen" class="info">
+    <div class="background">
+        <div class="container">
+            <h2 class="title">Wybrana rezerwacja:</h2>
+            <div class="reservation">
+                <p>{{reservation.timeStart}} - {{reservation.timeEnd}}, kort: {{reservation.court}}, {{reservation.user.firstName}}
+                    {{reservation.user.lastName}}</p>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn--cancle" (click)="cancleDrag()"><span>Anuluj</span></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+$redColor: #b91616;
+.info {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.background {
+    padding: 2px 3px 2px 3px;
+    background-color: $redColor;
+    clip-path: polygon(25px 0, 100% 0%, calc(100% - 25px) 100%, 0% 100%);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #161616;
+    clip-path: polygon(24px 0, 100% 0%, calc(100% - 24px) 100%, 0% 100%);
+    color: #ffffff;
+    .title {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    .reservation,
+    .actions {
+        margin-bottom: 0.3rem;
+        text-align: center;
+    }
+    .reservation{
+        padding: 0 1.1rem 0 1.2rem;
+    }
+    .btn {
+        transform: skewX(20deg);
+        padding: 0.3rem;
+        border-style: none solid none solid;
+        border-width: 2px;
+        border-color: $redColor;
+        background-color: transparent;
+        color: #ffffff;
+        transition: 0.25s linear;
+        span {
+            display: inline-block;
+            transform: skewX(-20deg);
+        }
+        &:hover {
+            background-color: $redColor;
+        }
+        &:active, &:focus {
+            background-color: #fff;
+            border-color: #ffffff;
+            color: #000000;
+        }
+    }
+}

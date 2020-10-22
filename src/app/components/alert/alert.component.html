@@ -1,0 +1,13 @@
+<div *ngIf="isOpen" class="alert">
+    <div class="container">
+        <h2 class="title">Czy napewno chcesz usunąć następującą rezerwacje?</h2>
+        <div class="reservation">
+            <p>{{timeStart}} - {{timeEnd}}</p>
+            <p>{{firstName}} {{lastName}}</p>
+        </div>
+        <div class="actions">
+            <button type="button" class="btn btn--yes" (click)="confirmDelete()">Tak</button>
+            <button type="button" class="btn btn--no" (click)="closeAlert()">Nie</button>
+        </div>
+    </div>
+</div>
