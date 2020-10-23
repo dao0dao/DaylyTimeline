@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Hours } from 'src/environments/interfaces';
+import { InfoService } from '../service/info.service';
 
 @Component({
   selector: 'app-background-grid',
@@ -8,12 +10,17 @@ import { Hours } from 'src/environments/interfaces';
 })
 export class BackgroundGridComponent implements OnInit {
 
-  @Input('hours') hours : Array<Hours>
+  @Input('hours') hours: Array<Hours>
 
-  constructor() { }
+  openSub: Subscription
+  isOpen: boolean = false
+
+  constructor(public infoService: InfoService) { }
 
   ngOnInit() {
-
+    this.openSub = this.infoService.isOpen$.subscribe(
+      (isOpen) => { this.isOpen = isOpen }
+    )
   }
 
 }

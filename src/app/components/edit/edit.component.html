@@ -1,1 +1,36 @@
-<p>edit works!</p>
+<div class="edit">
+    <div class="background">
+        <form class="container">
+            <h2 class="title">Edycja rezerwacji</h2>
+            <p class="user">Imię i nazwisko</p>
+            <div class="time">
+                <div class="time--start">
+                    <label for="hour--start">
+                        <p>Godzina rozpoczęcia</p>
+                    </label>
+                    <input type="time" min="00:00" max="23:00" id="hour--start">
+                </div>
+                <div class="time--end">
+                    <label for="hour--end">
+                        <p>Godzina zakończenia</p>
+                    </label>
+                    <input type="time" min="00:00" max="23:00" id="hour--end">
+                </div>
+            </div>
+            <div class="court">
+                <label for="court">
+                    Kort:
+                </label>
+                <select id="court">
+                    <option value="1">Kort 1</option>
+                    <option value="2">Kort 2</option>
+                    <option value="dressroom">Rezerwowi</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn--yes"><i class="fas fa-check"></i></button>
+                <button type="button" class="btn btn--no"><i class="fas fa-times"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
