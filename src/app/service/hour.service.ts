@@ -50,6 +50,5 @@ export class HourService {
     rowEnd = this.findRowStart(hour) + 1
     return rowEnd
   }
-
   constructor() { }
 }

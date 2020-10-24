@@ -4,6 +4,7 @@ import { Hours, Reservation, court } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
 
 import { DataService } from '../service/data.service'
+import { EditServiceService } from '../service/edit-service.service';
 import { HourService } from '../service/hour.service'
 import { InfoService } from '../service/info.service';
 
@@ -76,14 +77,17 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       }
     }
   }
-  userEdit(reservation: Reservation) { }
+  userEdit(reservation: Reservation) {
+    this.editService.editData(reservation)
+    this.editService.openEdit(true)
+  }
   userDelete(reservation: Reservation, isOpen: boolean) {
     if (!this.isOpen) {
       this.alertService.confirmDelete(reservation)
       this.alertService.alertToggle(isOpen)
     }
   }
-  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService) { }
+  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService) { }
 
   ngOnInit() {
     this.hourService.pushHours()
