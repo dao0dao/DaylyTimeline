@@ -1,26 +1,27 @@
 <div *ngIf="isOpen" class="edit">
     <div class="background">
-        <form class="container" [formGroup]="reservationForm">
+        <form class="container" [formGroup]="reservationForm" (ngSubmit)="applyChanges()">
             <h2 class="title">Edycja rezerwacji</h2>
-            <input class="user" disabled formControlName="name" type="text">
+            <input class="user" type="text" [value]="user">
             <div class="time">
                 <div class="time--start">
                     <label for="hour--start">
                         <p>Godzina rozpoczęcia</p>
                     </label>
-                    <input type="time" min="00:00" max="23:00" step="300" name="appt-time" id="hour--start"
-                        formControlName="timeStart">
-                        <p *ngIf="timeStart.errors" class="error">Dozwolona pełna lub połowa godziny</p>
-                    </div>
-                    <div class="time--end">
-                        <label for="hour--end">
-                            <p>Godzina zakończenia</p>
-                        </label>
-                        <input type="time" min="00:00" max="23:00" step="300" name="appt-time" id="hour--end"
-                        formControlName="timeEnd">
-                        <p *ngIf="timeEnd.errors" class="error">Dozwolona pełna lub połowa godziny</p>
+                    <input type="time" min="00:00" max="23:00" id="hour--start" formControlName="timeStart"
+                        (change)="inputChange()">
+                    <p *ngIf="timeStart.errors" class="error">Dozwolona pełna lub połowa godziny</p>
+                </div>
+                <div class="time--end">
+                    <label for="hour--end">
+                        <p>Godzina zakończenia</p>
+                    </label>
+                    <input type="time" min="00:00" max="23:00" id="hour--end" formControlName="timeEnd"
+                        (change)="inputChange()">
+                    <p *ngIf="timeEnd.errors" class="error">Dozwolona pełna lub połowa godziny</p>
                 </div>
             </div>
+            <p *ngIf="wrongTime" class="wrongTime error">Minimalny czas gry to godzina</p>
             <div class="court">
                 <label for="court">
                     Kort:
@@ -32,7 +33,8 @@
                 </select>
             </div>
             <div class="actions">
-                <button type="submit" class="btn btn--yes"><i class="fas fa-check"></i></button>
+                <button type="submit" [disabled]="reservationForm.invalid || wrongTime" class="btn btn--yes"><i
+                        class="fas fa-check"></i></button>
                 <button type="button" class="btn btn--no" (click)="cancleChanges()"><i
                         class="fas fa-times"></i></button>
             </div>

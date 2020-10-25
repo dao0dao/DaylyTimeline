@@ -17,7 +17,7 @@ export interface Reservation {
     timeEnd: string,
     rowStart: number,
     duration: number,
-    rowEnd?: number,
+    rowEnd: number,
     user: User,
     isActive?: boolean
 }

@@ -5,6 +5,7 @@ import { AlertService } from '../service/alert.service';
 
 import { DataService } from '../service/data.service'
 import { EditServiceService } from '../service/edit-service.service';
+import { ErrorService } from '../service/error.service';
 import { HourService } from '../service/hour.service'
 import { InfoService } from '../service/info.service';
 
@@ -68,18 +69,13 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       newRowStart = dropHour.nativeElement.dataset.rowStart * 1
       newRowEnd = newRowStart + (2 * this.draggableItem.duration)
 
-      if (!this.dataService.checkReservation(court, newRowStart, newRowEnd, this.draggableItem).includes(false)) {
-        this.draggableItem.court = court
-        this.draggableItem.rowStart = newRowStart
-        this.draggableItem.timeStart = this.hourService.findHour(newRowStart)
-        this.draggableItem.timeEnd = this.hourService.findHour(newRowEnd)
-        this.dragEnd()
-      }
+      this.dataService.changeReservation(court, newRowStart, newRowEnd, this.draggableItem) !== false ? this.dragEnd() : this.errorService.toggleError(true, 'Kort zajęty o danej godzinie')
     }
   }
-  userEdit(reservation: Reservation) {
+  userEdit(reservation: Reservation, isOpen: boolean) {
     this.editService.editData(reservation)
     this.editService.openEdit(true)
+    this.draggableItem && this.dragEnd()
   }
   userDelete(reservation: Reservation, isOpen: boolean) {
     if (!this.isOpen) {
@@ -87,7 +83,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       this.alertService.alertToggle(isOpen)
     }
   }
-  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService) { }
+  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.hourService.pushHours()
@@ -101,11 +97,8 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   }
   ngDoCheck() {
     this.courtOne = this.dataService.reservation.filter(reservation => reservation.court === 1)
-    this.courtOne.map(reservation => reservation.rowEnd = reservation.rowStart + (2 * reservation.duration))
     this.courtTwo = this.dataService.reservation.filter(reservation => reservation.court === 2)
-    this.courtTwo.map(reservation => reservation.rowEnd = reservation.rowStart + (2 * reservation.duration))
     this.dressroom = this.dataService.reservation.filter(reservation => reservation.court === 'dressroom')
-    this.dressroom.map(reservation => reservation.rowEnd = reservation.rowStart + (2 * reservation.duration))
   }
 
   ngOnDestroy() {

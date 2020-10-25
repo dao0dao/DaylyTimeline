@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { TimeLineComponent } from './time-line/time-line.component';
@@ -9,6 +9,7 @@ import { BackgroundGridComponent } from './background-grid/background-grid.compo
 import { AlertComponent } from './components/alert/alert.component';
 import { InfoComponent } from './components/info/info.component';
 import { EditComponent } from './components/edit/edit.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -19,7 +20,8 @@ import { EditComponent } from './components/edit/edit.component';
     BackgroundGridComponent,
     AlertComponent,
     InfoComponent,
-    EditComponent
+    EditComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

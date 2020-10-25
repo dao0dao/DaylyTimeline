@@ -37,18 +37,12 @@ export class HourService {
     return time
   }
 
-  findRowStart(hour: string): number {
-    let rowStart: number
+  setRow(hour: string): number {
+    let row: number
     this.hours.map(el => {
-      if (el.hour === hour) { rowStart = el.rowStart }
+      if (el.hour === hour) { row = el.rowStart }
     })
-    return rowStart
-  }
-
-  findRowEnd(hour: string): number {
-    let rowEnd: number
-    rowEnd = this.findRowStart(hour) + 1
-    return rowEnd
+    return row
   }
   constructor() { }
 }

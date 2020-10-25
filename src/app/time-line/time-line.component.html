@@ -25,7 +25,7 @@
                     <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
                         {{reservation.user.lastName}}</p>
                     <div class="user_actions">
-                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)"><i
                                 class="fas fa-user-edit"></i></button>
                         <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i
                                 class="far fa-trash-alt"></i></button>
@@ -47,7 +47,7 @@
                     <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
                         {{reservation.user.lastName}}</p>
                     <div class="user_actions">
-                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)"><i
                                 class="fas fa-user-edit"></i></button>
                         <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i
                                 class="far fa-trash-alt"></i></button>
@@ -70,13 +70,12 @@
                     <p class="user_info" (click)="dragStart(reservation)">{{reservation.user.firstName}}
                         {{reservation.user.lastName}}</p>
                     <div class="user_actions">
-                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation)"><i
+                        <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)"><i
                                 class="fas fa-user-edit"></i></button>
                         <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)"><i
                                 class="far fa-trash-alt"></i></button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

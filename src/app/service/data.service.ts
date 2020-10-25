@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Reservation, court } from '../../environments/interfaces'
+import { HourService } from './hour.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,18 @@ export class DataService {
     this.reservation = this.reservation.filter(el => el.reservationId !== id)
   }
 
+  changeReservation(court: court, newRowStart: number, newRowEnd: number, reservation: Reservation): void | false {
+    if (!this.checkReservation(court, newRowStart, newRowEnd, reservation).includes(false)) {
+      reservation.court = court
+      reservation.rowStart = newRowStart
+      reservation.rowEnd = newRowEnd
+      reservation.timeStart = this.hourService.findHour(newRowStart)
+      reservation.timeEnd = this.hourService.findHour(newRowEnd)
+    } else {
+      return false
+    }
+  }
+
   reservation: Reservation[] = [
     {
       reservationId: '123',
@@ -36,6 +49,7 @@ export class DataService {
       timeStart: '00:00',
       timeEnd: '02:00',
       rowStart: 2,
+      rowEnd: 6,
       duration: 2,
       user: {
         firstName: 'Demid',
@@ -52,6 +66,7 @@ export class DataService {
       timeStart: '00:00',
       timeEnd: '01:30',
       rowStart: 2,
+      rowEnd: 4,
       duration: 1,
       user: {
         firstName: 'Aleksandra',
@@ -68,6 +83,7 @@ export class DataService {
       timeStart: '00:00',
       timeEnd: '04:00',
       rowStart: 3,
+      rowEnd: 11,
       duration: 4,
       user: {
         firstName: 'Dawid',
@@ -77,5 +93,5 @@ export class DataService {
     },
   ]
 
-  constructor() { }
+  constructor(private hourService: HourService) { }
 }
