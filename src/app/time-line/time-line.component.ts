@@ -8,6 +8,7 @@ import { EditServiceService } from '../service/edit-service.service';
 import { ErrorService } from '../service/error.service';
 import { HourService } from '../service/hour.service'
 import { InfoService } from '../service/info.service';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-time-line',
@@ -16,9 +17,9 @@ import { InfoService } from '../service/info.service';
 })
 export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
 
-
   @ViewChildren('hour') hour: QueryList<ElementRef>
 
+  date = moment().format('YYYY-MM-DDD')
   infoSub: Subscription
   openSub: Subscription
   isOpen: boolean = false
@@ -86,6 +87,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService) { }
 
   ngOnInit() {
+    console.log(this.date);
     this.hourService.pushHours()
     this.hours = this.hourService.hours
     this.infoSub = this.infoService.cancleDrag$.subscribe(
