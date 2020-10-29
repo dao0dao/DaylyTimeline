@@ -19,7 +19,10 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
 
   @ViewChildren('hour') hour: QueryList<ElementRef>
 
-  date = moment().format('YYYY-MM-DDD')
+  date = moment().format('YYYY-MM-DD')
+  dateY
+  dateM
+  dateD
   infoSub: Subscription
   openSub: Subscription
   isOpen: boolean = false
@@ -75,7 +78,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   }
   userEdit(reservation: Reservation, isOpen: boolean) {
     this.editService.editData(reservation)
-    this.editService.openEdit(true)
+    this.editService.openEdit(isOpen)
     this.draggableItem && this.dragEnd()
   }
   userDelete(reservation: Reservation, isOpen: boolean) {
@@ -84,10 +87,16 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       this.alertService.alertToggle(isOpen)
     }
   }
+
+  inputChange() {
+    this.dateY = moment(this.date).year().toString()
+    this.dateM = (moment(this.date).month() + 1).toString()
+    this.dateD = moment(this.date).date().toString()
+    this.dataService.returnByDate(this.dateY, this.dateM, this.dateD)
+  }
   constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService) { }
 
   ngOnInit() {
-    console.log(this.date);
     this.hourService.pushHours()
     this.hours = this.hourService.hours
     this.infoSub = this.infoService.cancleDrag$.subscribe(

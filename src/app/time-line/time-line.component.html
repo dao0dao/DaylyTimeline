@@ -1,7 +1,7 @@
 <div class="actions actions--sticky">
   <div class="time">
-    <label for="time">Data:</label>
-    <input type="date" class="time_input" id="time" [value]="date"/>
+    <label for="time">Dzień:</label>
+    <input type="date" class="time_input" id="time" [(ngModel)]="date" (change)="inputChange()"/>
   </div>
   <button type="button" class="btn btn--add">
     <span class="btn_text">Dodaj rezerwacje</span>

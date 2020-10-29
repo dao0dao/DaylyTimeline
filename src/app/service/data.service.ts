@@ -39,7 +39,11 @@ export class DataService {
     }
   }
 
-  reservation: Reservation[] = [
+  returnByDate(year: string, month: string, day: string) {
+    this.reservation = this.API.filter(el => el.year === year && el.month === month && el.day === day)
+  }
+
+  API: Reservation[] = [
     {
       reservationId: '123',
       year: '2020',
@@ -92,6 +96,8 @@ export class DataService {
       }
     },
   ]
+
+  reservation: Reservation[] = []
 
   constructor(private hourService: HourService) { }
 }
