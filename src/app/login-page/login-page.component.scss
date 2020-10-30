@@ -15,27 +15,30 @@ $greenColor: #509c1e;
     &.block--left {
       transform: skewX(20deg);
       border-color: transparent $redColor $redColor;
-      .email_inpit,
+      .email_input,
       .email_text {
         transform: skewX(-20deg);
+        text-align: right;
       }
-      .email_text{
-          left: -26%;
+      .email_text {
+        left: -26%;
       }
     }
     &.block--right {
       transform: skewX(-20deg);
       border-color: $redColor $redColor transparent;
       .password_text,
-      .passord_input {
+      .password_input {
         transform: skewX(20deg);
       }
-      .password_text{
-          right: -26%;
+      .password_text {
+        right: -26%;
       }
     }
+    
   }
   input {
+    display: inline-block;
     margin: 0.2rem;
     padding: 0.2rem;
   }
