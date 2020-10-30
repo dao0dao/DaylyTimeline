@@ -10,6 +10,8 @@ import { AlertComponent } from './components/alert/alert.component';
 import { InfoComponent } from './components/info/info.component';
 import { EditComponent } from './components/edit/edit.component';
 import { ErrorComponent } from './components/error/error.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 
@@ -21,13 +23,15 @@ import { ErrorComponent } from './components/error/error.component';
     AlertComponent,
     InfoComponent,
     EditComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
