@@ -80,7 +80,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   inputChange() {
-    parseInt(this.rowEnd.value) - parseInt(this.rowStart.value) < 2 ? this.wrongTime = true : this.wrongTime = false
+    parseInt(this.rowEnd.value) - parseInt(this.rowStart.value) < 1 ? this.wrongTime = true : this.wrongTime = false
   }
 
   constructor(private fb: FormBuilder, private editService: EditServiceService, private hourService: HourService, private dataService: DataService, private errorService: ErrorService) { };

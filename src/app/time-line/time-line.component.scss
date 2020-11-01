@@ -21,7 +21,7 @@ $greenColor: #509c1e;
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(49, 60px);
+  grid-template-rows: repeat(49, 65px);
   row-gap: 0;
   column-gap: 0;
 }
@@ -38,7 +38,8 @@ $greenColor: #509c1e;
   text-align: center;
 }
 .cell {
-  margin: 0.2rem 2.5rem 0.2rem 0.2rem;
+  min-height: 65px;
+  margin: 0.2rem 3.5rem 0.2rem 0.2rem;
   padding: 0 2px 2px;
   clip-path: polygon(21px 0, 100% 0, calc(100% - 21px) 100%, 0 100%);
   background-color: #222222;
@@ -71,7 +72,7 @@ $greenColor: #509c1e;
   }
   .user_info {
     flex-basis: 100%;
-    padding: 0 8%;
+    padding: 0 8% 1.5rem;
     text-align: center;
   }
   .user_actions {
@@ -79,6 +80,8 @@ $greenColor: #509c1e;
   }
 }
 .cell--active {
+  min-height: 115px;
+  z-index: 1;
   background-color: $redColor;
   .user {
     box-shadow: inset 0px -4px 10px $redColor;

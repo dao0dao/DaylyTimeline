@@ -1,3 +1,8 @@
+export interface Enviroment {
+    production: boolean,
+    fbApiKey: string,
+}
+
 export type court = string | number
 export interface User {
     userId?: string,
@@ -25,4 +30,16 @@ export interface Reservation {
 export interface Hours {
     hour: string,
     rowStart: number
+}
+
+export interface LoginUser {
+    email: string,
+    password: string,
+    returnSecureToken: boolean
+}
+
+export interface FbSigInResponse {
+    idToken: string,
+    email: string,
+    expiresIn: string
 }

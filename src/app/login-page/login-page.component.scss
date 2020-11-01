@@ -1,20 +1,33 @@
 $redColor: #b91616;
 $greenColor: #509c1e;
+$greyColor: #cccccc;
+$blueColor: #4c9dfa;
 
 .login {
-  height: 100vh;
+  padding: 5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .error {
+    min-height: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    color: $redColor;
+    .error--left {
+      transform: skewX(-20deg);
+    }
+    .error--right {
+      transform: skewX(20deg);
+    }
+  }
   .block {
-    margin: 1rem;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px 2px;
     &.block--left {
       transform: skewX(20deg);
-      border-color: transparent $redColor $redColor;
+      border-color: transparent transparent $redColor $redColor;
       .email_input,
       .email_text {
         transform: skewX(-20deg);
@@ -26,7 +39,7 @@ $greenColor: #509c1e;
     }
     &.block--right {
       transform: skewX(-20deg);
-      border-color: $redColor $redColor transparent;
+      border-color: $redColor $redColor transparent transparent;
       .password_text,
       .password_input {
         transform: skewX(20deg);
@@ -35,17 +48,71 @@ $greenColor: #509c1e;
         right: -26%;
       }
     }
-    
+    &.block--active {
+      .email_text {
+        left: 0;
+      }
+      .password_text {
+        right: 0;
+      }
+    }
   }
   input {
     display: inline-block;
     margin: 0.2rem;
     padding: 0.2rem;
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+    transition: 0.3s linear;
+    &.email_input {
+      border-color: transparent $greyColor $greyColor transparent;
+    }
+    &.password_input{
+      border-color: transparent transparent $greyColor $greyColor;
+    }
+    &.email_input:focus{
+      border-color: transparent $blueColor $blueColor transparent;
+    }
+    &.password_input:focus{
+      border-color: transparent transparent $blueColor $blueColor;
+    }
   }
   label {
     position: relative;
     display: inline-block;
     transition: 0.3s ease-in-out;
     z-index: 1;
+  }
+  button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.5rem 0.3rem;
+    transform: skewx(-20deg);
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent $greenColor;
+    background-color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+    .text {
+      display: inline-block;
+      transform: skewx(20deg);
+    }
+    &:hover {
+      border-color: $greenColor;
+      color: $greenColor;
+    }
+    &:active {
+      color: #fff;
+      background-color: $greenColor;
+    }
+    &:disabled {
+      color: #fff;
+      border-color: $greyColor;
+      background-color: $greyColor;
+    }
   }
 }

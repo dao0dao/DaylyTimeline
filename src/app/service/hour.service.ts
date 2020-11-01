@@ -29,6 +29,10 @@ export class HourService {
     }
   }
 
+  removeHours() {
+    this.hours = []
+  }
+
   findHour(row: number): string {
     let time: string
     this.hours.map(el => {

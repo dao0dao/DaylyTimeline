@@ -5,7 +5,7 @@ $redColor: #b91616;
     height: 100%;
     display: grid;
     grid-template-columns: 100px repeat(3, minmax(250px, 1fr));
-    grid-template-rows: repeat(49, 60px);
+    grid-template-rows: repeat(49, 65px);
     grid-template-areas: "title title title title";
     grid-auto-flow: column;
     .title {

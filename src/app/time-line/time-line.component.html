@@ -1,7 +1,9 @@
+<app-info></app-info>
+<app-edit></app-edit>
 <div class="actions actions--sticky">
   <div class="time">
     <label for="time">Dzień:</label>
-    <input type="date" class="time_input" id="time" [(ngModel)]="date" (change)="inputChange()"/>
+    <input type="date" class="time_input" id="time" [(ngModel)]="date" (change)="inputChange()" />
   </div>
   <button type="button" class="btn btn--add">
     <span class="btn_text">Dodaj rezerwacje</span>
@@ -22,7 +24,7 @@
         <p>Godzina</p>
       </div>
       <div #hour *ngFor="let element of hours" class="hour" [attr.data-row-start]="element.rowStart"
-        [attr.data-cell-start]="offsetTop(this.hour)" [attr.data-cell-end]="offsetTop(this.hour) + 60">
+        [attr.data-cell-start]="offsetTop(this.hour)" [attr.data-cell-end]="offsetTop(this.hour) + 65">
         <p class="number">{{ element.hour }}</p>
       </div>
     </div>
@@ -44,7 +46,7 @@
               {{ reservation.user.firstName }} {{ reservation.user.lastName }}
             </p>
             <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)">
+              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
                 <i class="fas fa-user-edit"></i>
               </button>
               <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">
@@ -73,7 +75,7 @@
               {{ reservation.user.firstName }} {{ reservation.user.lastName }}
             </p>
             <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)">
+              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
                 <i class="fas fa-user-edit"></i>
               </button>
               <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">
@@ -102,7 +104,7 @@
               {{ reservation.user.firstName }} {{ reservation.user.lastName }}
             </p>
             <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, false)">
+              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
                 <i class="fas fa-user-edit"></i>
               </button>
               <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginUser } from 'src/environments/interfaces';
+
+import { AuthService } from '../service/auth.service'
 
 @Component({
   selector: 'app-login-page',
@@ -8,26 +12,55 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
 
-  userForm : FormGroup
+  userForm: FormGroup
+  emailFocus: boolean = false
+  passwordFocus: boolean = false
+  submitDisable: boolean = false
 
-  get email (){
+  focus(name: string) {
+    this[name] = true
+  }
+  onBlur(name: string) {
+    this[name] = false
+  }
+
+  get email() {
     return this.userForm.get('email')
   }
-  get password (){
+  get password() {
     return this.userForm.get('password')
   }
 
-login(){
-  console.log(this.userForm);
-}
+  login() {
+    this.submitDisable = true;
+    let loginUser: LoginUser = {
+      email: this.email.value,
+      password: this.password.value,
+      returnSecureToken: true
+    }
+    this.authService.signIn(loginUser).subscribe(
+      () => {
+        this.submitDisable = false
+        this.userForm.reset()
+        this.router.navigate(['/daily_schedule'])
+      },
+      () => {
+        this.submitDisable = false
+        this.userForm.reset()
+      },
+      () => {
+        this.submitDisable = false
+        this.userForm.reset()
+      }
+    )
+  }
 
-  constructor(private fb : FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
-
 }

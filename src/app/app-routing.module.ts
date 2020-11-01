@@ -3,19 +3,20 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TimeLineComponent } from './time-line/time-line.component';
+import { AuthGuard } from './service/auth-guard.service'
 
-const routes : Routes =[
-{path: '', component: LoginPageComponent},
-{path: 'dayly_schedule', component: TimeLineComponent}
+const routes: Routes = [
+  { path: '', component: LoginPageComponent },
+  { path: 'daily_schedule', component: TimeLineComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)    
+    RouterModule.forRoot(routes)
   ],
-  exports:[
+  exports: [
     RouterModule
   ]
 })

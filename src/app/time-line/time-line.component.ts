@@ -77,15 +77,13 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
   userEdit(reservation: Reservation, isOpen: boolean) {
+    console.log(`click`);
     this.editService.editData(reservation)
     this.editService.openEdit(isOpen)
-    this.draggableItem && this.dragEnd()
   }
   userDelete(reservation: Reservation, isOpen: boolean) {
-    if (!this.isOpen) {
       this.alertService.confirmDelete(reservation)
       this.alertService.alertToggle(isOpen)
-    }
   }
 
   inputChange() {
@@ -113,6 +111,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.hourService.removeHours()
     this.infoSub.unsubscribe()
     this.openSub.unsubscribe()
   }

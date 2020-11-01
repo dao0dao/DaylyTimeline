@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent  {
-  title = 'Timeline schedule';
+export class AppComponent {
 
+  menuActive: boolean = false
 
+  constructor(public authService : AuthService){}
 }

@@ -68,10 +68,10 @@ export class DataService {
       day: '13',
       court: 2,
       timeStart: '00:00',
-      timeEnd: '01:30',
+      timeEnd: '00:30',
       rowStart: 2,
-      rowEnd: 4,
-      duration: 1,
+      rowEnd: 3,
+      duration: 0.5,
       user: {
         firstName: 'Aleksandra',
         lastName: 'Greshnikova',
