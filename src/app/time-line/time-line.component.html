@@ -1,119 +1,284 @@
+<app-alert></app-alert>
 <app-info></app-info>
 <app-edit></app-edit>
-<div class="actions actions--sticky">
-  <div class="time">
-    <label for="time">Dzień:</label>
-    <input type="date" class="time_input" id="time" [(ngModel)]="date" (change)="inputChange()" />
-  </div>
-  <button type="button" class="btn btn--add">
-    <span class="btn_text">Dodaj rezerwacje</span>
-  </button>
+<div class="actions">
+    <div class="time">
+        <label for="time">Dzień:</label>
+        <input
+            type="date"
+            class="time_input"
+            id="time"
+            [(ngModel)]="date"
+            (change)="inputChange()">
+    </div>
+    <button
+        type="button"
+        class="btn btn--add">
+        <span class="btn_text">Dodaj rezerwacje</span>
+    </button>
 </div>
 <div class="actions actions--fixed">
-  <button type="button" class="btn btn--add">
-    <span class="btn_text">Dodaj</span>
-  </button>
+    <button
+        type="button"
+        class="btn btn--add">
+        <span class="btn_text">Dodaj</span>
+    </button>
 </div>
 <div class="container">
-  <div #timeTable class="timeTable">
-    <div class="backgroundGrid">
-      <app-background-grid #backGrid [hours]="hours"></app-background-grid>
-    </div>
-    <div class="schedule">
-      <div class="title">
-        <p>Godzina</p>
-      </div>
-      <div #hour *ngFor="let element of hours" class="hour" [attr.data-row-start]="element.rowStart"
-        [attr.data-cell-start]="offsetTop(this.hour)" [attr.data-cell-end]="offsetTop(this.hour) + 65">
-        <p class="number">{{ element.hour }}</p>
-      </div>
-    </div>
-    <div data-drop-zone="true" data-court="1" class="reservation schedule courtOne" (click)="dropReservation($event)"
-      [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
-      <div class="title">
-        <p>Kort 1</p>
-      </div>
-      <div data-draggable="true" *ngFor="let reservation of courtOne" class="cell" [ngStyle]="{
-          gridRowStart: reservation.rowStart,
-          gridRowEnd: reservation.rowEnd
-        }" [ngClass]="{ 'cell--active': reservation.isActive }">
-        <div class="background">
-          <p class="time" (click)="dragStart(reservation)">
-            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
-          </p>
-          <div class="user">
-            <p class="user_info" (click)="dragStart(reservation)">
-              {{ reservation.user.firstName }} {{ reservation.user.lastName }}
-            </p>
-            <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
-                <i class="fas fa-user-edit"></i>
-              </button>
-              <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">
-                <i class="far fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
+    <div
+        #timeTable
+        class="timeTable">
+        <div class="backgroundGrid">
+            <app-background-grid
+                #backGrid
+                [hours]="hours"></app-background-grid>
         </div>
-      </div>
-    </div>
-    <div data-drop-zone="true" data-court="2" class="reservation schedule courtTwo" (click)="dropReservation($event)"
-      [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
-      <div class="title">
-        <p>Kort 2</p>
-      </div>
-      <div data-draggable="true" *ngFor="let reservation of courtTwo" class="cell" [ngStyle]="{
-          gridRowStart: reservation.rowStart,
-          gridRowEnd: reservation.rowEnd
-        }" [ngClass]="{ 'cell--active': reservation.isActive }">
-        <div class="background">
-          <p class="time" (click)="dragStart(reservation)">
-            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
-          </p>
-          <div class="user">
-            <p class="user_info" (click)="dragStart(reservation)">
-              {{ reservation.user.firstName }} {{ reservation.user.lastName }}
-            </p>
-            <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
-                <i class="fas fa-user-edit"></i>
-              </button>
-              <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">
-                <i class="far fa-trash-alt"></i>
-              </button>
+        <div class="schedule">
+            <div class="title">
+                <p>Godzina</p>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div data-drop-zone="true" data-court="dressroom" class="reservation schedule dressRoom"
-      (click)="dropReservation($event)" [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
-      <div class="title">
-        <p>Zapasowi</p>
-      </div>
-      <div data-draggable="true" *ngFor="let reservation of dressroom" class="cell" [ngStyle]="{
-          gridRowStart: reservation.rowStart,
-          gridRowEnd: reservation.rowEnd
-        }" [ngClass]="{ 'cell--active': reservation.isActive }">
-        <div class="background">
-          <p class="time" (click)="dragStart(reservation)">
-            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
-          </p>
-          <div class="user">
-            <p class="user_info" (click)="dragStart(reservation)">
-              {{ reservation.user.firstName }} {{ reservation.user.lastName }}
-            </p>
-            <div class="user_actions">
-              <button type="button" class="btn btn--edit" (click)="userEdit(reservation, true)">
-                <i class="fas fa-user-edit"></i>
-              </button>
-              <button type="button" class="btn btn--delete" (click)="userDelete(reservation, true)">
-                <i class="far fa-trash-alt"></i>
-              </button>
+            <div
+                #hour
+                *ngFor="let element of hours"
+                class="hour"
+                [attr.data-row-start]="element.rowStart"
+                [attr.data-cell-start]="offsetTop(this.hour)"
+                [attr.data-cell-end]="offsetTop(this.hour) + 65">
+                <p class="number">{{ element.hour }}</p>
             </div>
-          </div>
         </div>
-      </div>
+        <div
+            data-drop-zone="true"
+            data-court="1"
+            class="reservation schedule courtOne"
+            (click)="dropReservation($event)"
+            [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
+            <div class="title">
+                <p>Kort 1</p>
+            </div>
+            <div
+                class="cell"
+                data-draggable="true"
+                *ngFor="let reservation of courtOne"
+                [ngStyle]="{
+                gridRowStart: reservation.rowStart,
+                gridRowEnd: reservation.rowEnd}"
+                [ngClass]="{ 'cell--active': reservation.isActive }">
+                <div class="cell_top">
+                    <div class="cell_actions">
+                        <button
+                            type="button"
+                            class="btn btn--plus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn--minus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="time"
+                        (click)="dragStart(reservation)">
+                        <p class="text">
+                            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
+                        </p>
+                    </div>
+                </div>
+                <div class="cell_mid">
+                    <p
+                        class="user_info"
+                        (click)="dragStart(reservation)">
+                        {{ reservation.user.firstName }} {{ reservation.user.lastName }}
+                    </p>
+                </div>
+                <div class="cell_bot cell_actions">
+                    <button
+                        type="button"
+                        class="btn btn--delete"
+                        [disabled]="!!draggableItem"
+                        (click)="userDelete(reservation, true)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--edit"
+                        [disabled]="!!draggableItem"
+                        (click)="userEdit(reservation, true)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--plus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--minus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div
+            data-drop-zone="true"
+            data-court="2"
+            class="reservation schedule courtTwo"
+            (click)="dropReservation($event)"
+            [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
+            <div class="title">
+                <p>Kort 2</p>
+            </div>
+            <div
+                class="cell"
+                data-draggable="true"
+                *ngFor="let reservation of courtTwo"
+                [ngStyle]="{
+                gridRowStart: reservation.rowStart,
+                gridRowEnd: reservation.rowEnd
+                }"
+                [ngClass]="{ 'cell--active': reservation.isActive }">
+                <div class="cell_top">
+                    <div class="cell_actions">
+                        <button
+                            type="button"
+                            class="btn btn--plus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn--minus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="time"
+                        (click)="dragStart(reservation)">
+                        <p class="text">
+                            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
+                        </p>
+                    </div>
+                </div>
+                <div class="cell_mid">
+                    <p
+                        class="user_info"
+                        (click)="dragStart(reservation)">
+                        {{ reservation.user.firstName }} {{ reservation.user.lastName }}
+                    </p>
+                </div>
+                <div class="cell_bot cell_actions">
+                    <button
+                        type="button"
+                        class="btn btn--delete"
+                        [disabled]="!!draggableItem"
+                        (click)="userDelete(reservation, true)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--edit"
+                        [disabled]="!!draggableItem"
+                        (click)="userEdit(reservation, true)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--plus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--minus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div
+            data-drop-zone="true"
+            data-court="dressroom"
+            class="reservation schedule dressRoom"
+            (click)="dropReservation($event)"
+            [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
+            <div class="title">
+                <p>Zapasowi</p>
+            </div>
+            <div
+                class="cell"
+                data-draggable="true"
+                *ngFor="let reservation of dressroom"
+                [ngStyle]="{
+                gridRowStart: reservation.rowStart,
+                gridRowEnd: reservation.rowEnd
+                }"
+                [ngClass]="{ 'cell--active': reservation.isActive }">
+                <div class="cell_top">
+                    <div class="cell_actions">
+                        <button
+                            type="button"
+                            class="btn btn--plus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn--minus"
+                            [disabled]="!!draggableItem">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="time"
+                        (click)="dragStart(reservation)">
+                        <p class="text">
+                            {{ reservation.timeStart }} - {{ reservation.timeEnd }}
+                        </p>
+                    </div>
+                </div>
+                <div class="cell_mid">
+                    <p
+                        class="user_info"
+                        (click)="dragStart(reservation)">
+                        {{ reservation.user.firstName }} {{ reservation.user.lastName }}
+                    </p>
+                </div>
+                <div class="cell_bot cell_actions">
+                    <button
+                        type="button"
+                        class="btn btn--delete"
+                        [disabled]="!!draggableItem"
+                        (click)="userDelete(reservation, true)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--edit"
+                        [disabled]="!!draggableItem"
+                        (click)="userEdit(reservation, true)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--plus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--minus"
+                        [disabled]="!!draggableItem">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

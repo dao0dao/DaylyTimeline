@@ -47,8 +47,8 @@ export class DataService {
     {
       reservationId: '123',
       year: '2020',
-      month: '10',
-      day: '13',
+      month: '11',
+      day: '2',
       court: 1,
       timeStart: '00:00',
       timeEnd: '02:00',
@@ -64,8 +64,8 @@ export class DataService {
     {
       reservationId: '486',
       year: '2020',
-      month: '10',
-      day: '13',
+      month: '11',
+      day: '2',
       court: 2,
       timeStart: '00:00',
       timeEnd: '00:30',
@@ -81,8 +81,8 @@ export class DataService {
     {
       reservationId: 'gfds',
       year: '2020',
-      month: '10',
-      day: '13',
+      month: '11',
+      day: '2',
       court: 'dressroom',
       timeStart: '00:00',
       timeEnd: '04:00',
@@ -97,7 +97,9 @@ export class DataService {
     },
   ]
 
-  reservation: Reservation[] = []
+  // reservation: Reservation[] = []
+  reservation: Reservation[] = this.API
+
 
   constructor(private hourService: HourService) { }
 }

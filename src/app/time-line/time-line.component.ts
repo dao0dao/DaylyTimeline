@@ -20,9 +20,9 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChildren('hour') hour: QueryList<ElementRef>
 
   date = moment().format('YYYY-MM-DD')
-  dateY
-  dateM
-  dateD
+  dateY: string
+  dateM: string
+  dateD: string
   infoSub: Subscription
   openSub: Subscription
   isOpen: boolean = false
@@ -82,8 +82,8 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     this.editService.openEdit(isOpen)
   }
   userDelete(reservation: Reservation, isOpen: boolean) {
-      this.alertService.confirmDelete(reservation)
-      this.alertService.alertToggle(isOpen)
+    this.alertService.confirmDelete(reservation)
+    this.alertService.alertToggle(isOpen)
   }
 
   inputChange() {

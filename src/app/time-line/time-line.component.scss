@@ -1,13 +1,42 @@
 $redColor: #b91616;
 $greenColor: #509c1e;
+$greyColor: #cccccc;
+$blueColor: #4c9dfa;
+$blackColor: #0a0a0a;
+$animationCell: 0.3s linear;
+$animationBtn: 0.25s linear;
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .time_input {
+    margin: 1rem 0.5rem;
+    padding: 0.2rem;
+    font-size: 1rem;
+  }
+}
+.actions--sticky {
+  position: sticky;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+.actions--fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1rem 0.5rem;
+  z-index: 2;
+}
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: max-content;
   margin: 0 auto;
   padding: 0.5rem;
+  overflow: auto;
 }
 .timeTable {
   position: relative;
@@ -38,93 +67,88 @@ $greenColor: #509c1e;
   text-align: center;
 }
 .cell {
-  min-height: 65px;
-  margin: 0.2rem 3.5rem 0.2rem 0.2rem;
-  padding: 0 2px 2px;
-  clip-path: polygon(21px 0, 100% 0, calc(100% - 21px) 100%, 0 100%);
-  background-color: #222222;
-  user-select: none;
-  cursor: pointer;
-  transition: 0.3s linear;
-  .background {
-    width: 100%;
-    height: 100%;
+  margin: 2px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  border-width: 2px;
+  border-color: $redColor;
+  border-style: none none solid solid;
+  background-color: #ffffff;
+  transform: scale(1) translateX(0);
+  transition: $animationCell;
+  .cell_top {
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    clip-path: polygon(21px 0, 100% 0, calc(100% - 21px) 100%, 0 100%);
-  }
-  .time {
-    width: 100%;
-    text-align: center;
-    color: #ffffff;
-    background-color: $redColor;
-  }
-  .user {
-    flex-basis: 100%;
-    padding-top: 0.2rem;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    text-align: center;
-    transition: 0.3s linear;
+    align-items: center;
+    .cell_actions {
+      flex-basis: 30%;
+    }
+    .time {
+      height: 100%;
+      padding-right: 2px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-basis: 50%;
+      color: #fff;
+      background-color: $redColor;
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 20px 100%);
+      transition: $animationCell;
+      cursor: pointer;
+    }
   }
-  .user_info {
+  .cell_mid {
     flex-basis: 100%;
-    padding: 0 8% 1.5rem;
-    text-align: center;
+    cursor: pointer;
+    .user_info {
+      height: 100%;
+      padding-top: 3px;
+      text-align: center;
+    }
   }
-  .user_actions {
-    margin-bottom: 0.2rem;
+  .cell_bot {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: #fff;
+  }
+  .cell_actions {
+    display: flex;
+    justify-content: space-between;
   }
 }
 .cell--active {
-  min-height: 115px;
-  z-index: 1;
-  background-color: $redColor;
-  .user {
-    box-shadow: inset 0px -4px 10px $redColor;
+  transform: scale(1.05) translateX(-30%);
+  box-shadow: 3px 0 6px $blueColor;
+  .cell_top .time {
+    background-color: $blueColor;
   }
 }
-.actions {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .time_input {
-    margin: 1rem 0.5rem;
-    padding: 0.2rem;
-    font-size: 1rem;
-  }
-}
-.actions--sticky {
-  position: sticky;
-  left: 50vw;
-  transform: translateX(-50%);
-}
-.actions--fixed {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 1rem 0.5rem;
-  z-index: 2;
-}
+
 .btn {
-  margin: 0 1.2rem;
-  padding: 0.2rem;
+  padding: 0.2rem 0.4rem;
   border-width: 2px;
-  border-color: $redColor;
   font-size: 1rem;
-  background-color: #ffffff00;
+  background-color: #fff;
   cursor: pointer;
+  transition: $animationCell;
+  &:disabled {
+    opacity: 0.1;
+    &:hover {
+      color: initial;
+      background-color: initial;
+    }
+  }
 }
 .btn--add {
   border-style: solid;
   border-color: transparent $greenColor;
   transform: skewX(20deg);
   text-transform: uppercase;
-  transition: 0.25s linear;
   background-color: #fff;
   .btn_text {
     display: inline-block;
@@ -140,22 +164,46 @@ $greenColor: #509c1e;
     background-color: #fff;
   }
 }
-.btn--edit {
-  padding-left: 0.5rem;
-  padding-right: 0.8rem;
-  transform: skewX(-20deg);
-  border-style: none none solid solid;
-  .fa-user-edit {
-    transform: skewX(20deg);
+.btn--delete {
+  border-color: transparent;
+  color: $redColor;
+  &:hover {
+    color: #fff;
+    background-color: $redColor;
   }
 }
-.btn--delete {
-  padding-right: 0.5rem;
-  padding-left: 0.8rem;
-  border-style: none solid solid none;
-  transform: skewX(20deg);
-  .fa-trash-alt {
-    transform: skewX(-20deg);
+.btn--edit {
+  color: $blackColor;
+  border-color: transparent $blackColor;
+  &:hover {
+    color: #fff;
+    background-color: $blackColor;
+  }
+}
+.btn--plus {
+  color: $greenColor;
+  .cell_top & {
+    border-color: transparent transparent $greenColor;
+  }
+  .cell_bot & {
+    border-color: $greenColor transparent transparent;
+  }
+  &:hover {
+    color: #fff;
+    background-color: $greenColor;
+  }
+}
+.btn--minus {
+  color: $redColor;
+  .cell_top & {
+    border-color: transparent transparent $redColor $redColor;
+  }
+  .cell_bot & {
+    border-color: transparent transparent transparent $redColor;
+  }
+  &:hover {
+    color: #fff;
+    background-color: $redColor;
   }
 }
 .backgroundGrid {

@@ -47,7 +47,7 @@ $blackColor: #0a0a0a;
         position: fixed;
         top: -100vh;
         height: 100vh;
-        width: 100%;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -55,7 +55,7 @@ $blackColor: #0a0a0a;
         background-color: $blackColor;
         opacity: 0.95;
         z-index: 3;
-        transition: 0.5s ease-in-out;
+        transition: top 0.5s ease-in-out;
     }
     .menu--active {
         top: 0;
@@ -63,13 +63,13 @@ $blackColor: #0a0a0a;
 }
 .desktop {
     display: none;
-    .menu{
+    .menu {
         display: flex;
-        justify-content: right;
+        justify-content: flex-end;
         align-items: center;
         background-color: $blackColor;
     }
-    .item .text{
+    .item .text {
         font-size: 0.8rem;
     }
 }
@@ -88,7 +88,7 @@ $blackColor: #0a0a0a;
         text-decoration: none;
         transition: 0.3s linear;
     }
-    &.item--left {
+    &.item:nth-child(2n+1) {
         transform: skewX(-20deg);
         .text {
             display: inline-block;
@@ -101,7 +101,7 @@ $blackColor: #0a0a0a;
             }
         }
     }
-    &.item--right {
+    &.item:nth-child(2n) {
         transform: skewX(20deg);
         .text {
             display: inline-block;
@@ -114,12 +114,10 @@ $blackColor: #0a0a0a;
             }
         }
     }
-    &.item--active.item--right {
+    &.item--active:nth-child(2n) {
         border-color: transparent $redColor $redColor transparent;
     }
-    &.item--active.item--left {
+    &.item--active:nth-child(2n+1) {
         border-color: transparent transparent $redColor $redColor;
     }
 }
-
-
