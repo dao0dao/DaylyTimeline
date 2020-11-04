@@ -73,11 +73,10 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       newRowStart = dropHour.nativeElement.dataset.rowStart * 1
       newRowEnd = newRowStart + (2 * this.draggableItem.duration)
 
-      this.dataService.changeReservation(court, newRowStart, newRowEnd, this.draggableItem) !== false ? this.dragEnd() : this.errorService.toggleError(true, 'Kort zajęty o danej godzinie')
+      this.dataService.changeReservation(court, newRowStart, newRowEnd, this.draggableItem, this.draggableItem.duration) !== false ? this.dragEnd() : this.errorService.toggleError(true, 'Kort zajęty o danej godzinie')
     }
   }
   userEdit(reservation: Reservation, isOpen: boolean) {
-    console.log(`click`);
     this.editService.editData(reservation)
     this.editService.openEdit(isOpen)
   }
@@ -92,6 +91,33 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     this.dateD = moment(this.date).date().toString()
     this.dataService.returnByDate(this.dateY, this.dateM, this.dateD)
   }
+
+  minutesPlus(reservation: Reservation, position: 'start' | 'end') {
+    let newRowStart = reservation.rowStart - 1
+    let newRowEnd = reservation.rowEnd + 1
+    let newDuration = reservation.duration + 0.5
+    newRowStart < 2 ? newRowStart = 2 : newRowStart
+    newRowEnd > 50 ? newRowEnd = 50 : newRowEnd
+    if (position === 'start') {
+      this.dataService.changeReservation(reservation.court, newRowStart, reservation.rowEnd, reservation, newDuration) === false &&
+        this.errorService.toggleError(true, 'Brak miejsca')
+    } else if (position === 'end') {
+      this.dataService.changeReservation(reservation.court, reservation.rowStart, newRowEnd, reservation, newDuration) === false &&
+        this.errorService.toggleError(true, 'Brak miejsca')
+    }
+  }
+
+  minutesMinus(reservation: Reservation, position: 'start' | 'end') {
+    let newRowStart = reservation.rowStart + 1
+    let newRowEnd = reservation.rowEnd - 1
+    let newDuration = reservation.duration - 0.5
+    if (position === 'start' && newDuration >= 0.5) {
+      this.dataService.changeReservation(reservation.court, newRowStart, reservation.rowEnd, reservation, newDuration)
+    } else if (position === 'end' && newDuration >= 0.5) {
+      this.dataService.changeReservation(reservation.court, reservation.rowStart, newRowEnd, reservation, newDuration)
+    }
+  }
+
   constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService) { }
 
   ngOnInit() {

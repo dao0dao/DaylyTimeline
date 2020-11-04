@@ -52,13 +52,14 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck {
   cancleChanges() {
     this.editService.openEdit(false)
     this.reservationForm.reset()
+    this.editedReservation = null
   };
 
   applyChanges() {
     let court: number | string = this.court.value;
     let newRowStart: number = this.hourService.setRow(this.timeStart.value);
     let newRowEnd: number = this.hourService.setRow(this.timeEnd.value);
-
+    let newDuration = (newRowEnd - newRowStart) / 2
     switch (court) {
       case "1":
         court = 1
@@ -76,7 +77,11 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck {
         break;
     }
 
-    this.dataService.changeReservation(court, newRowStart, newRowEnd, this.editedReservation) !== false ? this.editService.openEdit(false) : this.errorService.toggleError(true, 'brak miejsca');
+    if (this.dataService.changeReservation(court, newRowStart, newRowEnd, this.editedReservation, newDuration) !== false) {
+      this.cancleChanges()
+    } else {
+      this.errorService.toggleError(true, 'brak miejsca');
+    }
   }
 
   inputChange() {

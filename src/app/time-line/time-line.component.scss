@@ -67,6 +67,7 @@ $animationBtn: 0.25s linear;
   text-align: center;
 }
 .cell {
+  min-height: 0px;
   margin: 2px;
   position: relative;
   display: flex;
@@ -115,6 +116,7 @@ $animationBtn: 0.25s linear;
     width: 100%;
     bottom: 0;
     background-color: #fff;
+    cursor: default;
   }
   .cell_actions {
     display: flex;
@@ -122,6 +124,7 @@ $animationBtn: 0.25s linear;
   }
 }
 .cell--active {
+  min-height: 130px;
   transform: scale(1.05) translateX(-30%);
   box-shadow: 3px 0 6px $blueColor;
   .cell_top .time {
@@ -138,6 +141,7 @@ $animationBtn: 0.25s linear;
   transition: $animationCell;
   &:disabled {
     opacity: 0.1;
+    cursor: default;
     &:hover {
       color: initial;
       background-color: initial;

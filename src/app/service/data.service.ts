@@ -27,11 +27,12 @@ export class DataService {
     this.reservation = this.reservation.filter(el => el.reservationId !== id)
   }
 
-  changeReservation(court: court, newRowStart: number, newRowEnd: number, reservation: Reservation): void | false {
+  changeReservation(court: court, newRowStart: number, newRowEnd: number, reservation: Reservation, duration:number): void | false {
     if (!this.checkReservation(court, newRowStart, newRowEnd, reservation).includes(false)) {
       reservation.court = court
       reservation.rowStart = newRowStart
       reservation.rowEnd = newRowEnd
+      reservation.duration = duration
       reservation.timeStart = this.hourService.findHour(newRowStart)
       reservation.timeEnd = this.hourService.findHour(newRowEnd)
     } else {

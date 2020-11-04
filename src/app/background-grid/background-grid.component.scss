@@ -1,4 +1,8 @@
 $redColor: #b91616;
+$greenColor: #509c1e;
+$greyColor: #cccccc;
+$blueColor: #4c9dfa;
+$blackColor: #0a0a0a;
 
 .grid {
     width: 100%;
@@ -37,6 +41,6 @@ $redColor: #b91616;
         }
     }
     .open {
-        color: $redColor;
+        color: $blueColor;
     }
 }
