@@ -1,6 +1,7 @@
 <app-alert></app-alert>
 <app-info></app-info>
 <app-edit></app-edit>
+<app-add></app-add>
 <div class="actions">
     <div class="time">
         <label for="time">Dzień:</label>
@@ -13,14 +14,16 @@
     </div>
     <button
         type="button"
-        class="btn btn--add">
+        class="btn btn--add"
+        (click)="userAdd()">
         <span class="btn_text">Dodaj rezerwacje</span>
     </button>
 </div>
 <div class="actions actions--fixed">
     <button
         type="button"
-        class="btn btn--add">
+        class="btn btn--add"
+        (click)="userAdd()">
         <span class="btn_text">Dodaj</span>
     </button>
 </div>
@@ -69,14 +72,14 @@
                         <button
                             type="button"
                             class="btn btn--plus"
-                            [disabled]="!!draggableItem"
+                            [disabled]="!!draggableItem || reservation.rowStart === 2"
                             (click)="minutesPlus(reservation, 'start')">
                             <i class="fas fa-chevron-up"></i>
                         </button>
                         <button
                             type="button"
                             class="btn btn--minus"
-                            [disabled]="!!draggableItem"
+                            [disabled]="!!draggableItem || reservation.duration === 0.5"
                             (click)="minutesMinus(reservation, 'start')">
                             <i class="fas fa-chevron-down"></i>
                         </button>
@@ -114,14 +117,14 @@
                     <button
                         type="button"
                         class="btn btn--plus"
-                        [disabled]="!!draggableItem"
+                        [disabled]="!!draggableItem || reservation.rowEnd === 50"
                         (click)="minutesPlus(reservation, 'end')">
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <button
                         type="button"
                         class="btn btn--minus"
-                        [disabled]="!!draggableItem"
+                        [disabled]="!!draggableItem || reservation.duration === 0.5"
                         (click)="minutesMinus(reservation, 'end')">
                         <i class="fas fa-chevron-up"></i>
                     </button>
@@ -151,14 +154,14 @@
                         <button
                             type="button"
                             class="btn btn--plus"
-                            [disabled]="!!draggableItem"
+                            [disabled]="!!draggableItem || reservation.rowStart === 2"
                             (click)="minutesPlus(reservation, 'start')">
                             <i class="fas fa-chevron-up"></i>
                         </button>
                         <button
                             type="button"
                             class="btn btn--minus"
-                            [disabled]="!!draggableItem"
+                            [disabled]="!!draggableItem || reservation.duration === 0.5"
                             (click)="minutesMinus(reservation, 'start')">
                             <i class="fas fa-chevron-down"></i>
                         </button>
@@ -180,33 +183,33 @@
                 </div>
                 <div class="cell_bot cell_actions">
                     <button
-                    type="button"
-                    class="btn btn--delete"
-                    [disabled]="!!draggableItem"
-                    (click)="userDelete(reservation, true)">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--edit"
-                    [disabled]="!!draggableItem"
-                    (click)="userEdit(reservation, true)">
-                    <i class="fas fa-user-edit"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--plus"
-                    [disabled]="!!draggableItem"
-                    (click)="minutesPlus(reservation, 'end')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--minus"
-                    [disabled]="!!draggableItem"
-                    (click)="minutesMinus(reservation, 'end')">
-                    <i class="fas fa-chevron-up"></i>
-                </button>
+                        type="button"
+                        class="btn btn--delete"
+                        [disabled]="!!draggableItem"
+                        (click)="userDelete(reservation, true)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--edit"
+                        [disabled]="!!draggableItem"
+                        (click)="userEdit(reservation, true)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--plus"
+                        [disabled]="!!draggableItem || reservation.rowEnd === 50"
+                        (click)="minutesPlus(reservation, 'end')">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--minus"
+                        [disabled]="!!draggableItem || reservation.duration === 0.5"
+                        (click)="minutesMinus(reservation, 'end')">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -231,19 +234,19 @@
                 <div class="cell_top">
                     <div class="cell_actions">
                         <button
-                        type="button"
-                        class="btn btn--plus"
-                        [disabled]="!!draggableItem"
-                        (click)="minutesPlus(reservation, 'start')">
-                        <i class="fas fa-chevron-up"></i>
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn--minus"
-                        [disabled]="!!draggableItem"
-                        (click)="minutesMinus(reservation, 'start')">
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
+                            type="button"
+                            class="btn btn--plus"
+                            [disabled]="!!draggableItem || reservation.rowStart === 2"
+                            (click)="minutesPlus(reservation, 'start')">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn--minus"
+                            [disabled]="!!draggableItem || reservation.duration === 0.5"
+                            (click)="minutesMinus(reservation, 'start')">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
                     </div>
                     <div
                         class="time"
@@ -262,33 +265,33 @@
                 </div>
                 <div class="cell_bot cell_actions">
                     <button
-                    type="button"
-                    class="btn btn--delete"
-                    [disabled]="!!draggableItem"
-                    (click)="userDelete(reservation, true)">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--edit"
-                    [disabled]="!!draggableItem"
-                    (click)="userEdit(reservation, true)">
-                    <i class="fas fa-user-edit"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--plus"
-                    [disabled]="!!draggableItem"
-                    (click)="minutesPlus(reservation, 'end')">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn--minus"
-                    [disabled]="!!draggableItem"
-                    (click)="minutesMinus(reservation, 'end')">
-                    <i class="fas fa-chevron-up"></i>
-                </button>
+                        type="button"
+                        class="btn btn--delete"
+                        [disabled]="!!draggableItem"
+                        (click)="userDelete(reservation, true)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--edit"
+                        [disabled]="!!draggableItem"
+                        (click)="userEdit(reservation, true)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--plus"
+                        [disabled]="!!draggableItem || reservation.rowEnd === 50"
+                        (click)="minutesPlus(reservation, 'end')">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn--minus"
+                        [disabled]="!!draggableItem || reservation.duration === 0.5"
+                        (click)="minutesMinus(reservation, 'end')">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
                 </div>
             </div>
         </div>

@@ -3,12 +3,12 @@ export interface Enviroment {
     fbApiKey: string,
 }
 
-export type court = string | number
+export type Court = string | number
 export interface User {
     userId?: string,
     firstName: string,
     lastName: string,
-    price: number,
+    price?: number,
     note?: string
 }
 
@@ -17,7 +17,7 @@ export interface Reservation {
     year: string,
     month: string,
     day: string,
-    court: court,
+    court: Court,
     timeStart: string,
     timeEnd: string,
     rowStart: number,

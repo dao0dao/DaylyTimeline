@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Reservation, court } from '../../environments/interfaces'
+import { Reservation, Court, User } from '../../environments/interfaces'
 import { HourService } from './hour.service';
 
 @Injectable({
@@ -7,11 +7,11 @@ import { HourService } from './hour.service';
 })
 export class DataService {
 
-  checkReservation(court: court, rowStart: number, rowEnd: number, item?: Reservation) {
+  checkReservation(court: Court, rowStart: number, rowEnd: number, item?: Reservation): Array<boolean> {
     let canChange: boolean[] = []
     this.reservation.map(
       res => {
-        if (res.court === court && res.reservationId !== item.reservationId && (rowStart <= res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowStart >= res.rowEnd)) {
+        if (res.court === court && res.reservationId !== item.reservationId && (rowStart < res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowEnd > res.rowEnd)) {
           canChange.push(true)
         } else if (res.court === court && res.reservationId === item.reservationId) {
           canChange.push(true)
@@ -23,11 +23,30 @@ export class DataService {
     return canChange
   }
 
+  canAddReservation(court: Court, rowStart: number, rowEnd: number): Array<boolean> {
+    let courtSchedule = [...this.reservation.filter(el => el.court === court)]
+    let canAdd: boolean[] = []
+    if (courtSchedule.length !== 0) {
+      courtSchedule.map(
+        court => {
+          if ((rowStart < court.rowStart || rowStart >= court.rowEnd) && (rowEnd < court.rowEnd || rowEnd > court.rowEnd)) {
+            canAdd.push(true)
+          } else {
+            canAdd.push(false)
+          }
+        }
+      )
+    } else {
+      canAdd.push(true)
+    }
+    return canAdd
+  }
+
   deleteReservation(id: string) {
     this.reservation = this.reservation.filter(el => el.reservationId !== id)
   }
 
-  changeReservation(court: court, newRowStart: number, newRowEnd: number, reservation: Reservation, duration:number): void | false {
+  changeReservation(court: Court, newRowStart: number, newRowEnd: number, reservation: Reservation, duration: number): void | false {
     if (!this.checkReservation(court, newRowStart, newRowEnd, reservation).includes(false)) {
       reservation.court = court
       reservation.rowStart = newRowStart
@@ -43,6 +62,28 @@ export class DataService {
   returnByDate(year: string, month: string, day: string) {
     this.reservation = this.API.filter(el => el.year === year && el.month === month && el.day === day)
   }
+
+  findUserById(id: string): User {
+    return this.userApi.find(user => user.userId === id)
+  }
+
+  userApi: User[] = [
+    {
+      userId: '123',
+      firstName: 'Demid',
+      lastName: 'Greshnikov',
+    },
+    {
+      userId: '486',
+      firstName: 'Aleksandra',
+      lastName: 'Greshnikova'
+    },
+    {
+      userId: 'gfds',
+      firstName: 'Dawid',
+      lastName: 'Brożek',
+    }
+  ]
 
   API: Reservation[] = [
     {

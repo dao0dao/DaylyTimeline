@@ -14,6 +14,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from './service/auth-guard.service';
+import { AddComponent } from './components/add/add.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthGuard } from './service/auth-guard.service';
     InfoComponent,
     EditComponent,
     ErrorComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,

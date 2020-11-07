@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Hours, Reservation, court } from 'src/environments/interfaces';
+import { Hours, Reservation, Court } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
 
 import { DataService } from '../service/data.service'
@@ -9,6 +9,7 @@ import { ErrorService } from '../service/error.service';
 import { HourService } from '../service/hour.service'
 import { InfoService } from '../service/info.service';
 import * as moment from 'moment'
+import { AddService } from '../service/add.service';
 
 @Component({
   selector: 'app-time-line',
@@ -62,7 +63,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
 
   dropReservation(event: { layerY: number, target: HTMLElement }) {
     if (event.target.dataset.dropZone === "true" && this.draggableItem) {
-      let court: court = null
+      let court: Court = null
       let dropHour: ElementRef = null
       let newRowStart: number = null
       let newRowEnd: number = null
@@ -76,6 +77,11 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
       this.dataService.changeReservation(court, newRowStart, newRowEnd, this.draggableItem, this.draggableItem.duration) !== false ? this.dragEnd() : this.errorService.toggleError(true, 'Kort zajęty o danej godzinie')
     }
   }
+
+  userAdd() {
+    this.addService.toggleAdd(true, this.date)
+  }
+
   userEdit(reservation: Reservation, isOpen: boolean) {
     this.editService.editData(reservation)
     this.editService.openEdit(isOpen)
@@ -96,11 +102,9 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     let newRowStart = reservation.rowStart - 1
     let newRowEnd = reservation.rowEnd + 1
     let newDuration = reservation.duration + 0.5
-    newRowStart < 2 ? newRowStart = 2 : newRowStart
-    newRowEnd > 50 ? newRowEnd = 50 : newRowEnd
     if (position === 'start') {
       this.dataService.changeReservation(reservation.court, newRowStart, reservation.rowEnd, reservation, newDuration) === false &&
-        this.errorService.toggleError(true, 'Brak miejsca')
+        this.errorService.toggleError(true, 'Brak miejsca');
     } else if (position === 'end') {
       this.dataService.changeReservation(reservation.court, reservation.rowStart, newRowEnd, reservation, newDuration) === false &&
         this.errorService.toggleError(true, 'Brak miejsca')
@@ -118,7 +122,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService) { }
+  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService, private addService: AddService) { }
 
   ngOnInit() {
     this.hourService.pushHours()

@@ -1,0 +1,160 @@
+<div
+    *ngIf="isOpen"
+    class="add">
+    <div class="container">
+        <form
+            [formGroup]="reservationForm"
+            (ngSubmit)="submit()">
+            <div class="title margin">
+                <h2>Dodaj rezerwacje</h2>
+            </div>
+            <div class="date margin">
+                <label for="date">Data</label>
+                <input
+                    type="date"
+                    id="date"
+                    formControlName="date">
+                <p
+                    *ngIf="date.invalid && date.touched"
+                    class="error">
+                    Wymagane pole
+                </p>
+            </div>
+            <div class="option">
+                <div>
+                    <input
+                        type="radio"
+                        id="newUser"
+                        value="new"
+                        formControlName="option">
+                    <label for="newUser">Nowa rezerwacja</label>
+                </div>
+                <div>
+                    <input
+                        type="radio"
+                        id="listUser"
+                        value="list"
+                        formControlName="option">
+                    <label for="listUser">Lista graczy</label>
+                </div>
+            </div>
+            <div
+                class="user flex margin"
+                [ngStyle]="{display : option.value === 'new' ? null : 'none'}">
+                <div class="user_first">
+                    <label for="first">Imię</label>
+                    <input
+                        type="text"
+                        id="first"
+                        list="firstName"
+                        formControlName="firstName">
+                    <p
+                        class="error"
+                        *ngIf="firstName.invalid && firstName.touched">
+                        Wymagane pole
+                    </p>
+                </div>
+                <div class="user_last">
+                    <label for="last">Nazwisko</label>
+                    <input
+                        type="text"
+                        id="last"
+                        formControlName="lastName">
+                    <p
+                        class="error"
+                        *ngIf="lastName.invalid && lastName.touched">
+                        Wymagane pole
+                    </p>
+                </div>
+            </div>
+            <div
+                class="user margin"
+                [ngStyle]="{display : option.value === 'list' ? null : 'none'}">
+                <select formControlName="fullName">
+                    <option value>Wybierz...</option>
+                    <option
+                        *ngFor="let user of users"
+                        [value]="user.userId">
+                        {{user.firstName}} {{user.lastName}}
+                    </option>
+                </select>
+                <p
+                    class="error"
+                    *ngIf="fullName.invalid && fullName.touched">
+                    Wymagane pole
+                </p>
+            </div>
+            <div class="time flex margin">
+                <div class="time_start">
+                    <label for="hourStart">Godzina rozpoczęcia</label>
+                    <input
+                        type="time"
+                        id="hourStart"
+                        min="00:00"
+                        max="23:59"
+                        formControlName="timeStart"
+                        (change)="inputChange()">
+                    <p
+                        class="error"
+                        *ngIf="timeStart.errors?.required && timeStart.touched">
+                        Wymagane pole
+                    </p>
+                    <p
+                        *ngIf="timeStart.errors?.timeValidator"
+                        class="error">
+                        Dozwolona pełna lub połowa godziny
+                    </p>
+                </div>
+                <div class="time_end">
+                    <label for="hourEnd">Godzina zakończenia</label>
+                    <input
+                        type="time"
+                        id="hourEnd"
+                        min="00:00"
+                        max="23:59"
+                        formControlName="timeEnd"
+                        (change)="inputChange()">
+                    <p
+                        class="error"
+                        *ngIf="timeEnd.errors?.required && timeEnd.touched">
+                        Wymagane pole
+                    </p>
+                    <p
+                        *ngIf="timeEnd.errors?.timeValidator"
+                        class="error">
+                        Dozwolona pełna lub połowa godziny
+                    </p>
+                </div>
+                <p
+                    *ngIf="wrongTime"
+                    class="wrongTime error">
+                    Minimalny czas gry to pół godziny
+                </p>
+            </div>
+            <div class="court margin">
+                <label for="court">Kort</label>
+                <select
+                    id="court"
+                    formControlName="court">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="dressroom">Zapasowi</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button
+                    class="btn btn--submit"
+                    type="submit"
+                    [disabled]="reservationForm.invalid || wrongTime">
+                    <i class="fas fa-user-plus"></i>
+                </button>
+                <button
+                    class="btn btn--cancle"
+                    type="button"
+                    (click)="addService.toggleAdd(false)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

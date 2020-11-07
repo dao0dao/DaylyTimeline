@@ -1,0 +1,124 @@
+$redColor: #b91616;
+$greenColor: #509c1e;
+$greyColor: #cccccc;
+$blueColor: #4c9dfa;
+$blackColor: #0a0a0a;
+$animationBtn: 0.25s linear;
+
+.add {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 4;
+    background-color: #000000e6;
+    .container {
+        width: 100%;
+        max-width: 500px;
+        margin: 2rem 1.5rem;
+        border: 2px solid $redColor;
+        transform: skewX(-10deg);
+        background-color: #fff;
+    }
+    form {
+        padding: 1rem 1rem;
+        transform: skewX(10deg);
+        text-align: center;
+    }
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .margin {
+        margin: 1rem 0;
+    }
+    input,
+    select {
+        margin: 0.5rem 10px;
+        padding: 2px;
+        border-width: 2px;
+        border-style: none none solid solid;
+        border-color: $greyColor;
+        outline: none;
+        &:focus {
+            border-color: $blueColor;
+        }
+    }
+    .option {
+        display: flex;
+        flex-direction: column;
+    }
+    .title {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    .time.flex {
+        flex-direction: column;
+    }
+    .btn {
+        padding: 2px 5px;
+        border-width: 2px;
+        border-style: solid;
+        font-size: 1rem;
+        background-color: #fff;
+        cursor: pointer;
+        transition: $animationBtn;
+        &:disabled {
+            color: #fff;
+            border-color: $greyColor;
+            background-color: $greyColor;
+            cursor: default;
+            &:hover {
+                color: #fff;
+                border-color: $greyColor;
+            }
+            &:active {
+                color: #fff;
+                background-color: $greyColor;
+            }
+        }
+    }
+    .btn--submit {
+        margin-right: 3rem;
+        padding-right: 10px;
+        border-color: transparent transparent $greenColor $greenColor;
+        transform: skewX(-21deg);
+        .fa-user-plus {
+            transform: skewX(21deg);
+        }
+        &:hover {
+            color: $greenColor;
+            border-color: $greenColor;
+        }
+        &:active {
+            color: #fff;
+            background-color: $greenColor;
+        }
+    }
+    .btn--cancle {
+        margin-left: 3rem;
+        padding-left: 10px;
+        border-color: transparent $redColor $redColor transparent;
+        transform: skewX(21deg);
+        .fa-times {
+            transform: skewX(-21deg);
+        }
+        &:hover {
+            color: $redColor;
+            border-color: $redColor;
+        }
+        &:active {
+            color: #fff;
+            background-color: $redColor;
+        }
+    }
+    .error {
+        font-size: 0.8rem;
+        color: $redColor;
+    }
+}
