@@ -2,8 +2,8 @@
     <div class="container">
         <h2 class="title">Czy napewno chcesz usunąć następującą rezerwacje?</h2>
         <div class="reservation">
-            <p>{{timeStart}} - {{timeEnd}}</p>
-            <p>{{firstName}} {{lastName}}</p>
+            <p>{{reservation.timeEnd}} - {{reservation.timeEnd}}</p>
+            <p>{{reservation.user.firstName}} {{reservation.user.lastName}}</p>
         </div>
         <div class="actions">
             <button type="button" class="btn btn--yes" (click)="confirmDelete()">Tak</button>

@@ -4,9 +4,10 @@
 
 import { Enviroment } from './interfaces';
 
-export const environment : Enviroment = {
+export const environment: Enviroment = {
   production: false,
-  fbApiKey : 'AIzaSyC3-uWhYA9wqFw-oCFwlEj7X4SLv_jxz-w',
+  fbApiKey: 'AIzaSyABuT_75bMA4g7epYqQ74ICHRXXbtMlyIQ',
+  dbUrl: 'https://daylyschedule-a4a7f.firebaseio.com/'
 };
 
 /*

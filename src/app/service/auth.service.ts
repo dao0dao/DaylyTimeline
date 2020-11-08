@@ -28,7 +28,7 @@ export class AuthService {
   get token(): string {
     const expDate = new Date(localStorage.getItem('expiresIn'))
     if (new Date() > expDate) {
-      this.logOut
+      this.logOut()
       return null
     } else {
       return localStorage.getItem('idToken')

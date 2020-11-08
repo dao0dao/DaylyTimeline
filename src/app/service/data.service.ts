@@ -1,5 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Reservation, Court, User } from '../../environments/interfaces'
+import { ApiService } from './api.service';
 import { HourService } from './hour.service';
 
 @Injectable({
@@ -42,106 +44,61 @@ export class DataService {
     return canAdd
   }
 
-  deleteReservation(id: string) {
-    this.reservation = this.reservation.filter(el => el.reservationId !== id)
+  addReservation(reservation: Reservation) {
+    this.reservation.push(reservation)
+  }
+
+  deleteReservation(reservation: Reservation) {
+    this.apiService.deleteReservation(reservation).subscribe(
+      () => {
+        this.reservation = this.reservation.filter(el => el.reservationId !== reservation.reservationId)
+      }
+    )
   }
 
   changeReservation(court: Court, newRowStart: number, newRowEnd: number, reservation: Reservation, duration: number): void | false {
     if (!this.checkReservation(court, newRowStart, newRowEnd, reservation).includes(false)) {
-      reservation.court = court
-      reservation.rowStart = newRowStart
-      reservation.rowEnd = newRowEnd
-      reservation.duration = duration
-      reservation.timeStart = this.hourService.findHour(newRowStart)
-      reservation.timeEnd = this.hourService.findHour(newRowEnd)
+      let timeStart = this.hourService.findHour(newRowStart)
+      let timeEnd = this.hourService.findHour(newRowEnd)
+
+      this.apiService.dropReservation(reservation.reservationId, court, newRowStart, newRowEnd, timeStart, timeEnd, duration, reservation).subscribe(
+        (res) => {
+          if (res) {
+            reservation.court = court
+            reservation.rowStart = newRowStart
+            reservation.rowEnd = newRowEnd
+            reservation.duration = duration
+            reservation.timeStart = timeStart
+            reservation.timeEnd = timeEnd
+          }
+        },
+        () => { return false }
+      )
     } else {
       return false
     }
   }
 
-  returnByDate(year: string, month: string, day: string) {
-    this.reservation = this.API.filter(el => el.year === year && el.month === month && el.day === day)
+  getByDate(year: string, month: string, day: string) {
+    this.apiService.getReservationByDate(year, month, day).subscribe(
+      (res: Reservation[]) => {
+        if (res === null) {
+          this.reservation = []
+        } else {
+          this.reservation = res
+        }
+      },
+    )
   }
 
   findUserById(id: string): User {
-    return this.userApi.find(user => user.userId === id)
+    return this.users.find(user => user.userId === id)
   }
 
-  userApi: User[] = [
-    {
-      userId: '123',
-      firstName: 'Demid',
-      lastName: 'Greshnikov',
-    },
-    {
-      userId: '486',
-      firstName: 'Aleksandra',
-      lastName: 'Greshnikova'
-    },
-    {
-      userId: 'gfds',
-      firstName: 'Dawid',
-      lastName: 'Brożek',
-    }
-  ]
+  users: User[] = []
 
-  API: Reservation[] = [
-    {
-      reservationId: '123',
-      year: '2020',
-      month: '11',
-      day: '2',
-      court: 1,
-      timeStart: '00:00',
-      timeEnd: '02:00',
-      rowStart: 2,
-      rowEnd: 6,
-      duration: 2,
-      user: {
-        firstName: 'Demid',
-        lastName: 'Greshnikov',
-        price: 25,
-      }
-    },
-    {
-      reservationId: '486',
-      year: '2020',
-      month: '11',
-      day: '2',
-      court: 2,
-      timeStart: '00:00',
-      timeEnd: '00:30',
-      rowStart: 2,
-      rowEnd: 3,
-      duration: 0.5,
-      user: {
-        firstName: 'Aleksandra',
-        lastName: 'Greshnikova',
-        price: 25
-      }
-    },
-    {
-      reservationId: 'gfds',
-      year: '2020',
-      month: '11',
-      day: '2',
-      court: 'dressroom',
-      timeStart: '00:00',
-      timeEnd: '04:00',
-      rowStart: 3,
-      rowEnd: 11,
-      duration: 4,
-      user: {
-        firstName: 'Dawid',
-        lastName: 'Brożek',
-        price: 70
-      }
-    },
-  ]
-
-  // reservation: Reservation[] = []
-  reservation: Reservation[] = this.API
+  reservation: Reservation[] = []
 
 
-  constructor(private hourService: HourService) { }
+  constructor(private hourService: HourService, private apiService: ApiService) { }
 }

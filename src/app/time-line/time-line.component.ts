@@ -92,10 +92,10 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   inputChange() {
-    this.dateY = moment(this.date).year().toString()
-    this.dateM = (moment(this.date).month() + 1).toString()
-    this.dateD = moment(this.date).date().toString()
-    this.dataService.returnByDate(this.dateY, this.dateM, this.dateD)
+    this.dateY = moment(this.date).format('YYYY').toString()
+    this.dateM = moment(this.date).format('MM').toString()
+    this.dateD = moment(this.date).format('DD').toString()
+    this.dataService.getByDate(this.dateY, this.dateM, this.dateD)
   }
 
   minutesPlus(reservation: Reservation, position: 'start' | 'end') {
@@ -133,6 +133,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
     this.openSub = this.infoService.isOpen$.subscribe(
       (isOpen) => { this.isOpen = isOpen }
     )
+    this.inputChange()
   }
   ngDoCheck() {
     this.courtOne = this.dataService.reservation.filter(reservation => reservation.court === 1)

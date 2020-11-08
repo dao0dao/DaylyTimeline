@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { TimeLineComponent } from './time-line/time-line.component';
@@ -15,6 +16,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from './service/auth-guard.service';
 import { AddComponent } from './components/add/add.component';
+import {InterceptorService} from './service/interceptor.service';
+import { PlayersPageComponent } from './players-page/players-page.component'
+
+const INCEPTOR_PROVIDERS: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: InterceptorService,
+  multi: true
+}
 
 @NgModule({
   declarations: [
@@ -26,7 +35,8 @@ import { AddComponent } from './components/add/add.component';
     EditComponent,
     ErrorComponent,
     LoginPageComponent,
-    AddComponent
+    AddComponent,
+    PlayersPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,7 @@ import { AddComponent } from './components/add/add.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, INCEPTOR_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

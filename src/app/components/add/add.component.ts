@@ -8,7 +8,9 @@ import { AddService } from '../../service/add.service'
 import * as moment from 'moment'
 import { Court } from 'src/environments/interfaces'
 import { HourService } from 'src/app/service/hour.service';
+import { ApiService } from 'src/app/service/api.service'
 import { myValidators } from 'src/app/validators/myValidators';
+import { ErrorService } from 'src/app/service/error.service';
 
 @Component({
   selector: 'app-add',
@@ -81,9 +83,16 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
     reservation = {
       year, month, day, court, timeStart, timeEnd, rowStart, rowEnd, duration, user
     }
-    console.log(
-      this.dataService.canAddReservation(court, rowStart, rowEnd)
-    );
+
+    this.dataService.canAddReservation(court, rowStart, rowEnd).includes(false) ? this.errorService.toggleError(true, 'Godzina zajęta') : this.apiService.addReservation(reservation).subscribe(
+      res => {
+        reservation.reservationId = res.name;
+        this.dataService.addReservation(reservation);
+        this.reservationForm.reset();
+        this.addService.toggleAdd(false);
+      },
+    )
+
   }
 
   get option() {
@@ -111,7 +120,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
     return this.reservationForm.get('court')
   }
 
-  constructor(private fb: FormBuilder, public dataService: DataService, public addService: AddService, private hourService: HourService) { }
+  constructor(private fb: FormBuilder, public dataService: DataService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.addSub = this.addService.addReservation$.subscribe(
@@ -154,7 +163,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
         this.lastName.updateValueAndValidity();
       }
     )
-    this.users = this.dataService.userApi
+    this.users = this.dataService.users
   };
 
   ngDoCheck() {

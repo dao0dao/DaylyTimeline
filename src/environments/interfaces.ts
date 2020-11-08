@@ -1,6 +1,7 @@
 export interface Enviroment {
     production: boolean,
     fbApiKey: string,
+    dbUrl: string
 }
 
 export type Court = string | number
@@ -42,4 +43,8 @@ export interface FbSigInResponse {
     idToken: string,
     email: string,
     expiresIn: string
+}
+
+export interface FbPutResponse {
+    name: string
 }

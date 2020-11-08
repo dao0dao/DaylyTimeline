@@ -8,7 +8,7 @@ $greenColor: #509c1e;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index:2;
     background-color: #fffffff2;
 }
 .container {
@@ -33,6 +33,7 @@ $greenColor: #509c1e;
         font-size: 0.85rem;
         letter-spacing: 2px;
         text-transform: uppercase;
+        cursor: pointer;
     }
     .btn--yes {
         border-color: $redColor;

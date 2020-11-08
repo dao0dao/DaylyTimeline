@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Reservation } from 'src/environments/interfaces';
 
 import { AlertService } from '../../service/alert.service'
 import { DataService } from '../../service/data.service'
@@ -14,14 +15,10 @@ export class AlertComponent implements OnInit, OnDestroy {
   toggler: Subscription
   alertSub: Subscription
   isOpen: boolean = false
-  reservationId: string
-  timeStart: string
-  timeEnd: string
-  firstName: string
-  lastName: string
+  reservation: Reservation
 
   confirmDelete() {
-    this.dataService.deleteReservation(this.reservationId)
+    this.dataService.deleteReservation(this.reservation)
     this.closeAlert()
   }
 
@@ -37,15 +34,11 @@ export class AlertComponent implements OnInit, OnDestroy {
       (isOpen) => { this.isOpen = isOpen }
     )
     this.alertSub = this.alertService.userDelete$.subscribe(
-      (reservation) => {
+      (reservation: Reservation) => {
         if (reservation) {
-          this.reservationId = reservation.reservationId
-          this.timeStart = reservation.timeStart
-          this.timeEnd = reservation.timeEnd
-          this.firstName = reservation.user.firstName
-          this.lastName = reservation.user.lastName
+          this.reservation = reservation
         } else {
-          this.reservationId = this.timeStart = this.timeEnd = this.firstName = this.lastName = null
+          this.reservation = null
         }
       }
     )
