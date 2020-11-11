@@ -1,5 +1,5 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Reservation, Court, User } from '../../environments/interfaces'
 import { ApiService } from './api.service';
 import { HourService } from './hour.service';
@@ -91,12 +91,25 @@ export class DataService {
     )
   }
 
+  getUsers() {
+    this.apiService.getUsers().subscribe(
+      (users: User[]) => {
+        this.users = users
+        users.map(() => this.openUser.push(false))
+      }
+    )
+  }
+
+  addUser(user: User) {
+    this.users.push(user)
+  }
+
   findUserById(id: string): User {
     return this.users.find(user => user.userId === id)
   }
 
   users: User[] = []
-
+  openUser: Array<boolean> = []
   reservation: Reservation[] = []
 
 

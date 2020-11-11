@@ -1,1 +1,238 @@
-<p>players-page works!</p>
+<div class>
+    <div class="add">
+        <h2 class="title mr-x">Dodaj gracza</h2>
+        <button
+            type="button"
+            class="btn btn--open mr-x"
+            [ngClass]="{'active' : newPlayerActive}"
+            (click)="toggleInput()">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div
+            class="table"
+            [ngClass]="{'table--active': newPlayerActive}">
+            <form
+                class="table_form"
+                [formGroup]="newUserForm"
+                (ngSubmit)="submit()">
+                <div class="form_cell firstName">
+                    <label
+                        for="firstName"
+                        class="firstName_text"
+                        [ngClass]="{'active': firstActive || firstName.value, 'valid--add': (!firstName.errors && firstName.dirty) }">
+                        Imię
+                    </label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        formControlName="firstName"
+                        (focus)="focus('firstActive')"
+                        (blur)="onBlure('firstActive')">
+                    <p
+                        class="error"
+                        *ngIf="firstName.invalid && firstName.touched">
+                        Wymagane pole
+                    </p>
+                </div>
+                <div class="form_cell lastName">
+                    <label
+                        for="lastName"
+                        class="lastName_text"
+                        [ngClass]="{'active': lastActive || lastName.value,
+                                    'valid--add': (!lastName.errors && lastName.dirty) }">
+                        Nazwisko
+                    </label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        formControlName="lastName"
+                        (focus)="focus('lastActive')"
+                        (blur)="onBlure('lastActive')">
+                    <p
+                        class="error"
+                        *ngIf="lastName.invalid && lastName.touched">
+                        Wymagane pole
+                    </p>
+                </div>
+                <div class="form_cell price">
+                    <label
+                        for="price"
+                        class="price_text"
+                        [ngClass]="{'active': priceActive || price.value, 'valid--add': price.value  }">
+                        Cena
+                    </label>
+                    <p
+                        class="currency"
+                        [ngClass]="{'active': priceActive || price.value, 'valid--add': price.value  }">
+                        zł
+                    </p>
+                    <input
+                        min="0"
+                        type="number"
+                        id="price"
+                        formControlName="price"
+                        (focus)="focus('priceActive')"
+                        (blur)="onBlure('priceActive')">
+                </div>
+                <div class="form_cell telephone">
+                    <label
+                        for="telephone"
+                        class="telephone_text"
+                        [ngClass]="{'active': telephoneActive || telephone.value, 'valid--add': telephone.value  }">
+                        Telefon
+                    </label>
+                    <input
+                        type="number"
+                        id="telephone"
+                        formControlName="telephone"
+                        (focus)="focus('telephoneActive')"
+                        (blur)="onBlure('telephoneActive')">
+                </div>
+                <div class="action">
+                    <button
+                        type="submit"
+                        class="btn btn--add"
+                        [disabled]="newUserForm.invalid">
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div
+            class="player"
+            *ngFor="let user of users; let i= index">
+            <div class="block">
+                <p class="player_info">
+                    Imię:
+                    <span>{{user.firstName}}</span>
+                </p>
+                <p class="player_info">
+                    Nazwisko:
+                    <span>{{user.lastName}}</span>
+                </p>
+                <p class="player_info">
+                    Cena:
+                    <span>{{user.price}}zł</span>
+                </p>
+                <p class="player_info">
+                    Tel.:
+                    <span>{{user.telephone}}</span>
+                </p>
+            </div>
+            <div class="block block--action">
+                <a
+                    href="tel:+48-{{user.telephone}}"
+                    class="link link--call">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a
+                    href="sms:+48-{{user.telephone}}"
+                    class="link link--sms">
+                    <i class="far fa-envelope"></i>
+                </a>
+                <button
+                    type="button"
+                    class="btn btn--edit"
+                    (click)="openEdit(i, user)">
+                    <i class="fas fa-user-edit"></i>
+                </button>
+                <button
+                    type="button"
+                    class="btn btn--delete">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </div>
+            <div class="block block--edit">
+                <form
+                    class="table_form"
+                    [ngClass]="{'form--active' : openUsers[i]}"
+                    [formGroup]="editUserForm">
+                    <div class="form_cell firstName">
+                        <label
+                            for="firstName"
+                            class="firstName_text"
+                            [ngClass]="{'active': editFirst || editFirstName.value, 
+                                    'valid--add': (!editFirstName.errors && editFirstName.value) }">
+                            Imię
+                        </label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            formControlName="firstName"
+                            (focus)="focus('editFirst')"
+                            (blur)="onBlure('editFirst')">
+                        <p
+                            class="error"
+                            *ngIf="editFirstName.invalid && editFirstName.touched">
+                            Wymagane pole
+                        </p>
+                    </div>
+                    <div class="form_cell lastName">
+                        <label
+                            for="lastName"
+                            class="lastName_text"
+                            [ngClass]="{'active': editLast || editLastName.value,
+                                    'valid--add': (!editLastName.errors && editLastName.value) }">
+                            Nazwisko
+                        </label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            formControlName="lastName"
+                            (focus)="focus('editLast')"
+                            (blur)="onBlure('editLast')">
+                        <p
+                            class="error"
+                            *ngIf="editLastName.invalid && editLastName.touched">
+                            Wymagane pole
+                        </p>
+                    </div>
+                    <div class="form_cell price">
+                        <label
+                            for="price"
+                            class="price_text"
+                            [ngClass]="{'active': editedPrice || editPrice.value, 'valid--add': editPrice.value  }">
+                            Cena
+                        </label>
+                        <p
+                            class="currency"
+                            [ngClass]="{'active': editedPrice || editPrice.value, 'valid--add': editPrice.value  }">
+                            zł
+                        </p>
+                        <input
+                            min="0"
+                            type="number"
+                            id="price"
+                            formControlName="price"
+                            (focus)="focus('editedPrice')"
+                            (blur)="onBlure('editedPrice')">
+                    </div>
+                    <div class="form_cell telephone">
+                        <label
+                            for="telephone"
+                            class="telephone_text"
+                            [ngClass]="{'active': editTel || editTelephone.value, 'valid--add': editTelephone.value  }">
+                            Telefon
+                        </label>
+                        <input
+                            type="number"
+                            id="telephone"
+                            formControlName="telephone"
+                            (focus)="focus('editTel')"
+                            (blur)="onBlure('editTel')">
+                    </div>
+                    <div class="action">
+                        <button
+                            type="submit"
+                            class="btn btn--confirm"
+                            [disabled]="editUserForm.invalid">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

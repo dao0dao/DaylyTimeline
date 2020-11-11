@@ -17,7 +17,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from './service/auth-guard.service';
 import { AddComponent } from './components/add/add.component';
 import {InterceptorService} from './service/interceptor.service';
-import { PlayersPageComponent } from './players-page/players-page.component'
+import { PlayersPageComponent } from './players-page/players-page.component';
 
 const INCEPTOR_PROVIDERS: Provider = {
   provide: HTTP_INTERCEPTORS,

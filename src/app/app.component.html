@@ -29,6 +29,16 @@
         </li>
         <li
             class="item"
+            routerLinkActive="item--active"
+            (click)="menuActive = !menuActive">
+            <a
+                [routerLink]="['/players']"
+                class="text">
+                Gracze
+            </a>
+        </li>
+        <li
+            class="item"
             (click)="menuActive = !menuActive; authService.logOut()">
             <a
                 [routerLink]="['/']"
@@ -48,6 +58,16 @@
                 [routerLink]="['/daily_schedule']"
                 class="text">
                 Grafik
+            </a>
+        </li>
+        <li
+            class="item"
+            routerLinkActive="item--active"
+            (click)="menuActive = !menuActive">
+            <a
+                [routerLink]="['/players']"
+                class="text">
+                Gracze
             </a>
         </li>
         <li

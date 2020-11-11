@@ -162,12 +162,11 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
         this.firstName.updateValueAndValidity();
         this.lastName.updateValueAndValidity();
       }
-    )
-    this.users = this.dataService.users
-  };
-
-  ngDoCheck() {
-
+      )
+    };
+    
+    ngDoCheck() {
+      this.users = this.dataService.users
   }
 
   ngOnDestroy() {

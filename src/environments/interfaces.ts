@@ -10,6 +10,7 @@ export interface User {
     firstName: string,
     lastName: string,
     price?: number,
+    telephone? : number,
     note?: string
 }
 

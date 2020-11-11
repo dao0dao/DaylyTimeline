@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms'
+import { FormControl } from '@angular/forms'
 
 export class myValidators {
 
@@ -9,6 +9,5 @@ export class myValidators {
         } else {
             return { timeValidator: true }
         }
-    }
-
+    }    
 }

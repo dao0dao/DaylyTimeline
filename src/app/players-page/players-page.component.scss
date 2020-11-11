@@ -1,0 +1,305 @@
+$redColor: #b91616;
+$greenColor: #509c1e;
+$greyColor: #cccccc;
+$blueColor: #4c9dfa;
+$blackColor: #0a0a0a;
+$yellowColor: #a89a16;
+$animationHeight: 0.3s linear;
+$animationBtn: 0.25s linear;
+
+.add {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    align-items: center;
+    .title {
+        font-size: 1rem;
+    }
+    .mr-x {
+        margin: 0 1rem;
+    }
+}
+.table {
+    margin: 1rem 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    transition: $animationHeight;
+}
+.table_form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    .form_cell {
+        position: relative;
+        margin: 0.8rem 1rem;
+    }
+    label {
+        position: absolute;
+        top: 0;
+        color: $greyColor;
+        transition: top $animationHeight;
+        &.firstName_text {
+            left: 6%;
+        }
+        &.lastName_text,
+        &.telephone_text {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &.price_text {
+            left: 0%;
+        }
+        &.active {
+            top: -75%;
+            color: $blueColor;
+        }
+        &.valid--add {
+            color: $yellowColor;
+        }
+    }
+    input {
+        position: relative;
+        width: 100px;
+        padding: 2px;
+        border-style: solid;
+        border-width: 2px;
+        z-index: 1;
+        background-color: transparent;
+        &[id="firstName"] {
+            border-color: transparent transparent $greyColor $greyColor;
+            &:focus {
+                border-color: transparent transparent $blueColor $blueColor;
+            }
+        }
+        &[id="lastName"],
+        &[id="telephone"] {
+            border-color: transparent transparent $greyColor;
+            text-align: center;
+            &:focus {
+                border-color: transparent transparent $blueColor;
+            }
+        }
+        &[type="number"]::-webkit-outer-spin-button,
+        &[type="number"]::-webkit-inner-spin-button,
+        &[type="number"] {
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+        &[id="price"] {
+            width: 45px;
+            border-color: transparent $greyColor $greyColor transparent;
+            text-align: right;
+            &:focus {
+                border-color: transparent $blueColor $blueColor transparent;
+            }
+        }
+    }
+    .currency {
+        position: absolute;
+        top: 0;
+        right: -10%;
+        transform: translateX(100%);
+        color: $greyColor;
+        &.active {
+            color: $blueColor;
+        }
+        &.valid--add {
+            color: $yellowColor;
+        }
+    }
+}
+.table--active {
+    display: flex;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 2px solid $redColor;
+    .player {
+        width: 100%;
+        max-width: 38rem;
+        margin: 1rem auto;
+        padding: 0 0.2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .player_info {
+        display: flex;
+        justify-content: space-between;
+        color: $greyColor;
+        span {
+            margin: 0 2px;
+            color: $yellowColor;
+        }
+    }
+    .block--action {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        .btn,
+        .link {
+            flex-basis: 40%;
+            margin: 5px;
+        }
+        .btn:nth-child(2n),
+        .link:nth-child(2n) {
+            transform: skewY(10deg);
+            .fas,
+            .far {
+                transform: skewY(-10deg);
+            }
+        }
+        .btn:nth-child(2n + 1),
+        .link:nth-child(2n + 1) {
+            transform: skewY(-10deg);
+            .fas,
+            .far {
+                transform: skewY(10deg);
+            }
+        }
+    }
+    .block--edit {
+        padding-top: 0.5rem;
+        flex-basis: 100%;
+        .table_form {
+            display: none;
+        }
+        .form--active {
+            display: flex;
+        }
+    }
+}
+.error {
+    position: absolute;
+    font-size: 0.8rem;
+    color: $redColor;
+}
+.link {
+    padding: 3px;
+    font-size: 1.2rem;
+    transition: $animationBtn;
+    @media (min-width: 813px) {
+        display: none;
+    }
+}
+.link--call {
+    color: $greenColor;
+    &:hover,
+    &:focus {
+        background-color: $greenColor;
+    }
+}
+.link--sms {
+    color: $yellowColor;
+    &:hover,
+    &:focus {
+        background-color: $yellowColor;
+    }
+}
+
+.btn--add,
+.btn--edit,
+.btn--delete,
+.btn--confirm,
+.link {
+    &:hover,
+    &:focus {
+        color: #fff;
+    }
+}
+
+.btn {
+    padding: 3px;
+    font-size: 1rem;
+    border-style: solid;
+    border-width: 2px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: $animationBtn;
+    &:disabled,
+    &:disabled:focus,
+    &:disabled:hover {
+        color: #fff;
+        border-color: $greyColor !important;
+        background-color: $greyColor !important;
+        cursor: default;
+    }
+}
+.btn--open {
+    height: 25px;
+    width: 25px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: $greyColor;
+    border-color: $greyColor;
+    border-radius: 50%;
+    background-color: transparent;
+    &:hover {
+        color: $redColor;
+    }
+    &.active {
+        color: $redColor;
+        border-color: $redColor;
+        transform: rotate(180deg);
+    }
+    &:focus {
+        box-shadow: 0 0 10px $redColor;
+    }
+}
+.btn--add {
+    margin-left: 2.5rem;
+    border-color: transparent transparent $greenColor $greenColor;
+    transform: skewX(-20deg);
+    .fas {
+        transform: skewX(20deg);
+    }
+    &:hover,
+    &:focus {
+        background-color: $greenColor;
+    }
+    &:active {
+        color: $greenColor;
+        border-color: $greenColor;
+        background-color: #fff;
+    }
+}
+.btn--edit {
+    border-color: transparent;
+    &:hover,
+    &:focus {
+        background-color: $blackColor;
+    }
+}
+.btn--delete {
+    border-color: transparent;
+    color: $redColor;
+    &:hover,
+    &:focus {
+        background-color: $redColor;
+    }
+}
+.btn--confirm {
+    border-color: transparent $yellowColor $yellowColor transparent;
+    transform: skewX(20deg);
+    .fas {
+        transform: skewX(-20deg);
+    }
+    &:hover,
+    &:focus {
+        background-color: $yellowColor;
+    }
+}
