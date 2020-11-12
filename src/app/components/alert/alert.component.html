@@ -1,13 +1,56 @@
-<div *ngIf="isOpen" class="alert">
-    <div class="container">
-        <h2 class="title">Czy napewno chcesz usunąć następującą rezerwacje?</h2>
+<div
+    *ngIf="isOpen"
+    class="alert">
+    <div
+        *ngIf="reservation !== null"
+        class="container">
+        <h2 class="title">
+            Czy napewno chcesz usunąć następującą rezerwacje?
+        </h2>
         <div class="reservation">
-            <p>{{reservation.timeEnd}} - {{reservation.timeEnd}}</p>
-            <p>{{reservation.user.firstName}} {{reservation.user.lastName}}</p>
+            <p>
+                {{reservation.timeEnd}} - {{reservation.timeEnd}}
+            </p>
+            <p>
+                {{reservation.user.firstName}} {{reservation.user.lastName}}
+            </p>
         </div>
         <div class="actions">
-            <button type="button" class="btn btn--yes" (click)="confirmDelete()">Tak</button>
-            <button type="button" class="btn btn--no" (click)="closeAlert()">Nie</button>
+            <button
+                type="button"
+                class="btn btn--yes"
+                (click)="confirmDelete()">
+                Tak
+            </button>
+            <button
+                type="button"
+                class="btn btn--no"
+                (click)="closeAlert()">
+                Nie
+            </button>
+        </div>
+    </div>
+    <div
+        *ngIf="user !== null"
+        class="container">
+        <h2 class="title">Czy napewno chcesz usunąć gracza?</h2>
+        <div class="reservation">
+            <p>{{user.firstName}} {{user.lastName}}</p>
+            <p>Tel.: {{user.telephone}}</p>
+        </div>
+        <div class="actions">
+            <button
+                type="button"
+                class="btn btn--yes"
+                (click)="removeUser()">
+                Tak
+            </button>
+            <button
+                type="button"
+                class="btn btn--no"
+                (click)="closeAlert()">
+                Nie
+            </button>
         </div>
     </div>
 </div>

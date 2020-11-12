@@ -1,4 +1,12 @@
 $redColor: #b91616;
+$greenColor: #509c1e;
+$greyColor: #bbbbbb;
+$blueColor: #4c9dfa;
+$blackColor: #0a0a0a;
+$yellowColor: #a89a16;
+$animationHeight: 0.3s linear;
+$animationBtn: 0.25s linear;
+
 .info {
     position: fixed;
     width: 100%;
@@ -9,18 +17,18 @@ $redColor: #b91616;
     justify-content: center;
     z-index: 2;
 }
-.background {
-    padding: 2px 3px 2px 3px;
-    background-color: $redColor;
-    clip-path: polygon(25px 0, 100% 0%, calc(100% - 25px) 100%, 0% 100%);
-}
 .container {
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: #161616;
-    clip-path: polygon(24px 0, 100% 0%, calc(100% - 24px) 100%, 0% 100%);
-    color: #ffffff;
+    transform: skewX(-20deg);
+    border: 3px solid $yellowColor;
+    background-color: #fff;
+    color: $blackColor;
+    .skewX {
+        transform: skewX(20deg);
+    }
     .title {
         width: 100%;
         margin-bottom: 0.5rem;
@@ -32,7 +40,7 @@ $redColor: #b91616;
         margin-bottom: 0.3rem;
         text-align: center;
     }
-    .reservation{
+    .reservation {
         padding: 0 1.1rem 0 1.2rem;
     }
     .btn {
@@ -40,22 +48,19 @@ $redColor: #b91616;
         padding: 0.3rem;
         border-style: none solid none solid;
         border-width: 2px;
-        border-color: $redColor;
+        border-color: $yellowColor;
         background-color: transparent;
-        color: #ffffff;
+        color: $yellowColor;
         cursor: pointer;
         transition: 0.25s linear;
         span {
             display: inline-block;
             transform: skewX(-20deg);
         }
+        &:focus,
         &:hover {
-            background-color: $redColor;
-        }
-        &:active, &:focus {
-            background-color: #fff;
-            border-color: #ffffff;
-            color: #000000;
+            color: #fff;
+            background-color: $yellowColor;
         }
     }
 }

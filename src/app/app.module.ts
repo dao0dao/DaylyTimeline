@@ -18,6 +18,7 @@ import { AuthGuard } from './service/auth-guard.service';
 import { AddComponent } from './components/add/add.component';
 import {InterceptorService} from './service/interceptor.service';
 import { PlayersPageComponent } from './players-page/players-page.component';
+import { TelephonePipePipe } from './pipes/telephone-pipe.pipe';
 
 const INCEPTOR_PROVIDERS: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -37,6 +38,7 @@ const INCEPTOR_PROVIDERS: Provider = {
     LoginPageComponent,
     AddComponent,
     PlayersPageComponent,
+    TelephonePipePipe,
   ],
   imports: [
     BrowserModule,

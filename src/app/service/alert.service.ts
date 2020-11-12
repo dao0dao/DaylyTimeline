@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { Reservation } from '../../environments/interfaces'
+import { Reservation, User } from '../../environments/interfaces'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  public userDelete$ = new Subject<Reservation | false>()
+  public reservationDelete$ = new Subject<Reservation | false>()
+  public userDelete$ = new Subject<User | false>()
   public alertToggle$ = new Subject<boolean>()
 
   confirmDelete(reservation: Reservation | false) {
-    this.userDelete$.next(reservation)
+    this.reservationDelete$.next(reservation)
+  }
+
+  userData(user: User | false) {
+    this.userDelete$.next(user)
   }
 
   alertToggle(open: boolean) {

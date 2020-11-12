@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Reservation } from 'src/environments/interfaces';
+import { Reservation, User } from 'src/environments/interfaces';
 
 import { AlertService } from '../../service/alert.service'
 import { DataService } from '../../service/data.service'
@@ -13,18 +13,26 @@ import { DataService } from '../../service/data.service'
 export class AlertComponent implements OnInit, OnDestroy {
 
   toggler: Subscription
-  alertSub: Subscription
+  reservationSub: Subscription
+  userSub: Subscription
   isOpen: boolean = false
-  reservation: Reservation
+  reservation: Reservation = null
+  user: User = null
 
   confirmDelete() {
     this.dataService.deleteReservation(this.reservation)
     this.closeAlert()
   }
 
+  removeUser() {
+    this.dataService.deleteUser(this.user)
+    this.closeAlert()
+  }
+
   closeAlert() {
     this.alertService.alertToggle(false)
     this.alertService.confirmDelete(false)
+    this.alertService.userData(false)
   }
 
   constructor(private alertService: AlertService, private dataService: DataService) { }
@@ -33,7 +41,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.toggler = this.alertService.alertToggle$.subscribe(
       (isOpen) => { this.isOpen = isOpen }
     )
-    this.alertSub = this.alertService.userDelete$.subscribe(
+    this.reservationSub = this.alertService.reservationDelete$.subscribe(
       (reservation: Reservation) => {
         if (reservation) {
           this.reservation = reservation
@@ -42,11 +50,20 @@ export class AlertComponent implements OnInit, OnDestroy {
         }
       }
     )
+    this.userSub = this.alertService.userDelete$.subscribe(
+      (user: User) => {
+        if (user) {
+          this.user = user
+        } else {
+          this.userSub = null
+        }
+      }
+    )
   }
 
   ngOnDestroy() {
     this.toggler.unsubscribe()
-    this.alertSub.unsubscribe()
+    this.reservationSub.unsubscribe()
   }
 
 }

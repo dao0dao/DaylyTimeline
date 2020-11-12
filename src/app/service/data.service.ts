@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Reservation, Court, User } from '../../environments/interfaces'
 import { ApiService } from './api.service';
 import { HourService } from './hour.service';
@@ -106,6 +106,16 @@ export class DataService {
 
   findUserById(id: string): User {
     return this.users.find(user => user.userId === id)
+  }
+
+  updateUser(user: User) { }
+
+  deleteUser(user: User) {
+    this.apiService.deleteUser(user).subscribe(
+      () => {
+        this.users = this.users.filter(el => el.userId !== user.userId)
+      }
+    )
   }
 
   users: User[] = []

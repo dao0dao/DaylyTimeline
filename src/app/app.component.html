@@ -1,85 +1,86 @@
 <nav class="mobile">
     <button
-        type="button"
-        class="burger"
-        (click)="menuActive = !menuActive">
-        <div
-            class="line"
-            [ngClass]="{'line--top' : menuActive}"></div>
-        <div
-            class="line"
-            [ngClass]="{'line--mid' : menuActive}"></div>
-        <div
-            class="line"
-            [ngClass]="{'line--bot' : menuActive}"></div>
-    </button>
-    <ul
-        class="menu"
-        [ngClass]="{'menu--active' : menuActive}"
-        (click)="menuActive = false">
-        <li
-            class="item item--left"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/daily_schedule']"
-                class="text">
-                Grafik
-            </a>
-        </li>
-        <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/players']"
-                class="text">
-                Gracze
-            </a>
-        </li>
-        <li
-            class="item"
-            (click)="menuActive = !menuActive; authService.logOut()">
-            <a
-                [routerLink]="['/']"
-                class="text">
-                Wyloguj
-            </a>
+    type="button"
+    class="burger"
+    (click)="menuActive = !menuActive">
+    <div
+    class="line"
+    [ngClass]="{'line--top' : menuActive}"></div>
+    <div
+    class="line"
+    [ngClass]="{'line--mid' : menuActive}"></div>
+    <div
+    class="line"
+    [ngClass]="{'line--bot' : menuActive}"></div>
+</button>
+<ul
+class="menu"
+[ngClass]="{'menu--active' : menuActive}"
+(click)="menuActive = false">
+<li
+class="item item--left"
+routerLinkActive="item--active"
+(click)="menuActive = !menuActive">
+<a
+[routerLink]="['/daily_schedule']"
+class="text">
+Grafik
+</a>
+</li>
+<li
+class="item"
+routerLinkActive="item--active"
+(click)="menuActive = !menuActive">
+<a
+[routerLink]="['/players']"
+class="text">
+Gracze
+</a>
+</li>
+<li
+class="item"
+(click)="menuActive = !menuActive; authService.logOut()">
+<a
+[routerLink]="['/']"
+class="text">
+Wyloguj
+</a>
         </li>
     </ul>
 </nav>
 <nav class="desktop">
     <ul class="menu">
         <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/daily_schedule']"
-                class="text">
-                Grafik
-            </a>
-        </li>
-        <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/players']"
-                class="text">
-                Gracze
-            </a>
-        </li>
-        <li
-            class="item item--right"
-            (click)="menuActive = !menuActive; authService.logOut()">
-            <a
-                [routerLink]="['/']"
-                class="text">
-                Wyloguj
+        class="item"
+        routerLinkActive="item--active"
+        (click)="menuActive = !menuActive">
+        <a
+        [routerLink]="['/daily_schedule']"
+        class="text">
+        Grafik
+    </a>
+</li>
+<li
+class="item"
+routerLinkActive="item--active"
+(click)="menuActive = !menuActive">
+<a
+[routerLink]="['/players']"
+class="text">
+Gracze
+</a>
+</li>
+<li
+class="item item--right"
+(click)="menuActive = !menuActive; authService.logOut()">
+<a
+[routerLink]="['/']"
+class="text">
+Wyloguj
             </a>
         </li>
     </ul>
 </nav>
 <router-outlet></router-outlet>
+<app-alert></app-alert>
 <app-error></app-error>

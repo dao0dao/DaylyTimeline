@@ -102,6 +102,7 @@
     <div class="container">
         <div
             class="player"
+            [ngClass]="{'player--active': openUsers[i]}"
             *ngFor="let user of users; let i= index">
             <div class="block">
                 <p class="player_info">
@@ -118,17 +119,17 @@
                 </p>
                 <p class="player_info">
                     Tel.:
-                    <span>{{user.telephone}}</span>
+                    <span>{{user.telephone |telephonePipe}}</span>
                 </p>
             </div>
             <div class="block block--action">
                 <a
-                    href="tel:+48-{{user.telephone}}"
+                    href="tel:+48-{{user.telephone | telephonePipe}}"
                     class="link link--call">
                     <i class="fas fa-phone"></i>
                 </a>
                 <a
-                    href="sms:+48-{{user.telephone}}"
+                    href="sms:+48-{{user.telephone | telephonePipe}}"
                     class="link link--sms">
                     <i class="far fa-envelope"></i>
                 </a>
@@ -140,7 +141,8 @@
                 </button>
                 <button
                     type="button"
-                    class="btn btn--delete">
+                    class="btn btn--delete"
+                    (click)="deleteUser(user)">
                     <i class="far fa-trash-alt"></i>
                 </button>
             </div>
@@ -148,7 +150,8 @@
                 <form
                     class="table_form"
                     [ngClass]="{'form--active' : openUsers[i]}"
-                    [formGroup]="editUserForm">
+                    [formGroup]="editUserForm"
+                    (ngSubmit)="updateUser()">
                     <div class="form_cell firstName">
                         <label
                             for="firstName"

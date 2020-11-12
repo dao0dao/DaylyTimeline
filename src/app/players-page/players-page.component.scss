@@ -1,6 +1,6 @@
 $redColor: #b91616;
 $greenColor: #509c1e;
-$greyColor: #cccccc;
+$greyColor: #bbbbbb;
 $blueColor: #4c9dfa;
 $blackColor: #0a0a0a;
 $yellowColor: #a89a16;
@@ -23,8 +23,11 @@ $animationBtn: 0.25s linear;
     }
 }
 .table {
+    height: 100%;
+    max-height: 0;
     margin: 1rem 0;
-    display: none;
+    overflow: hidden;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-basis: 100%;
@@ -116,7 +119,7 @@ $animationBtn: 0.25s linear;
     }
 }
 .table--active {
-    display: flex;
+    max-height: 5rem;
 }
 .container {
     display: flex;
@@ -125,23 +128,38 @@ $animationBtn: 0.25s linear;
     justify-content: flex-start;
     border-top: 2px solid $redColor;
     .player {
-        width: 100%;
+        width: 86%;
         max-width: 38rem;
         margin: 1rem auto;
-        padding: 0 0.2rem;
+        padding-left: 0.6rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
+        border-style: none none solid solid;
+        border-width: 2px;
+        border-color: $redColor;
+        transform: skewX(-10deg);
+        transition: $animationHeight;
     }
     .player_info {
         display: flex;
         justify-content: space-between;
         color: $greyColor;
+        font-size: 0.8rem;
         span {
             margin: 0 2px;
             color: $yellowColor;
+            font-size: 1rem;
         }
+    }
+    .player--active {
+        border-width: 3px;
+        border-color: $blueColor;
+        box-shadow: -3px 3px 10px $blackColor;
+    }
+    .block {
+        transform: skewX(10deg);
     }
     .block--action {
         display: flex;
@@ -152,7 +170,7 @@ $animationBtn: 0.25s linear;
         .btn,
         .link {
             flex-basis: 40%;
-            margin: 5px;
+            margin: 3px;
         }
         .btn:nth-child(2n),
         .link:nth-child(2n) {
@@ -175,10 +193,17 @@ $animationBtn: 0.25s linear;
         padding-top: 0.5rem;
         flex-basis: 100%;
         .table_form {
-            display: none;
+            transition: $animationHeight;
+            height: 100%;
+            max-height: 0rem;
+            overflow: hidden;
+        }
+        .form_cell {
+            margin: 0.8rem 0rem;
         }
         .form--active {
-            display: flex;
+            padding-top: 0.5rem;
+            max-height: 6.5rem;
         }
     }
 }

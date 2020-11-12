@@ -65,7 +65,8 @@ export class ApiService {
               userId: id,
               firstName: response[id].firstName,
               lastName: response[id].lastName,
-              price: response[id].price
+              price: response[id].price,
+              telephone: response[id].telephone
             }
           })
         }
@@ -77,8 +78,12 @@ export class ApiService {
     return this.http.post<FbPutResponse>(`${environment.dbUrl}users.json`, user)
   }
 
-  updateUser(user: User): Observable<any> {
-    return this.http.patch(`${environment.dbUrl}users/${user.userId}.json`, user)
+  updateUser(user: User): Observable<User> {
+    return this.http.patch<User>(`${environment.dbUrl}users/${user.userId}.json`, user)
+  }
+
+  deleteUser(user: User): Observable<any> {
+    return this.http.delete(`${environment.dbUrl}users/${user.userId}.json`)
   }
 
   constructor(private http: HttpClient) { }

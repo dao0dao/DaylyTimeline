@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/environments/interfaces';
+import { AlertService } from '../service/alert.service';
 import { ApiService } from '../service/api.service';
 import { DataService } from '../service/data.service';
 
@@ -8,7 +9,8 @@ import { DataService } from '../service/data.service';
 @Component({
   selector: 'app-players-page',
   templateUrl: './players-page.component.html',
-  styleUrls: ['./players-page.component.scss']
+  styleUrls: ['./players-page.component.scss'],
+
 })
 export class PlayersPageComponent implements OnInit, DoCheck {
 
@@ -27,8 +29,6 @@ export class PlayersPageComponent implements OnInit, DoCheck {
   editedPrice: boolean = false
   editTel: boolean = false
   editUserForm: FormGroup
-
-
 
   get firstName() {
     return this.newUserForm.get('firstName')
@@ -91,7 +91,6 @@ export class PlayersPageComponent implements OnInit, DoCheck {
   }
 
   openEdit(id: number, user: User) {
-    this.editUserForm.reset()
     for (let i = 0; i < this.openUsers.length; i++) {
       i === id ? this.openUsers[i] = !this.openUsers[i] : this.openUsers[i] = false;
       if (this.openUsers[id] === true) {
@@ -100,11 +99,46 @@ export class PlayersPageComponent implements OnInit, DoCheck {
         this.editLastName.setValue(user.lastName)
         this.editPrice.setValue(user.price)
         this.editTelephone.setValue(user.telephone)
+      } else {
+        this.editUserForm.reset()
       }
     }
   }
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService) { }
+  updateUser() {
+    let user: User
+    user = {
+      userId: this.userId.value,
+      firstName: this.editFirstName.value,
+      lastName: this.editLastName.value,
+      price: this.editPrice.value,
+      telephone: this.editTelephone.value
+    }
+    this.apiService.updateUser(user).subscribe(
+      (user) => {
+        for (let i = 0; i < this.openUsers.length; i++) {
+          this.openUsers[i] = false
+        }
+        this.editUserForm.reset()
+        this.users.map(el => {
+          if (el.userId === user.userId) {
+            el.userId = user.userId
+            el.firstName = user.firstName
+            el.lastName = user.lastName
+            el.price = user.price
+            el.telephone = user.telephone
+          }
+        })
+      }
+    )
+  }
+
+  deleteUser(user: User) {
+    this.alertService.alertToggle(true)
+    this.alertService.userData(user)
+  }
+
+  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.newUserForm = this.fb.group({

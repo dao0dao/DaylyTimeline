@@ -16,15 +16,15 @@ $animationBtn: 0.25s linear;
     z-index: 4;
     background-color: #000000e6;
     .container {
-        width: 100%;
-        max-width: 500px;
+        width: 77%;
+        max-width: 600px;
         margin: 2rem 1.5rem;
         border: 2px solid $redColor;
         transform: skewX(-10deg);
         background-color: #fff;
     }
     form {
-        padding: 1rem 1rem;
+        padding: 1rem 0rem;
         transform: skewX(10deg);
         text-align: center;
     }
