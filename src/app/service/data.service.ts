@@ -97,8 +97,10 @@ export class DataService {
   getUsers() {
     this.apiService.getUsers().subscribe(
       (users: User[]) => {
-        this.users = users
-        users.map(() => this.openUser.push(false))
+        if (users) {
+          this.users = users
+          users.map(() => this.openUser.push(false))
+        }
       }
     )
   }

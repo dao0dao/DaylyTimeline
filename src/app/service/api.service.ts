@@ -55,7 +55,7 @@ export class ApiService {
     return this.http.delete(`${environment.dbUrl}schedule/${reservation.year}/${reservation.month}/${reservation.day}/${reservation.reservationId}.json`)
   }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<User[] | undefined> {
     return this.http.get(`${environment.dbUrl}users.json`).pipe(
       map((response: { [key: string]: User }) => {
         if (response !== null) {
