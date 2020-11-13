@@ -5,9 +5,11 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { TimeLineComponent } from './time-line/time-line.component';
 import { AuthGuard } from './service/auth-guard.service'
 import { PlayersPageComponent } from './players-page/players-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', component: LoginPageComponent },
+  { path: '', component: HomePageComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'daily_schedule', component: TimeLineComponent, canActivate: [AuthGuard] },
   { path: 'players', component: PlayersPageComponent, canActivate: [AuthGuard] },
 ]

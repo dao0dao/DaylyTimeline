@@ -11,17 +11,15 @@
     font-size: 1rem;
   }
 }
-.actions--sticky {
-  position: sticky;
-  left: 50vw;
-  transform: translateX(-50%);
-}
 .actions--fixed {
   position: fixed;
-  bottom: 0;
+  bottom: 60px;
   right: 0;
   margin: 1rem 0.5rem;
   z-index: 2;
+  @media (min-width: 865px){
+    right: calc(50% - 430px);
+  }
 }
 
 .container {
@@ -151,6 +149,9 @@
   transform: skewX(20deg);
   text-transform: uppercase;
   background-color: #fff;
+  .actions--fixed & {
+    border-color: $greenColor;
+  }
   .btn_text {
     display: inline-block;
     transform: skewX(-20deg);

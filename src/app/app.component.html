@@ -1,86 +1,154 @@
-<nav class="mobile">
-    <button
-        type="button"
-        class="burger"
-        (click)="menuActive = !menuActive">
-        <div
-            class="line"
-            [ngClass]="{'line--top' : menuActive}"></div>
-        <div
-            class="line"
-            [ngClass]="{'line--mid' : menuActive}"></div>
-        <div
-            class="line"
-            [ngClass]="{'line--bot' : menuActive}"></div>
-    </button>
-    <ul
-        class="menu"
-        [ngClass]="{'menu--active' : menuActive}"
-        (click)="menuActive = false">
-        <li
-            class="item item--left"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
+<section class="app-container">
+    <div>
+        <nav class="mobile">
+            <button
+                type="button"
+                class="burger"
+                (click)="menuActive = !menuActive">
+                <div
+                    class="line"
+                    [ngClass]="{'line--top' : menuActive}"></div>
+                <div
+                    class="line"
+                    [ngClass]="{'line--mid' : menuActive}"></div>
+                <div
+                    class="line"
+                    [ngClass]="{'line--bot' : menuActive}"></div>
+            </button>
+            <ul
+                class="menu"
+                [ngClass]="{'menu--active' : menuActive}"
+                (click)="menuActive = false">
+                <li
+                    class="item item--left"
+                    routerLinkActive="item--active"
+                    [routerLinkActiveOptions]="{exact : true}"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/']"
+                        class="text">
+                        Home
+                    </a>
+                </li>
+                <li
+                    class="item item--left"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/login']"
+                        class="text">
+                        Login
+                    </a>
+                </li>
+                <li
+                    class="item item--left"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/daily_schedule']"
+                        class="text">
+                        Grafik
+                    </a>
+                </li>
+                <li
+                    class="item"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/players']"
+                        class="text">
+                        Gracze
+                    </a>
+                </li>
+                <li
+                    class="item"
+                    (click)="menuActive = !menuActive; authService.logOut()">
+                    <a
+                        [routerLink]="['/']"
+                        class="text">
+                        Wyloguj
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="desktop">
+            <ul class="menu">
+                <li
+                    class="item item--left"
+                    routerLinkActive="item--active"
+                    [routerLinkActiveOptions]="{exact : true}"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/']"
+                        class="text">
+                        Home
+                    </a>
+                </li>
+                <li
+                    class="item item--left"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/login']"
+                        class="text">
+                        Login
+                    </a>
+                </li>
+                <li
+                    class="item"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/daily_schedule']"
+                        class="text">
+                        Grafik
+                    </a>
+                </li>
+                <li
+                    class="item"
+                    routerLinkActive="item--active"
+                    (click)="menuActive = !menuActive">
+                    <a
+                        [routerLink]="['/players']"
+                        class="text">
+                        Gracze
+                    </a>
+                </li>
+                <li
+                    class="item item--right"
+                    (click)="menuActive = !menuActive; authService.logOut()">
+                    <a
+                        [routerLink]="['/']"
+                        class="text">
+                        Wyloguj
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <div class="router">
+        <router-outlet></router-outlet>
+        <app-alert></app-alert>
+        <app-error></app-error>
+    </div>
+
+
+
+
+    <footer class="footer">
+        <p class="footer_text">
+            Created and designed with passion by
             <a
-                [routerLink]="['/daily_schedule']"
-                class="text">
-                Grafik
+                class="footer_link"
+                target="_blank"
+                href="https://dao0dao.github.io/dao/">
+                <span><</span>
+                Dao
+                <span>/></span>
             </a>
-        </li>
-        <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/players']"
-                class="text">
-                Gracze
-            </a>
-        </li>
-        <li
-            class="item"
-            (click)="menuActive = !menuActive; authService.logOut()">
-            <a
-                [routerLink]="['/']"
-                class="text">
-                Wyloguj
-            </a>
-        </li>
-    </ul>
-</nav>
-<nav class="desktop">
-    <ul class="menu">
-        <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/daily_schedule']"
-                class="text">
-                Grafik
-            </a>
-        </li>
-        <li
-            class="item"
-            routerLinkActive="item--active"
-            (click)="menuActive = !menuActive">
-            <a
-                [routerLink]="['/players']"
-                class="text">
-                Gracze
-            </a>
-        </li>
-        <li
-            class="item item--right"
-            (click)="menuActive = !menuActive; authService.logOut()">
-            <a
-                [routerLink]="['/']"
-                class="text">
-                Wyloguj
-            </a>
-        </li>
-    </ul>
-</nav>
-<router-outlet></router-outlet>
-<app-alert></app-alert>
-<app-error></app-error>
+        </p>
+    </footer>
+</section>

@@ -1,4 +1,4 @@
-@import 'src/assets/colors';
+@import "src/assets/colors";
 
 @media (min-width: 992px) {
     nav.mobile {
@@ -6,6 +6,17 @@
     }
     nav.desktop {
         display: block;
+    }
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    .router {
+        flex-grow: 1;
     }
 }
 
@@ -117,5 +128,17 @@
     }
     &.item--active:nth-child(2n + 1) {
         border-color: transparent transparent $redColor $redColor;
+    }
+}
+.footer {
+    padding: 1.5rem;
+    background-color: $blackColor;
+    font-size: 0.8rem;
+    text-align: center;
+    .footer_text {
+        color: $greyColor;
+    }
+    .footer_link {
+        color: $yellowColor;
     }
 }

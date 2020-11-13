@@ -21,7 +21,7 @@ export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
 
   @ViewChildren('hour') hour: QueryList<ElementRef>
 
-  date = moment().format('YYYY-MM-DD')
+  date = '2020-11-13'
   dateY: string
   dateM: string
   dateD: string

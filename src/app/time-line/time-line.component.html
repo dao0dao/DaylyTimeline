@@ -8,6 +8,8 @@
             type="date"
             class="time_input"
             id="time"
+            min="2020-11-13"
+            max="2020-11-14"
             [(ngModel)]="date"
             (change)="inputChange()">
     </div>
@@ -65,9 +67,8 @@
                 [@visible]
                 [ngClass]="{ 'cell--active': reservation.isActive }"
                 [ngStyle]="{
-                gridRowStart: reservation.rowStart,
-                gridRowEnd: reservation.rowEnd}"
-                >
+                    gridRowStart: reservation.rowStart,
+                    gridRowEnd: reservation.rowEnd}">
                 <div class="cell_top">
                     <div class="cell_actions">
                         <button
@@ -146,9 +147,9 @@
                 data-draggable="true"
                 *ngFor="let reservation of courtTwo"
                 [ngStyle]="{
-                gridRowStart: reservation.rowStart,
-                gridRowEnd: reservation.rowEnd
-                }"
+    gridRowStart: reservation.rowStart,
+    gridRowEnd: reservation.rowEnd
+}"
                 [ngClass]="{ 'cell--active': reservation.isActive }">
                 <div class="cell_top">
                     <div class="cell_actions">
@@ -228,9 +229,9 @@
                 data-draggable="true"
                 *ngFor="let reservation of dressroom"
                 [ngStyle]="{
-                gridRowStart: reservation.rowStart,
-                gridRowEnd: reservation.rowEnd
-                }"
+    gridRowStart: reservation.rowStart,
+    gridRowEnd: reservation.rowEnd
+}"
                 [ngClass]="{ 'cell--active': reservation.isActive }">
                 <div class="cell_top">
                     <div class="cell_actions">

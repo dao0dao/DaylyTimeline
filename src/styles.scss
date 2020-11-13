@@ -1,4 +1,4 @@
-
+@import "src/assets/colors";
 :root {
     font-size: 16px;
 }
@@ -7,8 +7,10 @@
     padding: 0;
     box-sizing: border-box;
     outline: none;
+    scrollbar-color: $redColor $blackColor;
+    scrollbar-width: thin;
 }
-body{
-    font-family: 'Open Sans', sans-serif;
+body {
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
