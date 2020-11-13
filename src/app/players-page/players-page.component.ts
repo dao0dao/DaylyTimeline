@@ -4,6 +4,7 @@ import { User } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
 import { ApiService } from '../service/api.service';
 import { DataService } from '../service/data.service';
+import { ErrorService } from '../service/error.service';
 
 
 @Component({
@@ -81,13 +82,17 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       price: this.price.value,
       telephone: this.telephone.value
     }
-    this.apiService.addUser(user).subscribe(
-      (res) => {
-        user.userId = res.name;
-        this.dataService.addUser(user);
-        this.newUserForm.reset()
-      }
-    );
+    if (this.users.length < 10) {
+      this.apiService.addUser(user).subscribe(
+        (res) => {
+          user.userId = res.name;
+          this.dataService.addUser(user);
+          this.newUserForm.reset()
+        }
+      );
+    } else {
+      this.errorService.toggleError(true, 'Limit graczy')
+    }
   }
 
   openEdit(id: number, user: User) {
@@ -138,7 +143,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     this.alertService.userData(user)
   }
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.newUserForm = this.fb.group({

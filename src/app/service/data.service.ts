@@ -28,7 +28,10 @@ export class DataService {
   canAddReservation(court: Court, rowStart: number, rowEnd: number): Array<boolean> {
     let courtSchedule = [...this.reservation.filter(el => el.court === court)]
     let canAdd: boolean[] = []
-    if (courtSchedule.length !== 0) {
+    if (courtSchedule.length === 10) {
+      canAdd.push(false)
+    }
+    else if (courtSchedule.length !== 0) {
       courtSchedule.map(
         court => {
           if ((rowStart < court.rowStart || rowStart >= court.rowEnd) && (rowEnd < court.rowEnd || rowEnd > court.rowEnd)) {
