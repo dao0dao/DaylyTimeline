@@ -1,11 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
-$greyColor: #bbbbbb;
-$blueColor: #4c9dfa;
-$blackColor: #0a0a0a;
-$yellowColor: #a89a16;
-$animationHeight: 0.3s linear;
-$animationBtn: 0.25s linear;
+@import "src/assets/colors";
 
 .add {
     max-width: 1200px;
@@ -120,6 +113,7 @@ $animationBtn: 0.25s linear;
 }
 .table--active {
     max-height: 5rem;
+    padding: 0.3rem;
 }
 .container {
     display: flex;
@@ -222,15 +216,13 @@ $animationBtn: 0.25s linear;
 }
 .link--call {
     color: $greenColor;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $greenColor;
     }
 }
 .link--sms {
     color: $yellowColor;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $yellowColor;
     }
 }
@@ -240,8 +232,7 @@ $animationBtn: 0.25s linear;
 .btn--delete,
 .btn--confirm,
 .link {
-    &:hover,
-    &:focus {
+    &:hover {
         color: #fff;
     }
 }
@@ -281,9 +272,6 @@ $animationBtn: 0.25s linear;
         border-color: $redColor;
         transform: rotate(180deg);
     }
-    &:focus {
-        box-shadow: 0 0 10px $redColor;
-    }
 }
 .btn--add {
     margin-left: 2.5rem;
@@ -292,8 +280,7 @@ $animationBtn: 0.25s linear;
     .fas {
         transform: skewX(20deg);
     }
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $greenColor;
     }
     &:active {
@@ -304,16 +291,14 @@ $animationBtn: 0.25s linear;
 }
 .btn--edit {
     border-color: transparent;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $blackColor;
     }
 }
 .btn--delete {
     border-color: transparent;
     color: $redColor;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $redColor;
     }
 }
@@ -323,8 +308,7 @@ $animationBtn: 0.25s linear;
     .fas {
         transform: skewX(-20deg);
     }
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: $yellowColor;
     }
 }

@@ -1,8 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
-$greyColor: #cccccc;
-$blueColor: #4c9dfa;
-$blackColor: #0a0a0a;
+@import 'src/assets/colors';
 
 @media (min-width: 992px) {
     nav.mobile {
@@ -63,11 +59,13 @@ $blackColor: #0a0a0a;
 }
 .desktop {
     display: none;
+    background-color: $blackColor;
     .menu {
+        max-width: 1900px;
+        margin: 0 auto;
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        background-color: $blackColor;
     }
     .item .text {
         font-size: 0.8rem;
@@ -88,7 +86,7 @@ $blackColor: #0a0a0a;
         text-decoration: none;
         transition: 0.3s linear;
     }
-    &.item:nth-child(2n+1) {
+    &.item:nth-child(2n + 1) {
         transform: skewX(-20deg);
         .text {
             display: inline-block;
@@ -117,7 +115,7 @@ $blackColor: #0a0a0a;
     &.item--active:nth-child(2n) {
         border-color: transparent $redColor $redColor transparent;
     }
-    &.item--active:nth-child(2n+1) {
+    &.item--active:nth-child(2n + 1) {
         border-color: transparent transparent $redColor $redColor;
     }
 }

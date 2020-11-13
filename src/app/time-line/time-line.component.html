@@ -62,10 +62,12 @@
                 class="cell"
                 data-draggable="true"
                 *ngFor="let reservation of courtOne"
+                [@visible]
+                [ngClass]="{ 'cell--active': reservation.isActive }"
                 [ngStyle]="{
                 gridRowStart: reservation.rowStart,
                 gridRowEnd: reservation.rowEnd}"
-                [ngClass]="{ 'cell--active': reservation.isActive }">
+                >
                 <div class="cell_top">
                     <div class="cell_actions">
                         <button

@@ -1,4 +1,4 @@
-$redColor: #b91616;
+@import 'src/assets/colors';
 .error {
     position: fixed;
     top: 0%;
@@ -18,7 +18,7 @@ $redColor: #b91616;
         padding: 2px 1rem;
         color: $redColor;
         text-transform: uppercase;
-        background-color: #222222;
+        background-color: $blackColor;
         clip-path: polygon(0 0, calc(100% - 19px) 0px, 100% 100%, 19px 100%);
     }
     .title{

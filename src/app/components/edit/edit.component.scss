@@ -1,5 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
+@import "src/assets/colors";
 
 .edit {
     position: fixed;
@@ -52,7 +51,7 @@ $greenColor: #509c1e;
         margin-top: 0.5rem;
         padding: 0.2rem;
         font-size: 1rem;
-        border: 1px solid #999999;
+        border: 1px solid $greyColor;
     }
     select {
         padding: 0.3rem;
@@ -105,14 +104,14 @@ $greenColor: #509c1e;
             }
             &:active {
                 border-style: none none solid solid;
-                color: #000000;
+                color: $blackColor;
             }
         }
         .btn[disabled] {
             border-style: solid;
-            border-color: #7e7e7e;
+            border-color: $greyColor;
             color: #fff;
-            background-color: #7e7e7e;
+            background-color: $greyColor;
             cursor: default;
         }
     }

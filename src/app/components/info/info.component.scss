@@ -1,11 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
-$greyColor: #bbbbbb;
-$blueColor: #4c9dfa;
-$blackColor: #0a0a0a;
-$yellowColor: #a89a16;
-$animationHeight: 0.3s linear;
-$animationBtn: 0.25s linear;
+@import 'src/assets/colors';
 
 .info {
     position: fixed;
@@ -13,11 +6,14 @@ $animationBtn: 0.25s linear;
     top: 0;
     display: flex;
     flex-direction: column;
+    z-index: 4;
     align-items: center;
     justify-content: center;
-    z-index: 2;
 }
+
 .container {
+    width: 88%;
+    max-width: 25rem;
     margin-top: 0.5rem;
     display: flex;
     flex-direction: column;

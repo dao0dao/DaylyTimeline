@@ -1,9 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
-$greyColor: #cccccc;
-$blueColor: #4c9dfa;
-$blackColor: #0a0a0a;
-$animationBtn: 0.25s linear;
+@import 'src/assets/colors';
 
 .add {
     position: fixed;
@@ -25,8 +20,10 @@ $animationBtn: 0.25s linear;
     }
     form {
         padding: 1rem 0rem;
-        transform: skewX(10deg);
         text-align: center;
+    }
+    .skew{
+        transform: skewX(10deg);
     }
     .flex {
         display: flex;

@@ -11,11 +11,18 @@ import { HourService } from 'src/app/service/hour.service';
 import { ApiService } from 'src/app/service/api.service'
 import { myValidators } from 'src/app/validators/myValidators';
 import { ErrorService } from 'src/app/service/error.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  styleUrls: ['./add.component.scss'],
+  animations: [
+    trigger('visible', [
+      transition('void => *', [style({ opacity: 0 }), animate(200)]),
+      transition('* => void', [style({ opacity: 1 }), animate(200, style({ opacity: 0 }))]),
+    ])
+  ]
 })
 export class AddComponent implements OnInit, DoCheck, OnDestroy {
 
@@ -162,11 +169,11 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
         this.firstName.updateValueAndValidity();
         this.lastName.updateValueAndValidity();
       }
-      )
-    };
-    
-    ngDoCheck() {
-      this.users = this.dataService.users
+    )
+  };
+
+  ngDoCheck() {
+    this.users = this.dataService.users
   }
 
   ngOnDestroy() {

@@ -1,14 +1,15 @@
 <div
     *ngIf="isOpen"
-    class="add">
+    class="add"
+    [@visible]>
     <div class="container">
         <form
             [formGroup]="reservationForm"
             (ngSubmit)="submit()">
-            <div class="title margin">
+            <div class="title margin skew">
                 <h2>Dodaj rezerwacje</h2>
             </div>
-            <div class="date margin">
+            <div class="date margin skew">
                 <label for="date">Data</label>
                 <input
                     type="date"
@@ -20,7 +21,7 @@
                     Wymagane pole
                 </p>
             </div>
-            <div class="option">
+            <div class="option skew">
                 <div>
                     <input
                         type="radio"
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <div
-                class="user flex margin"
+                class="user flex margin skew"
                 [ngStyle]="{display : option.value === 'new' ? null : 'none'}">
                 <div class="user_first">
                     <label for="first">Imię</label>
@@ -68,7 +69,7 @@
                 </div>
             </div>
             <div
-                class="user margin"
+                class="user margin skew"
                 [ngStyle]="{display : option.value === 'list' ? null : 'none'}">
                 <select formControlName="fullName">
                     <option value>Wybierz...</option>
@@ -84,7 +85,7 @@
                     Wymagane pole
                 </p>
             </div>
-            <div class="time flex margin">
+            <div class="time flex margin skew">
                 <div class="time_start">
                     <label for="hourStart">Godzina rozpoczęcia</label>
                     <input
@@ -131,7 +132,7 @@
                     Minimalny czas gry to pół godziny
                 </p>
             </div>
-            <div class="court margin">
+            <div class="court margin skew">
                 <label for="court">Kort</label>
                 <select
                     id="court"
@@ -141,7 +142,7 @@
                     <option value="dressroom">Zapasowi</option>
                 </select>
             </div>
-            <div class="actions">
+            <div class="actions skew">
                 <button
                     class="btn btn--submit"
                     type="submit"

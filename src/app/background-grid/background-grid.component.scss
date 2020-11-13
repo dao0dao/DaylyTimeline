@@ -1,8 +1,4 @@
-$redColor: #b91616;
-$greenColor: #509c1e;
-$greyColor: #cccccc;
-$blueColor: #4c9dfa;
-$blackColor: #0a0a0a;
+@import 'src/assets/colors';
 
 .grid {
     width: 100%;
@@ -20,16 +16,16 @@ $blackColor: #0a0a0a;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-left: 1px solid #000000;
-        border-right: 1px solid #000000;
-        color: #dddddd;
+        border-left: 1px solid $blackColor;
+        border-right: 1px solid $blackColor;
+        color: $greyColor;
         &:nth-child(2n + 1) {
-            border-top: 1px solid #dddddd;
-            border-bottom: 1px solid #000000;
+            border-top: 1px solid $greyColor;
+            border-bottom: 1px solid $blackColor;
         }
         &:nth-child(2n) {
-            border-top: 1px solid #000000;
-            border-bottom: 1px solid #dddddd;
+            border-top: 1px solid $blackColor;
+            border-bottom: 1px solid $greyColor;
         }
     }
     .border--hours {
