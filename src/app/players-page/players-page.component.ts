@@ -119,23 +119,10 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       price: this.editPrice.value,
       telephone: this.editTelephone.value
     }
-    this.apiService.updateUser(user).subscribe(
-      (user) => {
-        for (let i = 0; i < this.openUsers.length; i++) {
-          this.openUsers[i] = false
-        }
-        this.editUserForm.reset()
-        this.users.map(el => {
-          if (el.userId === user.userId) {
-            el.userId = user.userId
-            el.firstName = user.firstName
-            el.lastName = user.lastName
-            el.price = user.price
-            el.telephone = user.telephone
-          }
-        })
-      }
-    )
+    this.dataService.updateUser(user)
+    for (let i = 0; i < this.openUsers.length; i++) {
+      this.openUsers[i] = false
+    }
   }
 
   deleteUser(user: User) {

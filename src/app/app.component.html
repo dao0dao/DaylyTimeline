@@ -32,17 +32,19 @@
                 </li>
                 <li
                     class="item item--left"
+                    *ngIf="!authService.isAuth()"
                     routerLinkActive="item--active"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/login']"
                         class="text">
-                        Login
+                        Zaloguj
                     </a>
                 </li>
                 <li
                     class="item item--left"
                     routerLinkActive="item--active"
+                    *ngIf="authService.isAuth()"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/daily_schedule']"
@@ -53,6 +55,7 @@
                 <li
                     class="item"
                     routerLinkActive="item--active"
+                    *ngIf="authService.isAuth()"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/players']"
@@ -62,7 +65,8 @@
                 </li>
                 <li
                     class="item"
-                    (click)="menuActive = !menuActive; authService.logOut()">
+                    (click)="menuActive = !menuActive; authService.logOut()"
+                    *ngIf="authService.isAuth()">
                     <a
                         [routerLink]="['/']"
                         class="text">
@@ -87,16 +91,18 @@
                 <li
                     class="item item--left"
                     routerLinkActive="item--active"
+                    *ngIf="!authService.isAuth()"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/login']"
                         class="text">
-                        Login
+                        Zaloguj
                     </a>
                 </li>
                 <li
                     class="item"
                     routerLinkActive="item--active"
+                    *ngIf="authService.isAuth()"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/daily_schedule']"
@@ -107,6 +113,7 @@
                 <li
                     class="item"
                     routerLinkActive="item--active"
+                    *ngIf="authService.isAuth()"
                     (click)="menuActive = !menuActive">
                     <a
                         [routerLink]="['/players']"
@@ -116,6 +123,7 @@
                 </li>
                 <li
                     class="item item--right"
+                    *ngIf="authService.isAuth()"
                     (click)="menuActive = !menuActive; authService.logOut()">
                     <a
                         [routerLink]="['/']"
@@ -129,11 +137,13 @@
 
 
 
+
     <div class="router">
         <router-outlet></router-outlet>
         <app-alert></app-alert>
         <app-error></app-error>
     </div>
+
 
 
 

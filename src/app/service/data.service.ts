@@ -113,7 +113,13 @@ export class DataService {
     return this.users.find(user => user.userId === id)
   }
 
-  updateUser(user: User) { }
+  updateUser(user: User) {
+    return this.apiService.updateUser(user).subscribe(
+      (res) => {
+        this.users = this.users.map(el => el.userId === res.userId ? el = res : el)
+      },
+    )
+  }
 
   deleteUser(user: User) {
     this.apiService.deleteUser(user).subscribe(

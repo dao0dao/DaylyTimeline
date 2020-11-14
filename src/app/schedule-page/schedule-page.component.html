@@ -64,7 +64,6 @@
                 class="cell"
                 data-draggable="true"
                 *ngFor="let reservation of courtOne"
-                [@visible]
                 [ngClass]="{ 'cell--active': reservation.isActive }"
                 [ngStyle]="{
                     gridRowStart: reservation.rowStart,

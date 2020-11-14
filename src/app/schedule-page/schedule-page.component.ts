@@ -13,11 +13,11 @@ import { AddService } from '../service/add.service';
 
 
 @Component({
-  selector: 'app-time-line',
-  templateUrl: './time-line.component.html',
-  styleUrls: ['./time-line.component.scss']
+  selector: 'app-schedule',
+  templateUrl: './schedule-page.component.html',
+  styleUrls: ['./schedule-page.component.scss']
 })
-export class TimeLineComponent implements OnInit, DoCheck, OnDestroy {
+export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
 
   @ViewChildren('hour') hour: QueryList<ElementRef>
 

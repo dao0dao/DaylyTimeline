@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
-import { TimeLineComponent } from './time-line/time-line.component';
+import { SchedulePageComponent } from './schedule-page/schedule-page.component';
 import { BackgroundGridComponent } from './background-grid/background-grid.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { InfoComponent } from './components/info/info.component';
@@ -30,7 +30,7 @@ const INCEPTOR_PROVIDERS: Provider = {
 @NgModule({
   declarations: [
     AppComponent,
-    TimeLineComponent,
+    SchedulePageComponent,
     BackgroundGridComponent,
     AlertComponent,
     InfoComponent,
