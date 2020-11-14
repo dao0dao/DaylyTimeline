@@ -20,6 +20,7 @@ import {InterceptorService} from './service/interceptor.service';
 import { PlayersPageComponent } from './players-page/players-page.component';
 import { TelephonePipePipe } from './pipes/telephone-pipe.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SearchPipePipe } from './pipes/search-pipe.pipe';
 
 
 const INCEPTOR_PROVIDERS: Provider = {
@@ -41,7 +42,8 @@ const INCEPTOR_PROVIDERS: Provider = {
     AddComponent,
     PlayersPageComponent,
     TelephonePipePipe,
-    HomePageComponent
+    HomePageComponent,
+    SearchPipePipe
   ],
   imports: [
     BrowserModule,

@@ -125,7 +125,7 @@
         <div
             class="player"
             [ngClass]="{'player--active': openUsers[i]}"
-            *ngFor="let user of users; let i= index">
+            *ngFor="let user of users | searchPipe:search ; let i= index">
             <div class="block">
                 <p class="player_info">
                     Imię:
