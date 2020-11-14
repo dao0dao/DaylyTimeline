@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { User } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
 import { ApiService } from '../service/api.service';
@@ -15,8 +16,11 @@ import { ErrorService } from '../service/error.service';
 })
 export class PlayersPageComponent implements OnInit, DoCheck {
 
+  search: string = ''
+
   users: User[] = []
 
+  searchActive: boolean = false
   newPlayerActive: boolean = false
   firstActive: boolean = false
   lastActive: boolean = false
@@ -130,7 +134,11 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     this.alertService.userData(user)
   }
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService, private errorService: ErrorService) { }
+  sanitizeSMS(url: string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService, private errorService: ErrorService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.newUserForm = this.fb.group({

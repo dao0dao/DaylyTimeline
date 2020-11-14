@@ -1,18 +1,61 @@
 @import "src/assets/colors";
 
-.add {
-    max-width: 1200px;
-    margin: 2rem auto;
+.add,
+.search {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: #fff;
     align-items: center;
+    max-width: 1200px;
     .title {
         font-size: 1rem;
     }
     .mr-x {
         margin: 0 1rem;
+    }
+}
+.add {
+    margin: 2rem auto 0;
+}
+.search {
+    margin: 0rem auto 2rem;
+    flex-direction: column;
+    text-align: center;
+    label {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%);
+        transition: $animationHeight;
+        color: $greyColor;
+        &.active {
+            bottom: 100%;
+            color: $blueColor;
+        }
+        &.valid{
+            color: $yellowColor;
+        }
+    }
+    .search_input {
+        position: relative;
+        margin: 1.5rem auto 0;
+    }
+    .search_text {
+        position: relative;
+        width: 200px;
+        padding: 2px;
+        z-index: 1;
+        border-style: solid;
+        border-width: 2px;
+        border-color: transparent transparent $greyColor;
+        color: $blackColor;
+        background-color: transparent;
+        text-align: center;
+        &:focus {
+            border-color: transparent transparent $blueColor;
+        }
     }
 }
 .table {
@@ -112,8 +155,8 @@
     }
 }
 .table--active {
-    max-height: 5rem;
-    padding: 0.3rem;
+    max-height: 7rem;
+    padding-top: 2rem;
 }
 .container {
     display: flex;
@@ -121,7 +164,7 @@
     align-items: center;
     justify-content: flex-start;
     border-top: 2px solid $redColor;
-    .info{
+    .info {
         margin-top: 3rem;
         text-transform: uppercase;
         color: $redColor;

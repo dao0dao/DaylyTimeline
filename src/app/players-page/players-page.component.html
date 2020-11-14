@@ -99,8 +99,27 @@
             </form>
         </div>
     </div>
+    <div class="search">
+        <h2 class="title">Wyszukaj gracza</h2>
+        <div class="search_input">
+            <label
+                for="search_text"
+                [ngClass]="{'active': searchActive, 'valid': search}">
+                Wpisz gracza
+            </label>
+            <input
+                class="search_text"
+                id="search_text"
+                type="text"
+                [(ngModel)]="search"
+                (focus)="focus('searchActive')"
+                (blur)="onBlure('searchActive')">
+        </div>
+    </div>
     <div class="container">
-        <div class="info" *ngIf="users.length === 0">
+        <div
+            class="info"
+            *ngIf="users.length === 0">
             <p>Brak zawodników w bazie danych</p>
         </div>
         <div
@@ -132,7 +151,7 @@
                     <i class="fas fa-phone"></i>
                 </a>
                 <a
-                    href="sms:+48-{{user.telephone | telephonePipe}}"
+                    [href]="sanitizeSMS('sms:+48-'+(user.telephone|telephonePipe))"
                     class="link link--sms">
                     <i class="far fa-envelope"></i>
                 </a>
