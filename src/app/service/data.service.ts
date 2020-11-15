@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { Reservation, Court, User } from '../../environments/interfaces'
 import { ApiService } from './api.service';
 import { HourService } from './hour.service';

@@ -11,7 +11,7 @@ import { HourService } from 'src/app/service/hour.service';
 import { ApiService } from 'src/app/service/api.service'
 import { myValidators } from 'src/app/validators/myValidators';
 import { ErrorService } from 'src/app/service/error.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-add',
@@ -26,7 +26,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class AddComponent implements OnInit, DoCheck, OnDestroy {
 
-  isOpen: boolean = false
+
+  isOpen: boolean = true
   users: User[]
   reservationForm: FormGroup
   wrongTime: boolean = false
@@ -99,7 +100,6 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
         this.addService.toggleAdd(false);
       },
     )
-
   }
 
   get option() {
@@ -126,6 +126,9 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
   get court() {
     return this.reservationForm.get('court')
   }
+  get searchUser() {
+    return this.reservationForm.get('searchUser')
+  }
 
   constructor(private fb: FormBuilder, public dataService: DataService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
 
@@ -137,16 +140,17 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
       }
     );
     this.reservationForm = this.fb.group({
-      option: ['new'],
+      option: ['list'],
       date: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      fullName: [''],
+      firstName: [''],
+      lastName: [''],
+      fullName: ['', Validators.required],
       timeStart: ['', [Validators.required, myValidators.timeValidator]],
       timeEnd: ['', [Validators.required, myValidators.timeValidator]],
       rowStart: [],
       rowEnd: [],
-      court: ['1']
+      court: ['1'],
+      searchUser: ['']
     });
     this.optionSub = this.option.valueChanges.subscribe(
       (value) => {
@@ -163,11 +167,13 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
           this.firstName.setValidators(Validators.required);
           this.lastName.setValidators(Validators.required);
           this.fullName.setValue(null);
+          this.searchUser.setValue('');
           this.fullName.markAsUntouched();
         }
         this.fullName.updateValueAndValidity();
         this.firstName.updateValueAndValidity();
         this.lastName.updateValueAndValidity();
+        this.searchUser.updateValueAndValidity();
       }
     )
   };

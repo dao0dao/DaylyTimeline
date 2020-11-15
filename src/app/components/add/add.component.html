@@ -73,19 +73,20 @@
             <div
                 class="user margin skew"
                 [ngStyle]="{display : option.value === 'list' ? null : 'none'}">
+                <label for="usersList">Słowa kluczowe:</label>
+                <input
+                    list="users"
+                    id="usersList"
+                    name="usersList"
+                    formControlName="searchUser">
                 <select formControlName="fullName">
-                    <option value>Wybierz...</option>
+                    <option value="">Wybierz gracza...</option>
                     <option
-                        *ngFor="let user of users"
+                        *ngFor="let user of users |searchPipe: searchUser.value : true"
                         [value]="user.userId">
                         {{user.firstName}} {{user.lastName}}
                     </option>
                 </select>
-                <p
-                    class="error"
-                    *ngIf="fullName.invalid && fullName.touched">
-                    Wymagane pole
-                </p>
             </div>
             <div class="time flex margin skew">
                 <div class="time_start">

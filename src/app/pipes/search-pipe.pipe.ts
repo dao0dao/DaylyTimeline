@@ -6,13 +6,30 @@ import { User } from 'src/environments/interfaces';
 })
 export class SearchPipePipe implements PipeTransform {
 
-  transform(users: User[], text: string): User[] {
-    let search = text.toLocaleLowerCase()
-    if (!text.trim()) {
+  transform(users: User[], text: string, emtyOnStart: boolean = false): User[] {
+    let search = text.toLocaleLowerCase().trim()
+    let searchWords: Array<any> = search.split(' ')
+    if (emtyOnStart) {
+      if (text === '' && !text.trim()) {
+        return []
+      } else {
+        searchWords.map(word => {
+          users = users.filter(user => (user.firstName.toLocaleLowerCase().includes(word) || user.lastName.toLocaleLowerCase().includes(word) || (user.telephone && user.telephone.toString().includes(word)) || (user.price && user.price.toString().includes(word)) || (user.note && user.note.toLocaleLowerCase().includes(word))))
+        })
+      }
       return users
-    } else {
-      return users.filter(user => (user.firstName.toLocaleLowerCase().includes(search) || user.lastName.toLocaleLowerCase().includes(search) || (user.telephone && user.telephone.toString().includes(search)) || (user.price && user.price.toString().includes(search)) || (user.note && user.note.toLocaleLowerCase().includes(search))))
     }
+    else {
+      if (!text.trim()) {
+        return users
+      } else {
+        searchWords.map(word => {
+          users = users.filter(user => (user.firstName.toLocaleLowerCase().includes(word) || user.lastName.toLocaleLowerCase().includes(word) || (user.telephone && user.telephone.toString().includes(word)) || (user.price && user.price.toString().includes(word)) || (user.note && user.note.toLocaleLowerCase().includes(word))))
+        })
+      }
+      return users
+    }
+
   }
 
 }
