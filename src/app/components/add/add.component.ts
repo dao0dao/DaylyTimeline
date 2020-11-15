@@ -27,7 +27,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class AddComponent implements OnInit, DoCheck, OnDestroy {
 
 
-  isOpen: boolean = true
+  isOpen: boolean = false
   users: User[]
   reservationForm: FormGroup
   wrongTime: boolean = false
