@@ -12,7 +12,7 @@ export class DataService {
     let canChange: boolean[] = []
     this.reservation.map(
       res => {
-        if (res.court === court && res.reservationId !== item.reservationId && (rowStart < res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowEnd > res.rowEnd)) {
+        if (res.court === court && res.reservationId !== item.reservationId && (rowStart < res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowEnd > res.rowEnd) && !(rowStart <=res.rowStart && rowEnd >= res.rowEnd)) {
           canChange.push(true)
         } else if (res.court === court && res.reservationId === item.reservationId) {
           canChange.push(true)

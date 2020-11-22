@@ -2,7 +2,9 @@
     <div class="background">
         <form class="container" [formGroup]="reservationForm" (ngSubmit)="applyChanges()">
             <h2 class="title">Edycja rezerwacji</h2>
-            <input class="user" type="text" [value]="user">
+            <div class="user">
+                <p>{{user}}</p>
+            </div>
             <div class="time">
                 <div class="time--start">
                     <label for="hour--start">

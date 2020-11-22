@@ -9,8 +9,27 @@
     outline: none;
     scrollbar-color: $redColor $blackColor;
     scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $blackColor;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $redColor;
+    }
 }
 body {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

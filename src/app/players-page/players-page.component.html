@@ -25,14 +25,14 @@
                     <input
                         type="text"
                         id="firstName"
+                        maxlength="15"
                         formControlName="firstName"
                         (focus)="focus('firstActive')"
                         (blur)="onBlure('firstActive')">
-                    <p
-                        class="error"
-                        *ngIf="firstName.invalid && firstName.touched">
-                        Wymagane pole
-                    </p>
+                    <div class="error">
+                        <p *ngIf="firstName.errors?.maxlength || firstName.value.length === 15">Max 15 znaków</p>
+                        <p *ngIf="firstName.errors?.required && firstName.touched">Wymagane pole</p>
+                    </div>
                 </div>
                 <div class="form_cell lastName">
                     <label
@@ -45,14 +45,14 @@
                     <input
                         type="text"
                         id="lastName"
+                        maxlength="30"
                         formControlName="lastName"
                         (focus)="focus('lastActive')"
                         (blur)="onBlure('lastActive')">
-                    <p
-                        class="error"
-                        *ngIf="lastName.invalid && lastName.touched">
-                        Wymagane pole
-                    </p>
+                    <div class="error">
+                        <p *ngIf="lastName.errors?.maxlength || lastName.value.length === 30">Max 30 znaków</p>
+                        <p *ngIf="lastName.errors?.required && lastName.touched">Wymagane pole</p>
+                    </div>
                 </div>
                 <div class="form_cell price">
                     <label
@@ -68,11 +68,21 @@
                     </p>
                     <input
                         min="0"
+                        max="999"
+                        maxlength="3"
                         type="number"
                         id="price"
                         formControlName="price"
                         (focus)="focus('priceActive')"
                         (blur)="onBlure('priceActive')">
+                    <div class="error">
+                        <p *ngIf="price.errors?.max">Max 999zł</p>
+                        <p
+                            class="text--left"
+                            *ngIf="price.errors?.priceComa">
+                            Do setnych
+                        </p>
+                    </div>
                 </div>
                 <div class="form_cell telephone">
                     <label
@@ -82,11 +92,15 @@
                         Telefon
                     </label>
                     <input
-                        type="number"
+                        type="tel"
                         id="telephone"
                         formControlName="telephone"
                         (focus)="focus('telephoneActive')"
                         (blur)="onBlure('telephoneActive')">
+                    <div class="error">
+                        <p *ngIf="telephone.errors?.telephoneValidator">Tylko liczby</p>
+                        <p *ngIf="telephone.errors?.telephoneLength">Wymagane 9 cyfr</p>
+                    </div>
                 </div>
                 <div class="action">
                     <button
@@ -104,7 +118,7 @@
         <div class="search_input">
             <label
                 for="search_text"
-                [ngClass]="{'active': searchActive, 'valid': search}">
+                [ngClass]="{'active': searchActive || search, 'valid': search}">
                 Wpisz gracza
             </label>
             <input
@@ -126,31 +140,35 @@
             class="player"
             [ngClass]="{'player--active': openUsers[i]}"
             *ngFor="let user of users | searchPipe:search ; let i= index">
-            <div class="block">
-                <p class="player_info">
-                    Imię:
-                    <span>{{user.firstName}}</span>
-                </p>
-                <p class="player_info">
-                    Nazwisko:
-                    <span>{{user.lastName}}</span>
-                </p>
+            <div class="block block--player">
+                <div class="player_info">
+                    <p class="title">Imię:</p>
+                    <p class="text">{{user.firstName}}</p>
+                </div>
+                <div class="player_info">
+                    <p class="title">Nazwisko:</p>
+                    <p class="text">{{user.lastName}}</p>
+                </div>
                 <p class="player_info">
                     Cena:
-                    <span>{{user.price}}zł</span>
+                    <span class="text">{{user.price}}zł</span>
                 </p>
-                <p class="player_info">
+                <p
+                    class="player_info"
+                    *ngIf="user.telephone">
                     Tel.:
-                    <span>{{user.telephone |telephonePipe}}</span>
+                    <span class="text">{{user.telephone |telephonePipe}}</span>
                 </p>
             </div>
             <div class="block block--action">
                 <a
+                    *ngIf="user.telephone"
                     href="tel:+48-{{user.telephone | telephonePipe}}"
                     class="link link--call">
                     <i class="fas fa-phone"></i>
                 </a>
                 <a
+                    *ngIf="user.telephone"
                     [href]="sanitizeSMS('sms:+48-'+(user.telephone|telephonePipe))"
                     class="link link--sms">
                     <i class="far fa-envelope"></i>
@@ -158,6 +176,7 @@
                 <button
                     type="button"
                     class="btn btn--edit"
+                    [ngClass]="{'btn--edit--active': openUsers[i]}"
                     (click)="openEdit(i, user)">
                     <i class="fas fa-user-edit"></i>
                 </button>
@@ -185,14 +204,14 @@
                         <input
                             type="text"
                             id="firstName"
+                            maxlength="15"
                             formControlName="firstName"
                             (focus)="focus('editFirst')"
                             (blur)="onBlure('editFirst')">
-                        <p
-                            class="error"
-                            *ngIf="editFirstName.invalid && editFirstName.touched">
-                            Wymagane pole
-                        </p>
+                        <div class="error">
+                            <p *ngIf="editFirstName.errors?.maxlength || editFirstName.value?.length === 15">Max 15 znaków</p>
+                            <p *ngIf="editFirstName.errors?.required && editFirstName.touched">Wymagane pole</p>
+                        </div>
                     </div>
                     <div class="form_cell lastName">
                         <label
@@ -205,14 +224,14 @@
                         <input
                             type="text"
                             id="lastName"
+                            maxlength="30"
                             formControlName="lastName"
                             (focus)="focus('editLast')"
                             (blur)="onBlure('editLast')">
-                        <p
-                            class="error"
-                            *ngIf="editLastName.invalid && editLastName.touched">
-                            Wymagane pole
-                        </p>
+                        <div class="error">
+                            <p *ngIf="editLastName.errors?.maxlength || editLastName.value?.length === 30">Max 30 znaków</p>
+                            <p *ngIf="editLastName.errors?.required && editLastName.touched">Wymagane pole</p>
+                        </div>
                     </div>
                     <div class="form_cell price">
                         <label
@@ -228,11 +247,21 @@
                         </p>
                         <input
                             min="0"
+                            max="200"
+                            maxlength="3"
                             type="number"
                             id="price"
                             formControlName="price"
                             (focus)="focus('editedPrice')"
                             (blur)="onBlure('editedPrice')">
+                        <div class="error">
+                            <p *ngIf="editPrice.errors?.max">Max 999zł</p>
+                            <p
+                                class="text--left"
+                                *ngIf="editPrice.errors?.priceComa">
+                                Do setnych
+                            </p>
+                        </div>
                     </div>
                     <div class="form_cell telephone">
                         <label
@@ -242,11 +271,15 @@
                             Telefon
                         </label>
                         <input
-                            type="number"
+                            type="tel"
                             id="telephone"
                             formControlName="telephone"
                             (focus)="focus('editTel')"
                             (blur)="onBlure('editTel')">
+                        <div class="error">
+                            <p *ngIf="editTelephone.errors?.telephoneValidator">Tylko liczby</p>
+                            <p *ngIf="editTelephone.errors?.telephoneLength">Wymagane 9 cyfr</p>
+                        </div>
                     </div>
                     <div class="action">
                         <button

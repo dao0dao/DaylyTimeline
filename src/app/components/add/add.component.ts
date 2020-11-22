@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/service/data.service';
@@ -24,7 +24,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ])
   ]
 })
-export class AddComponent implements OnInit, DoCheck, OnDestroy {
+export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentInit {
 
 
   isOpen: boolean = false
@@ -180,6 +180,8 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy {
 
   ngDoCheck() {
     this.users = this.dataService.users
+  }
+  ngAfterContentInit(){
   }
 
   ngOnDestroy() {

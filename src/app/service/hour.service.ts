@@ -23,7 +23,8 @@ export class HourService {
       if (min < 10) { min = '0' + min }
       const newHour: Hours = {
         hour: `${hh}:${min}`,
-        rowStart: i + 1
+        rowStart: i + 1,
+        offSetTop: 0 + (i-1) * 65
       }
       this.hours.push(newHour)
     }

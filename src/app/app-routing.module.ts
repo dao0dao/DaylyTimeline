@@ -6,11 +6,13 @@ import { SchedulePageComponent } from './schedule-page/schedule-page.component';
 import { AuthGuard } from './service/auth-guard.service'
 import { PlayersPageComponent } from './players-page/players-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SchdulePageVersion2Component } from './schdule-page-version2/schdule-page-versio2.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'daily_schedule', component: SchedulePageComponent, canActivate: [AuthGuard] },
+  { path: 'daily_schedule_v2', component: SchdulePageVersion2Component, canActivate: [AuthGuard] },
   { path: 'players', component: PlayersPageComponent, canActivate: [AuthGuard] },
 ]
 

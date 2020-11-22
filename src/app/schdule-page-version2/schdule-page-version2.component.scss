@@ -1,0 +1,78 @@
+@import "src/assets/colors";
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .time_input {
+        margin: 1rem 0.5rem;
+        padding: 0.2rem;
+        font-size: 1rem;
+    }
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-self: flex-start;
+}
+.hours {
+    flex-basis: 100px;
+}
+.courts {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+}
+.cell {
+    height: 65px;
+    border: 1px solid $greyColor;
+    text-align: center;
+}
+.players {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
+
+.btn {
+    padding: 0.2rem 0.4rem;
+    border-width: 2px;
+    font-size: 1rem;
+    background-color: #fff;
+    cursor: pointer;
+    transition: $animationCell;
+    &:disabled {
+        opacity: 0.1;
+        cursor: default;
+        &:hover {
+            color: initial;
+            background-color: initial;
+        }
+    }
+}
+.btn--add {
+    border-style: solid;
+    border-color: transparent $greenColor;
+    transform: skewX(20deg);
+    text-transform: uppercase;
+    background-color: #fff;
+    .actions--fixed & {
+        border-color: $greenColor;
+    }
+    .btn_text {
+        display: inline-block;
+        transform: skewX(-20deg);
+    }
+    &:hover {
+        color: #fff;
+        background-color: $greenColor;
+    }
+    &:active {
+        border: 2px solid $greenColor;
+        color: $greenColor;
+        background-color: #fff;
+    }
+}

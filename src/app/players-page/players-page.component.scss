@@ -34,7 +34,7 @@
             bottom: 100%;
             color: $blueColor;
         }
-        &.valid{
+        &.valid {
             color: $yellowColor;
         }
     }
@@ -76,7 +76,7 @@
     align-items: center;
     .form_cell {
         position: relative;
-        margin: 0.8rem 1rem;
+        margin: 1rem 1rem 2rem;
     }
     label {
         position: absolute;
@@ -155,7 +155,7 @@
     }
 }
 .table--active {
-    max-height: 7rem;
+    max-height: 11rem;
     padding-top: 2rem;
 }
 .container {
@@ -189,10 +189,26 @@
         justify-content: space-between;
         color: $greyColor;
         font-size: 0.8rem;
-        span {
+        .title,
+        .text {
+            display: inline-block;
+        }
+        .text {
             margin: 0 2px;
+            overflow: auto;
             color: $yellowColor;
             font-size: 1rem;
+            white-space: nowrap;
+            scrollbar-color: $scrollbarColor;
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: $greyColor;
+            }
+            @media (max-width: 992px) {
+                padding-bottom: 7px;
+            }
         }
     }
     .player--active {
@@ -203,7 +219,12 @@
     .block {
         transform: skewX(10deg);
     }
+    .block--player {
+        max-width: 11rem;
+        width: calc(100% - 8rem);
+    }
     .block--action {
+        flex-basis: 8rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -241,18 +262,24 @@
             overflow: hidden;
         }
         .form_cell {
-            margin: 0.8rem 0rem;
+            margin: 0.8rem 0rem 2rem;
         }
         .form--active {
             padding-top: 0.5rem;
-            max-height: 6.5rem;
+            max-height: 9.5rem;
         }
     }
 }
 .error {
     position: absolute;
+    width: max-content;
+    margin: 0;
     font-size: 0.8rem;
     color: $redColor;
+    .text--left {
+        position: relative;
+        right: 8%;
+    }
 }
 .link {
     padding: 3px;
@@ -340,6 +367,10 @@
 .btn--edit {
     border-color: transparent;
     &:hover {
+        background-color: $blackColor;
+    }
+    &--active {
+        color: #fff;
         background-color: $blackColor;
     }
 }

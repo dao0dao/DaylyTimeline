@@ -16,10 +16,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from './service/auth-guard.service';
 import { AddComponent } from './components/add/add.component';
-import {InterceptorService} from './service/interceptor.service';
+import { InterceptorService } from './service/interceptor.service';
 import { PlayersPageComponent } from './players-page/players-page.component';
 import { TelephonePipePipe } from './pipes/telephone-pipe.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SchdulePageVersion2Component } from './schdule-page-version2/schdule-page-versio2.component'
 import { SearchPipePipe } from './pipes/search-pipe.pipe';
 
 
@@ -43,6 +44,7 @@ const INCEPTOR_PROVIDERS: Provider = {
     PlayersPageComponent,
     TelephonePipePipe,
     HomePageComponent,
+    SchdulePageVersion2Component,
     SearchPipePipe
   ],
   imports: [
@@ -51,7 +53,7 @@ const INCEPTOR_PROVIDERS: Provider = {
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthGuard, INCEPTOR_PROVIDERS],
   bootstrap: [AppComponent]

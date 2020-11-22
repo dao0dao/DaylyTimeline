@@ -22,16 +22,20 @@ export interface Reservation {
     court: Court,
     timeStart: string,
     timeEnd: string,
-    rowStart: number,
-    duration: number,
-    rowEnd: number,
+    duration?: number,
+    rowStart?: number,
+    rowEnd?: number,
+    top?:number,
+    left?:number,
+    zIndex?:number,
     user: User,
     isActive?: boolean
 }
 
 export interface Hours {
     hour: string,
-    rowStart: number
+    rowStart: number,
+    offSetTop: number
 }
 
 export interface LoginUser {

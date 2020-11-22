@@ -16,15 +16,11 @@
         max-width: 600px;
         margin: 2rem auto 0;
         border: 2px solid $redColor;
-        // transform: skewX(-10deg);
         background-color: #fff;
     }
     form {
         padding: 1rem 0rem;
         text-align: center;
-    }
-    .skew {
-        // transform: skewX(10deg);
     }
     .flex {
         display: flex;
@@ -42,6 +38,10 @@
         border-width: 2px;
         border-color: $greyColor;
         outline: none;
+        &[id="court"] {
+            width: 85px;
+            text-align-last:center
+        }
         &:focus {
             border-color: $blueColor;
         }

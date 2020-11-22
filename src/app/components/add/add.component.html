@@ -6,10 +6,10 @@
         <form
             [formGroup]="reservationForm"
             (ngSubmit)="submit()">
-            <div class="title margin skew">
+            <div class="title margin ">
                 <h2>Dodaj rezerwacje</h2>
             </div>
-            <div class="date margin skew">
+            <div class="date margin ">
                 <label for="date">Data</label>
                 <input
                     type="date"
@@ -23,7 +23,7 @@
                     Wymagane pole
                 </p>
             </div>
-            <div class="option skew">
+            <div class="option ">
                 <div>
                     <input
                         type="radio"
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div
-                class="user flex margin skew"
+                class="user flex margin "
                 [ngStyle]="{display : option.value === 'new' ? null : 'none'}">
                 <div class="user_first">
                     <label for="first">Imię</label>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div
-                class="user margin skew"
+                class="user margin "
                 [ngStyle]="{display : option.value === 'list' ? null : 'none'}">
                 <label for="usersList">Słowa kluczowe:</label>
                 <input
@@ -79,16 +79,17 @@
                     id="usersList"
                     name="usersList"
                     formControlName="searchUser">
-                <select formControlName="fullName">
-                    <option value="">Wybierz gracza...</option>
+                <select
+                    class="user_select"
+                    formControlName="fullName">
                     <option
-                        *ngFor="let user of users |searchPipe: searchUser.value : true"
+                        *ngFor="let user of users |searchPipe: searchUser.value"
                         [value]="user.userId">
                         {{user.firstName}} {{user.lastName}}
                     </option>
                 </select>
             </div>
-            <div class="time flex margin skew">
+            <div class="time flex margin ">
                 <div class="time_start">
                     <label for="hourStart">Godzina rozpoczęcia</label>
                     <input
@@ -96,6 +97,7 @@
                         id="hourStart"
                         min="00:00"
                         max="23:59"
+                        step="1800"
                         formControlName="timeStart"
                         (change)="inputChange()">
                     <p
@@ -116,6 +118,7 @@
                         id="hourEnd"
                         min="00:00"
                         max="23:59"
+                        step="1800"
                         formControlName="timeEnd"
                         (change)="inputChange()">
                     <p
@@ -135,7 +138,7 @@
                     Minimalny czas gry to pół godziny
                 </p>
             </div>
-            <div class="court margin skew">
+            <div class="court margin ">
                 <label for="court">Kort</label>
                 <select
                     id="court"
@@ -145,7 +148,7 @@
                     <option value="dressroom">Zapasowi</option>
                 </select>
             </div>
-            <div class="actions skew">
+            <div class="actions ">
                 <button
                     class="btn btn--submit"
                     type="submit"

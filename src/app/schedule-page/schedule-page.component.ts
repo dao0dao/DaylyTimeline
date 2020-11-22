@@ -126,7 +126,6 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
   constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService, private addService: AddService) { }
 
   ngOnInit() {
-    this.hourService.pushHours()
     this.hours = this.hourService.hours
     this.infoSub = this.infoService.cancleDrag$.subscribe(
       (res) => { res && this.dragEnd() }
@@ -143,7 +142,6 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.hourService.removeHours()
     this.infoSub.unsubscribe()
     this.openSub.unsubscribe()
   }

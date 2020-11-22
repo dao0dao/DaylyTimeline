@@ -6,6 +6,7 @@ import { AlertService } from '../service/alert.service';
 import { ApiService } from '../service/api.service';
 import { DataService } from '../service/data.service';
 import { ErrorService } from '../service/error.service';
+import { myValidators } from '../validators/myValidators';
 
 
 @Component({
@@ -83,7 +84,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     user = {
       firstName: this.firstName.value,
       lastName: this.lastName.value,
-      price: this.price.value,
+      price: this.price.value != '' ? this.price.value.toFixed(2) : '0',
       telephone: this.telephone.value
     }
     if (this.users.length < 10) {
@@ -120,7 +121,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       userId: this.userId.value,
       firstName: this.editFirstName.value,
       lastName: this.editLastName.value,
-      price: this.editPrice.value,
+      price: this.editPrice.value !== '' ? this.editPrice.value.toFixed(2) : '0',
       telephone: this.editTelephone.value
     }
     this.dataService.updateUser(user)
@@ -134,7 +135,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     this.alertService.userData(user)
   }
 
-  sanitizeSMS(url: string){
+  sanitizeSMS(url: string) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
@@ -142,18 +143,18 @@ export class PlayersPageComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.newUserForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      price: [null],
-      telephone: [null]
+      firstName: ['', [Validators.required, Validators.maxLength(15)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      price: [null, [Validators.max(999), myValidators.priceComa]],
+      telephone: [null, [myValidators.telephoneValidator, myValidators.telephoneLength]]
     })
 
     this.editUserForm = this.fb.group({
       userId: [],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      price: [null],
-      telephone: [null]
+      firstName: ['', [Validators.required, Validators.maxLength(15)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      price: [null, [Validators.max(999), myValidators.priceComa]],
+      telephone: [null, [myValidators.telephoneValidator, myValidators.telephoneLength]]
     })
   }
 

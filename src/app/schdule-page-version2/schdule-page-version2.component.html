@@ -1,0 +1,53 @@
+<div class="actions">
+    <div class="time">
+        <label for="time">Dzień:</label>
+        <input
+            type="date"
+            class="time_input"
+            id="time"
+            min="2020-11-13"
+            max="2020-11-14"
+            [(ngModel)]="date"
+            (change)="inputChange()">
+    </div>
+    <button
+        type="button"
+        class="btn btn--add">
+        <span class="btn_text">Dodaj rezerwacje</span>
+    </button>
+</div>
+<div class="container">
+    <div class="players">
+        <div class="player"></div>
+    </div>
+    <div class="hours">
+        <div
+            *ngFor="let hour of hours"
+            class="hour cell">
+            <p>{{hour.hour}}</p>
+        </div>
+    </div>
+    <div class="courts">
+        <div class="court court--one">
+            <div
+                class="court_hour cell"
+                *ngFor="let courtOne of hours">
+                {{courtOne.hour}}
+            </div>
+        </div>
+        <div class="court court--two">
+            <div
+                class="court_hour cell"
+                *ngFor="let courtTwo of hours">
+                {{courtTwo.hour}}
+            </div>
+        </div>
+        <div class="court court--three">
+            <div
+                class="court_hour cell"
+                *ngFor="let courtThree of hours">
+                {{courtThree.hour}}
+            </div>
+        </div>
+    </div>
+</div>
