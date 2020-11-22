@@ -82,6 +82,7 @@
                 <select
                     class="user_select"
                     formControlName="fullName">
+                    <option value="" selected>Wybierz gracza...</option>
                     <option
                         *ngFor="let user of users |searchPipe: searchUser.value"
                         [value]="user.userId">
