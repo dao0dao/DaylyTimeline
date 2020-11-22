@@ -1,4 +1,4 @@
-@import 'src/assets/colors';
+@import "src/assets/colors";
 
 .info {
     position: fixed;
@@ -38,10 +38,16 @@
     }
     .reservation {
         padding: 0 1.1rem 0 1.2rem;
-        .name{
+        .name {
             overflow: auto;
             white-space: nowrap;
             scrollbar-color: $greyColor transparent;
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: $greyColor;
+            }
         }
     }
     .btn {
