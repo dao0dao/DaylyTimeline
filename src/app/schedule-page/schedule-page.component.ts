@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Hours, Reservation, Court } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
@@ -123,7 +123,7 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService, private addService: AddService) { }
+  constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService, private addService: AddService,) { }
 
   ngOnInit() {
     this.hours = this.hourService.hours

@@ -110,14 +110,14 @@
         border-width: 2px;
         z-index: 1;
         background-color: transparent;
-        &[id="firstName"] {
+        &[id*="firstName"] {
             border-color: transparent transparent $greyColor $greyColor;
             &:focus {
                 border-color: transparent transparent $blueColor $blueColor;
             }
         }
-        &[id="lastName"],
-        &[id="telephone"] {
+        &[id*="lastName"],
+        &[id*="telephone"] {
             border-color: transparent transparent $greyColor;
             text-align: center;
             &:focus {
@@ -131,7 +131,7 @@
             -webkit-appearance: none;
             -moz-appearance: textfield;
         }
-        &[id="price"] {
+        &[id*="price"] {
             width: 45px;
             border-color: transparent $greyColor $greyColor transparent;
             text-align: right;

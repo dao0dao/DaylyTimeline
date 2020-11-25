@@ -48,26 +48,26 @@
                     <label for="first">Imię</label>
                     <input
                         type="text"
+                        maxlength="15"
                         id="first"
                         list="firstName"
                         formControlName="firstName">
-                    <p
-                        class="error"
-                        *ngIf="firstName.invalid && firstName.touched">
-                        Wymagane pole
-                    </p>
+                    <div class="error">
+                        <p *ngIf="firstName.errors?.required && firstName.touched">Wymagane pole</p>
+                        <p *ngIf="firstName.errors?.maxLength || firstName.value?.length === 15">Max 15 znaków</p>
+                    </div>
                 </div>
                 <div class="user_last">
                     <label for="last">Nazwisko</label>
                     <input
                         type="text"
+                        maxlength="30"
                         id="last"
                         formControlName="lastName">
-                    <p
-                        class="error"
-                        *ngIf="lastName.invalid && lastName.touched">
-                        Wymagane pole
-                    </p>
+                    <div class="error">
+                        <p *ngIf="lastName.errors?.required && lastName.touched">Wymagane pole</p>
+                        <p *ngIf="lastName.errors?.maxLength || lastName.value?.length === 30">Max 30 znaków</p>
+                    </div>
                 </div>
             </div>
             <div
@@ -82,7 +82,11 @@
                 <select
                     class="user_select"
                     formControlName="fullName">
-                    <option value="" selected>Wybierz gracza...</option>
+                    <option
+                        value
+                        selected>
+                        Wybierz gracza...
+                    </option>
                     <option
                         *ngFor="let user of users |searchPipe: searchUser.value"
                         [value]="user.userId">

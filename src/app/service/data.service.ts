@@ -12,7 +12,7 @@ export class DataService {
     let canChange: boolean[] = []
     this.reservation.map(
       res => {
-        if (res.court === court && res.reservationId !== item.reservationId && (rowStart < res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowEnd > res.rowEnd) && !(rowStart <=res.rowStart && rowEnd >= res.rowEnd)) {
+        if (res.court === court && res.reservationId !== item.reservationId && (rowStart < res.rowStart || rowStart >= res.rowEnd) && (rowEnd <= res.rowStart || rowEnd > res.rowEnd) && !(rowStart <= res.rowStart && rowEnd >= res.rowEnd)) {
           canChange.push(true)
         } else if (res.court === court && res.reservationId === item.reservationId) {
           canChange.push(true)
@@ -24,8 +24,8 @@ export class DataService {
     return canChange
   }
 
-  canAddReservation(court: Court, rowStart: number, rowEnd: number): Array<boolean> {
-    let courtSchedule = [...this.reservation.filter(el => el.court === court)]
+  canAddReservation(reservation: Reservation): Array<boolean> {
+    let courtSchedule = [...this.reservation.filter(el => el.court === reservation.court)]
     let canAdd: boolean[] = []
     if (courtSchedule.length === 10) {
       canAdd.push(false)
@@ -33,7 +33,7 @@ export class DataService {
     else if (courtSchedule.length !== 0) {
       courtSchedule.map(
         court => {
-          if ((rowStart < court.rowStart || rowStart >= court.rowEnd) && (rowEnd < court.rowEnd || rowEnd > court.rowEnd)) {
+          if ((reservation.rowStart < court.rowStart || reservation.rowStart >= court.rowEnd) && (reservation.rowEnd <= court.rowStart || reservation.rowEnd > court.rowEnd) && !(reservation.rowStart <= court.rowStart && reservation.rowEnd >= court.rowEnd)) {
             canAdd.push(true)
           } else {
             canAdd.push(false)

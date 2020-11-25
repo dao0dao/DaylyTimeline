@@ -92,7 +92,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
       year, month, day, court, timeStart, timeEnd, rowStart, rowEnd, duration, user
     }
 
-    this.dataService.canAddReservation(court, rowStart, rowEnd).includes(false) ? this.errorService.toggleError(true, 'Godzina zajęta') : this.apiService.addReservation(reservation).subscribe(
+    this.dataService.canAddReservation(reservation).includes(false) ? this.errorService.toggleError(true, 'Godzina zajęta') : this.apiService.addReservation(reservation).subscribe(
       res => {
         reservation.reservationId = res.name;
         this.dataService.addReservation(reservation);
@@ -164,8 +164,8 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
           this.lastName.markAsUntouched();
         } else if (value === 'new') {
           this.fullName.setValidators(null);
-          this.firstName.setValidators(Validators.required);
-          this.lastName.setValidators(Validators.required);
+          this.firstName.setValidators([Validators.required, Validators.maxLength(15)]);
+          this.lastName.setValidators([Validators.required, Validators.maxLength(30)]);
           this.fullName.setValue(null);
           this.searchUser.setValue('');
           this.fullName.markAsUntouched();
