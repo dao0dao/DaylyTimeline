@@ -6,7 +6,7 @@ import { User } from 'src/environments/interfaces';
 })
 export class SearchPipePipe implements PipeTransform {
 
-  transform(users: User[], text: string): User[] {
+  transform(users: User[], text: string | null): User[] {
     let search = text.toLocaleLowerCase().trim()
     let searchWords: Array<any> = search.split(' ')
     if (!text.trim()) {
@@ -18,4 +18,5 @@ export class SearchPipePipe implements PipeTransform {
     }
     return users
   }
+
 }

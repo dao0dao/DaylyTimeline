@@ -16,7 +16,6 @@ export class EditServiceService {
   }
 
   editData(reservation: Reservation) {
-    console.log(reservation);
     this.editData$.next(reservation)
   }
 

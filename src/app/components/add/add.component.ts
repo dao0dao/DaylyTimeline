@@ -97,7 +97,10 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
         reservation.reservationId = res.name;
         this.dataService.addReservation(reservation);
         this.reservationForm.reset();
+        this.searchUser.setValue('');
+        this.option.setValue('list')
         this.addService.toggleAdd(false);
+        this.court.setValue('1')
       },
     )
   }
@@ -181,7 +184,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
   ngDoCheck() {
     this.users = this.dataService.users
   }
-  ngAfterContentInit(){
+  ngAfterContentInit() {
   }
 
   ngOnDestroy() {
