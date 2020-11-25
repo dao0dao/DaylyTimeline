@@ -81,10 +81,11 @@ export class PlayersPageComponent implements OnInit, DoCheck {
 
   submit() {
     let user: User
+
     user = {
       firstName: this.firstName.value,
       lastName: this.lastName.value,
-      price: this.price.value != '' ? this.price.value.toFixed(2) : '0',
+      price: this.price.value === null ? 0 : Math.abs(this.price.value.toFixed(2)),
       telephone: this.telephone.value
     }
     if (this.users.length < 10) {
@@ -95,8 +96,11 @@ export class PlayersPageComponent implements OnInit, DoCheck {
           this.newUserForm.reset()
         }
       );
+      this.newPlayerActive = false
     } else {
       this.errorService.toggleError(true, 'Limit graczy')
+      this.newUserForm.reset()
+      this.newPlayerActive = false
     }
   }
 
@@ -107,7 +111,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
         this.userId.setValue(user.userId)
         this.editFirstName.setValue(user.firstName)
         this.editLastName.setValue(user.lastName)
-        this.editPrice.setValue(user.price)
+        this.editPrice.setValue(user.price === null ? '0' : user.price)
         this.editTelephone.setValue(user.telephone)
       } else {
         this.editUserForm.reset()
@@ -121,7 +125,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       userId: this.userId.value,
       firstName: this.editFirstName.value,
       lastName: this.editLastName.value,
-      price: this.editPrice.value !== '' ? this.editPrice.value.toFixed(2) : '0',
+      price: this.editPrice.value === null ? 0 : Math.abs(this.editPrice.value.toFixed(2)),
       telephone: this.editTelephone.value
     }
     this.dataService.updateUser(user)
@@ -161,9 +165,6 @@ export class PlayersPageComponent implements OnInit, DoCheck {
   ngDoCheck() {
     this.users = this.dataService.users
     this.openUsers = this.dataService.openUser
-    if (!this.price.value) {
-      this.price.setValue('')
-    }
     if (!this.telephone.value) {
       this.telephone.setValue('')
     }

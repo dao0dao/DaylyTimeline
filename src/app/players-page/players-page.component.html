@@ -58,7 +58,7 @@
                     <label
                         for="price"
                         class="price_text"
-                        [ngClass]="{'active': priceActive || price.value, 'valid--add': price.value  }">
+                        [ngClass]="{'active': priceActive || price.value || price.value ===0, 'valid--add': price.value || price.value ===0  }">
                         Cena
                     </label>
                     <p
@@ -76,7 +76,7 @@
                         (focus)="focus('priceActive')"
                         (blur)="onBlure('priceActive')">
                     <div class="error">
-                        <p *ngIf="price.errors?.priceNatural">Tylko liczby</p>
+                        <p *ngIf="price.errors">Tylko liczby</p>
                         <p *ngIf="price.errors?.max">Max 999zł</p>
                         <p
                             class="text--left"
@@ -238,7 +238,7 @@
                         <label
                             for="priceEdit"
                             class="price_text"
-                            [ngClass]="{'active': editedPrice || editPrice.value, 'valid--add': editPrice.value  }">
+                            [ngClass]="{'active': editedPrice || editPrice.value || editPrice.value === 0 , 'valid--add': editPrice.value || editPrice.value === 0  }">
                             Cena
                         </label>
                         <p

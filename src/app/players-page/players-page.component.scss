@@ -80,8 +80,10 @@
     }
     label {
         position: absolute;
-        top: 0;
+        top: 0px;
+        z-index: 2;
         color: $greyColor;
+        background-color: #fff;
         transition: top $animationHeight;
         &.firstName_text {
             left: 6%;
@@ -92,7 +94,7 @@
             transform: translateX(-50%);
         }
         &.price_text {
-            left: 0%;
+            right: 10%;
         }
         &.active {
             top: -75%;
