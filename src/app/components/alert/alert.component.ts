@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { UsersService } from 'src/app/service/users.service';
 import { Reservation, User } from 'src/environments/interfaces';
 
 import { AlertService } from '../../service/alert.service'
@@ -25,7 +26,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   removeUser() {
-    this.dataService.deleteUser(this.user)
+    this.userService.deleteUser(this.user)
     this.closeAlert()
   }
 
@@ -35,7 +36,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.alertService.userData(false)
   }
 
-  constructor(private alertService: AlertService, private dataService: DataService) { }
+  constructor(private alertService: AlertService, private dataService: DataService, private userService : UsersService) { }
 
   ngOnInit() {
     this.toggler = this.alertService.alertToggle$.subscribe(

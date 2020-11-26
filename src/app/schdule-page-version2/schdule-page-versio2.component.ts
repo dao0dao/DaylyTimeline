@@ -3,6 +3,7 @@ import * as moment from 'moment'
 import { Hours, User } from 'src/environments/interfaces';
 import { DataService } from '../service/data.service';
 import { HourService } from '../service/hour.service';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-schdule-page-version2',
@@ -26,11 +27,11 @@ export class SchdulePageVersion2Component implements OnInit {
     this.dataService.getByDate(this.dateY, this.dateM, this.dateD)
   }
 
-  constructor(private dataService: DataService, private hourService: HourService) { }
+  constructor(private dataService: DataService, private userService : UsersService, private hourService: HourService) { }
 
   ngOnInit() {
     this.inputChange()
-    this.dataService.users = this.users
+    this.userService.users = this.users
     this.hours = this.hourService.hours
   }
 

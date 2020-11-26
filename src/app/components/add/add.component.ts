@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/service/api.service'
 import { myValidators } from 'src/app/validators/myValidators';
 import { ErrorService } from 'src/app/service/error.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-add',
@@ -80,7 +81,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
     duration = (rowEnd - rowStart) / 2
 
     if (this.option.value === 'list') {
-      user = this.dataService.findUserById(this.fullName.value)
+      user = this.userService.findUserById(this.fullName.value)
     } else {
       user = {
         firstName: this.firstName.value,
@@ -133,7 +134,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
     return this.reservationForm.get('searchUser')
   }
 
-  constructor(private fb: FormBuilder, public dataService: DataService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
+  constructor(private fb: FormBuilder, public dataService: DataService, private userService : UsersService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.addSub = this.addService.addReservation$.subscribe(
@@ -182,7 +183,7 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
   };
 
   ngDoCheck() {
-    this.users = this.dataService.users
+    this.users = this.userService.users
   }
   ngAfterContentInit() {
   }

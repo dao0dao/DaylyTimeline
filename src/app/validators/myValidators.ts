@@ -44,4 +44,12 @@ export class myValidators {
         }
 
     }
+
+    static startWhitSpace(control: FormControl): { [key: string]: boolean } {
+        if (!control || !control.value) {
+            return null
+        } else if (control.value.trim() === '') {
+            return { startWhitSpace: true }
+        }
+    }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginUser } from 'src/environments/interfaces';
-import { ApiService } from '../service/api.service';
 
 import { AuthService } from '../service/auth.service'
 import { DataService } from '../service/data.service';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-login-page',
@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit {
     }
     this.authService.signIn(loginUser).subscribe(
       () => {
-        this.dataService.getUsers()
+        this.userService.getUsers()
         this.submitDisable = false
         this.userForm.reset()
         this.router.navigate(['/daily_schedule'])
@@ -58,7 +58,7 @@ export class LoginPageComponent implements OnInit {
     )
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private dataService: DataService, private userService : UsersService) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({

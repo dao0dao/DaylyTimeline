@@ -1,12 +1,14 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { User } from 'src/environments/interfaces';
+import { field, SortPlayers, User } from 'src/environments/interfaces';
 import { AlertService } from '../service/alert.service';
 import { ApiService } from '../service/api.service';
 import { DataService } from '../service/data.service';
+import { UsersService } from '../service/users.service';
 import { ErrorService } from '../service/error.service';
 import { myValidators } from '../validators/myValidators';
+
 
 
 @Component({
@@ -35,6 +37,11 @@ export class PlayersPageComponent implements OnInit, DoCheck {
   editedPrice: boolean = false
   editTel: boolean = false
   editUserForm: FormGroup
+
+  sortPlayers: SortPlayers = {
+    field: 'lastName',
+    direction: 'start'
+  }
 
   get firstName() {
     return this.newUserForm.get('firstName')
@@ -83,8 +90,8 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     let user: User
 
     user = {
-      firstName: this.firstName.value,
-      lastName: this.lastName.value,
+      firstName: this.firstName.value.trim(),
+      lastName: this.lastName.value.trim(),
       price: this.price.value === null ? 0 : Math.abs(this.price.value.toFixed(2)),
       telephone: this.telephone.value
     }
@@ -92,7 +99,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       this.apiService.addUser(user).subscribe(
         (res) => {
           user.userId = res.name;
-          this.dataService.addUser(user);
+          this.userService.addUser(user);
           this.newUserForm.reset()
         }
       );
@@ -123,12 +130,12 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     let user: User
     user = {
       userId: this.userId.value,
-      firstName: this.editFirstName.value,
-      lastName: this.editLastName.value,
+      firstName: this.editFirstName.value.trim(),
+      lastName: this.editLastName.value.trim(),
       price: this.editPrice.value === null ? 0 : Math.abs(this.editPrice.value.toFixed(2)),
       telephone: this.editTelephone.value
     }
-    this.dataService.updateUser(user)
+    this.userService.updateUser(user)
     for (let i = 0; i < this.openUsers.length; i++) {
       this.openUsers[i] = false
     }
@@ -143,28 +150,39 @@ export class PlayersPageComponent implements OnInit, DoCheck {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService, private errorService: ErrorService, private sanitizer: DomSanitizer) { }
+  changeSort(field: field) {
+    if (this.sortPlayers.field === field) {
+      this.sortPlayers.direction === 'start' ? this.sortPlayers.direction = 'end' : this.sortPlayers.direction = 'start'
+    } else {
+      this.sortPlayers.field = field
+    }
+    this.userService.sortUsers(this.sortPlayers.field, this.sortPlayers.direction)
+  }
+
+  constructor(private fb: FormBuilder, private apiService: ApiService, private dataService: DataService, private alertService: AlertService, private errorService: ErrorService, private sanitizer: DomSanitizer, private userService: UsersService) { }
 
   ngOnInit() {
     this.newUserForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.maxLength(15)]],
-      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      firstName: ['', [Validators.required, Validators.maxLength(15), myValidators.startWhitSpace]],
+      lastName: ['', [Validators.required, Validators.maxLength(30), myValidators.startWhitSpace]],
       price: [null, [Validators.max(999), myValidators.priceComa]],
       telephone: [null, [myValidators.telephoneValidator, myValidators.telephoneLength]]
     })
 
     this.editUserForm = this.fb.group({
       userId: [],
-      firstName: ['', [Validators.required, Validators.maxLength(15)]],
-      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      firstName: ['', [Validators.required, Validators.maxLength(15), myValidators.startWhitSpace]],
+      lastName: ['', [Validators.required, Validators.maxLength(30), myValidators.startWhitSpace]],
       price: [null, [Validators.max(999), myValidators.priceComa]],
       telephone: [null, [myValidators.telephoneValidator, myValidators.telephoneLength]]
     })
+
+    this.changeSort(this.sortPlayers.field)
   }
 
   ngDoCheck() {
-    this.users = this.dataService.users
-    this.openUsers = this.dataService.openUser
+    this.users = this.userService.users
+    this.openUsers = this.userService.openUser
     if (!this.telephone.value) {
       this.telephone.setValue('')
     }

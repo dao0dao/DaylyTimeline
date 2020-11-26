@@ -10,7 +10,7 @@ export interface User {
     firstName: string,
     lastName: string,
     price?: number,
-    telephone? : number,
+    telephone?: number,
     note?: string
 }
 
@@ -25,9 +25,9 @@ export interface Reservation {
     duration?: number,
     rowStart?: number,
     rowEnd?: number,
-    top?:number,
-    left?:number,
-    zIndex?:number,
+    top?: number,
+    left?: number,
+    zIndex?: number,
     user: User,
     isActive?: boolean
 }
@@ -52,4 +52,12 @@ export interface FbSigInResponse {
 
 export interface FbPutResponse {
     name: string
+}
+
+export type field = 'firstName' | 'lastName' | 'price'
+export type direction = 'start' | 'end'
+
+export interface SortPlayers {
+    field: field
+    direction: direction
 }

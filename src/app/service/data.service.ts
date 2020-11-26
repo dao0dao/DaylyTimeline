@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Reservation, Court, User } from '../../environments/interfaces'
+import { Reservation, Court, User } from 'src/environments/interfaces'
 import { ApiService } from './api.service';
 import { HourService } from './hour.service';
 
@@ -93,43 +93,7 @@ export class DataService {
     )
   }
 
-  getUsers() {
-    this.apiService.getUsers().subscribe(
-      (users: User[]) => {
-        if (users) {
-          this.users = users
-          users.map(() => this.openUser.push(false))
-        }
-      }
-    )
-  }
-
-  addUser(user: User) {
-    this.users.push(user)
-  }
-
-  findUserById(id: string): User {
-    return this.users.find(user => user.userId === id)
-  }
-
-  updateUser(user: User) {
-    return this.apiService.updateUser(user).subscribe(
-      (res) => {
-        this.users = this.users.map(el => el.userId === res.userId ? el = res : el)
-      },
-    )
-  }
-
-  deleteUser(user: User) {
-    this.apiService.deleteUser(user).subscribe(
-      () => {
-        this.users = this.users.filter(el => el.userId !== user.userId)
-      }
-    )
-  }
-
-  users: User[] = []
-  openUser: Array<boolean> = []
+  
   reservation: Reservation[] = []
 
 

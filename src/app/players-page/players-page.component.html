@@ -32,6 +32,7 @@
                     <div class="error">
                         <p *ngIf="firstName.errors?.maxlength || firstName.value?.length === 15">Max 15 znaków</p>
                         <p *ngIf="firstName.errors?.required && firstName.touched">Wymagane pole</p>
+                        <p *ngIf="firstName.errors?.startWhitSpace && firstName.touched">Wymagane pole</p>
                     </div>
                 </div>
                 <div class="form_cell lastName">
@@ -52,6 +53,7 @@
                     <div class="error">
                         <p *ngIf="lastName.errors?.maxlength || lastName.value?.length === 30">Max 30 znaków</p>
                         <p *ngIf="lastName.errors?.required && lastName.touched">Wymagane pole</p>
+                        <p *ngIf="lastName.errors?.startWhitSpace && lastName.touched">Wymagane pole</p>
                     </div>
                 </div>
                 <div class="form_cell price">
@@ -115,7 +117,7 @@
         </div>
     </div>
     <div class="search">
-        <h2 class="title">Wyszukaj gracza</h2>
+        <p class="title">Wyszukaj gracza</p>
         <div class="search_input">
             <label
                 for="search_text"
@@ -129,6 +131,44 @@
                 [(ngModel)]="search"
                 (focus)="focus('searchActive')"
                 (blur)="onBlure('searchActive')">
+        </div>
+    </div>
+    <div class="sort">
+        <p class="title">Sortuj po:</p>
+        <div class="buttons">
+            <button
+                type="button"
+                class="btn btn--sort"
+                [ngClass]="{'btn--sort--active': sortPlayers.field === 'lastName'}"
+                (click)="changeSort('lastName')">
+                <span class="skew">
+                    Nazwisku
+                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-alpha-down"></i>
+                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-alpha-down-alt"></i>
+                </span>
+            </button>
+            <button
+                type="button"
+                class="btn btn--sort"
+                [ngClass]="{'btn--sort--active': sortPlayers.field === 'firstName'}"
+                (click)="changeSort('firstName')">
+                <span class="skew">
+                    Imieniu
+                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-alpha-down filter--start"></i>
+                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-alpha-down-alt filter--end"></i>
+                </span>
+            </button>
+            <button
+                type="button"
+                class="btn btn--sort"
+                [ngClass]="{'btn--sort--active': sortPlayers.field === 'price'}"
+                (click)="changeSort('price')">
+                <span class="skew">
+                    Cenie
+                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-numeric-down filter--start"></i>
+                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-numeric-down-alt filter--end"></i>
+                </span>
+            </button>
         </div>
     </div>
     <div class="container">
@@ -212,6 +252,7 @@
                         <div class="error">
                             <p *ngIf="editFirstName.errors?.maxlength || editFirstName.value?.length === 15">Max 15 znaków</p>
                             <p *ngIf="editFirstName.errors?.required && editFirstName.touched">Wymagane pole</p>
+                            <p *ngIf="editFirstName.errors?.startWhitSpace && editFirstName.touched">Wymagane pole</p>
                         </div>
                     </div>
                     <div class="form_cell lastName">
@@ -232,6 +273,7 @@
                         <div class="error">
                             <p *ngIf="editLastName.errors?.maxlength || editLastName.value?.length === 30">Max 30 znaków</p>
                             <p *ngIf="editLastName.errors?.required && editLastName.touched">Wymagane pole</p>
+                            <p *ngIf="editLastName.errors?.startWhitSpace && editLastName.touched">Wymagane pole</p>
                         </div>
                     </div>
                     <div class="form_cell price">
