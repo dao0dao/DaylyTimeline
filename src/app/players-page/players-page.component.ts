@@ -177,7 +177,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       telephone: [null, [myValidators.telephoneValidator, myValidators.telephoneLength]]
     })
 
-    this.changeSort(this.sortPlayers.field)
+    this.userService.sortUsers(this.sortPlayers.field, this.sortPlayers.direction)
   }
 
   ngDoCheck() {
