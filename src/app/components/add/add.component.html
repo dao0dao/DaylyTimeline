@@ -54,6 +54,7 @@
                         formControlName="firstName">
                     <div class="error">
                         <p *ngIf="firstName.errors?.required && firstName.touched">Wymagane pole</p>
+                        <p *ngIf="firstName.errors?.startWhitSpace && firstName.touched">Wymagane pole</p>
                         <p *ngIf="firstName.errors?.maxLength || firstName.value?.length === 15">Max 15 znaków</p>
                     </div>
                 </div>
@@ -66,6 +67,7 @@
                         formControlName="lastName">
                     <div class="error">
                         <p *ngIf="lastName.errors?.required && lastName.touched">Wymagane pole</p>
+                        <p *ngIf="lastName.errors?.startWhitSpace && lastName.touched">Wymagane pole</p>
                         <p *ngIf="lastName.errors?.maxLength || lastName.value?.length === 30">Max 30 znaków</p>
                     </div>
                 </div>

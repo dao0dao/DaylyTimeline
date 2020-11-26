@@ -84,8 +84,8 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
       user = this.userService.findUserById(this.fullName.value)
     } else {
       user = {
-        firstName: this.firstName.value,
-        lastName: this.lastName.value
+        firstName: this.firstName.value.trim(),
+        lastName: this.lastName.value.trim()
       }
     }
 
@@ -168,8 +168,8 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
           this.lastName.markAsUntouched();
         } else if (value === 'new') {
           this.fullName.setValidators(null);
-          this.firstName.setValidators([Validators.required, Validators.maxLength(15)]);
-          this.lastName.setValidators([Validators.required, Validators.maxLength(30)]);
+          this.firstName.setValidators([Validators.required, Validators.maxLength(15), myValidators.startWhitSpace]);
+          this.lastName.setValidators([Validators.required, Validators.maxLength(30), myValidators.startWhitSpace]);
           this.fullName.setValue(null);
           this.searchUser.setValue('');
           this.fullName.markAsUntouched();
