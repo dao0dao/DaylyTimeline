@@ -1,7 +1,9 @@
 <app-info></app-info>
 <app-edit></app-edit>
 <app-add></app-add>
-<div class="actions">
+<div
+    class="actions"
+    (window:scroll)="onScroll()">
     <div class="time">
         <label for="time">Dzień:</label>
         <input
@@ -22,15 +24,18 @@
 </div>
 <div class="actions actions--fixed">
     <button
+        [@visible]
         type="button"
         class="btn btn--add"
+        *ngIf="acctiveBtnAdd"
         (click)="userAdd()">
-        <span class="btn_text">Dodaj</span>
+        <span class="btn_text">
+            <i class="fas fa-plus"></i>
+        </span>
     </button>
 </div>
 <div class="container">
-    <div
-        class="timeTable">
+    <div class="timeTable">
         <div class="backgroundGrid">
             <app-background-grid
                 #backGrid
@@ -53,8 +58,9 @@
         <div
             data-drop-zone="true"
             data-court="1"
-            class="reservation schedule courtOne"
+            class="schedule courtOne"
             (click)="dropReservation($event)"
+            (dblclick)="userAdd($event)"
             [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
             <div class="title">
                 <p>Kort 1</p>
@@ -134,8 +140,9 @@
         <div
             data-drop-zone="true"
             data-court="2"
-            class="reservation schedule courtTwo"
+            class="schedule courtTwo"
             (click)="dropReservation($event)"
+            (dblclick)="userAdd($event)"
             [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
             <div class="title">
                 <p>Kort 2</p>
@@ -145,9 +152,9 @@
                 data-draggable="true"
                 *ngFor="let reservation of courtTwo"
                 [ngStyle]="{
-    gridRowStart: reservation.rowStart,
-    gridRowEnd: reservation.rowEnd
-}"
+                gridRowStart: reservation.rowStart,
+                gridRowEnd: reservation.rowEnd
+                }"
                 [ngClass]="{ 'cell--active': reservation.isActive }">
                 <div class="cell_top">
                     <div class="cell_actions">
@@ -216,8 +223,9 @@
         <div
             data-drop-zone="true"
             data-court="dressroom"
-            class="reservation schedule dressRoom"
+            class="schedule dressRoom"
             (click)="dropReservation($event)"
+            (dblclick)="userAdd($event)"
             [ngStyle]="{ cursor: isOpen ? 'pointer' : null }">
             <div class="title">
                 <p>Zapasowi</p>

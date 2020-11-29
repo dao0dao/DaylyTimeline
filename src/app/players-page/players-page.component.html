@@ -143,8 +143,8 @@
                 (click)="changeSort('lastName')">
                 <span class="skew">
                     Nazwisku
-                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-alpha-down"></i>
-                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-alpha-down-alt"></i>
+                    <i *ngIf="sortPlayers.direction === 'start' || !(sortPlayers.field === 'lastName')" class="fas fa-sort-alpha-down"></i>
+                    <i *ngIf="sortPlayers.direction === 'end' && sortPlayers.field === 'lastName'" class="fas fa-sort-alpha-down-alt"></i>
                 </span>
             </button>
             <button
@@ -154,8 +154,8 @@
                 (click)="changeSort('firstName')">
                 <span class="skew">
                     Imieniu
-                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-alpha-down filter--start"></i>
-                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-alpha-down-alt filter--end"></i>
+                    <i *ngIf="sortPlayers.direction === 'start' || !(sortPlayers.field === 'firstName')" class="fas fa-sort-alpha-down filter--start"></i>
+                    <i *ngIf="sortPlayers.direction === 'end' && sortPlayers.field === 'firstName'" class="fas fa-sort-alpha-down-alt filter--end"></i>
                 </span>
             </button>
             <button
@@ -165,8 +165,8 @@
                 (click)="changeSort('price')">
                 <span class="skew">
                     Cenie
-                    <i *ngIf="sortPlayers.direction === 'start'" class="fas fa-sort-numeric-down filter--start"></i>
-                    <i *ngIf="sortPlayers.direction === 'end'" class="fas fa-sort-numeric-down-alt filter--end"></i>
+                    <i *ngIf="sortPlayers.direction === 'start' || !(sortPlayers.field === 'price')" class="fas fa-sort-numeric-down filter--start"></i>
+                    <i *ngIf="sortPlayers.direction === 'end' && sortPlayers.field === 'price'" class="fas fa-sort-numeric-down-alt filter--end"></i>
                 </span>
             </button>
         </div>

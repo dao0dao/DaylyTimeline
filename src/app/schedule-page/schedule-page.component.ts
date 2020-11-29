@@ -1,21 +1,28 @@
-import { Component, OnInit, DoCheck, OnDestroy, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, ViewChildren, QueryList, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Hours, Reservation, Court } from 'src/environments/interfaces';
-import { AlertService } from '../service/alert.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { AddService } from '../service/add.service';
 
+import { AlertService } from '../service/alert.service';
 import { DataService } from '../service/data.service'
 import { EditServiceService } from '../service/edit-service.service';
 import { ErrorService } from '../service/error.service';
 import { HourService } from '../service/hour.service'
 import { InfoService } from '../service/info.service';
 import * as moment from 'moment'
-import { AddService } from '../service/add.service';
 
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule-page.component.html',
-  styleUrls: ['./schedule-page.component.scss']
+  styleUrls: ['./schedule-page.component.scss'],
+  animations: [
+    trigger('visible', [
+      transition('void => *', [style({ opacity: 0 }), animate(200)]),
+      transition('* => void', [style({ opacity: 1 }), animate(200, style({ opacity: 0 }))]),
+    ])
+  ]
 })
 export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
 
@@ -33,6 +40,8 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
   courtOne: Reservation[]
   courtTwo: Reservation[]
   dressroom: Reservation[]
+
+  acctiveBtnAdd: boolean = false
 
   offsetTop(event: HTMLElement) {
     return event.offsetTop;
@@ -62,6 +71,13 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
+  returnCourt(event: { layerY: number, target: HTMLElement }): string | number {
+    return isNaN(parseInt(event.target.dataset.court)) ? event.target.dataset.court : parseInt(event.target.dataset.court)
+  }
+  returnHour(event: { layerY: number, target: HTMLElement }): ElementRef {
+    return this.hour.filter(el => event.layerY >= el.nativeElement.dataset.cellStart * 1 && event.layerY < el.nativeElement.dataset.cellEnd * 1).reduce(function (_, cur) { return cur })
+  }
+
   dropReservation(event: { layerY: number, target: HTMLElement }) {
     if (event.target.dataset.dropZone === "true" && this.draggableItem) {
       let court: Court = null
@@ -69,8 +85,8 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
       let newRowStart: number = null
       let newRowEnd: number = null
 
-      court = isNaN(parseInt(event.target.dataset.court)) ? event.target.dataset.court : parseInt(event.target.dataset.court)
-      dropHour = this.hour.filter(el => event.layerY >= el.nativeElement.dataset.cellStart * 1 && event.layerY < el.nativeElement.dataset.cellEnd * 1).reduce(function (_, cur) { return cur })
+      court = this.returnCourt(event)
+      dropHour = this.returnHour(event)
 
       newRowStart = dropHour.nativeElement.dataset.rowStart * 1
       newRowEnd = newRowStart + (2 * this.draggableItem.duration)
@@ -79,8 +95,20 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
-  userAdd() {
-    this.addService.toggleAdd(true, this.date)
+  userAdd(event?: { layerY: number, target: HTMLElement }) {
+    if (event !== undefined) {
+      let court: Court = ''
+      let dropHour: ElementRef = null
+      let timeStart: string = ''
+      let timeEnd: string = ''
+      court = this.returnCourt(event)
+      dropHour = this.returnHour(event)
+      timeStart = this.hourService.findHour(dropHour.nativeElement.dataset.rowStart * 1)
+      timeEnd = this.hourService.findHour(dropHour.nativeElement.dataset.rowStart * 1 + 2)
+      this.addService.toggleAdd(true, this.date, court, { timeStart, timeEnd })
+    } else {
+      this.addService.toggleAdd(true, this.date)
+    }
   }
 
   userEdit(reservation: Reservation, isOpen: boolean) {
@@ -123,6 +151,13 @@ export class SchedulePageComponent implements OnInit, DoCheck, OnDestroy {
     }
   }
 
+  onScroll() {
+    if ((window.scrollY >= 135 && window.innerWidth < 992) || (window.scrollY >= 155 && window.innerWidth >= 992)) {
+      this.acctiveBtnAdd = true
+    } else {
+      this.acctiveBtnAdd = false
+    }
+  }
   constructor(public dataService: DataService, public hourService: HourService, private alertService: AlertService, private infoService: InfoService, private editService: EditServiceService, private errorService: ErrorService, private addService: AddService,) { }
 
   ngOnInit() {

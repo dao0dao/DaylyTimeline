@@ -59,6 +59,9 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck {
     let court: number | string = this.court.value;
     let newRowStart: number = this.hourService.setRow(this.timeStart.value);
     let newRowEnd: number = this.hourService.setRow(this.timeEnd.value);
+    if (newRowStart > newRowEnd && newRowEnd === 2) {
+      newRowEnd = 50
+    }
     let newDuration = (newRowEnd - newRowStart) / 2
     switch (court) {
       case "1":
@@ -85,7 +88,11 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   inputChange() {
-    parseInt(this.rowEnd.value) - parseInt(this.rowStart.value) < 1 ? this.wrongTime = true : this.wrongTime = false
+    if (this.hourService.setRow(this.timeEnd.value) - this.hourService.setRow(this.timeStart.value) < 1 && !(this.hourService.setRow(this.timeEnd.value) === 2)) {
+      this.wrongTime = true
+    } else {
+      this.wrongTime = false
+    }
   }
 
   constructor(private fb: FormBuilder, private editService: EditServiceService, private hourService: HourService, private dataService: DataService, private errorService: ErrorService) { };

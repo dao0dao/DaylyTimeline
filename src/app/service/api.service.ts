@@ -45,8 +45,8 @@ export class ApiService {
     return this.http.post<FbPutResponse>(`${environment.dbUrl}schedule/${reservation.year}/${reservation.month}/${reservation.day}.json`, reservation)
   }
 
-  dropReservation(id: string, court: Court, rowStart: number, rowEnd: number, timeStart: string, timeEnd: string, duration: number, reservation: Reservation): Observable<any> {
-    return this.http.patch(`${environment.dbUrl}schedule/${reservation.year}/${reservation.month}/${reservation.day}/${id}.json`, {
+  dropReservation(id: string, court: Court, rowStart: number, rowEnd: number, timeStart: string, timeEnd: string, duration: number, reservation: Reservation): Observable<Reservation> {
+    return this.http.patch<Reservation>(`${environment.dbUrl}schedule/${reservation.year}/${reservation.month}/${reservation.day}/${id}.json`, {
       court, rowStart, rowEnd, timeStart, timeEnd, duration
     })
   }

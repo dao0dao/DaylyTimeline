@@ -155,6 +155,7 @@ export class PlayersPageComponent implements OnInit, DoCheck {
       this.sortPlayers.direction === 'start' ? this.sortPlayers.direction = 'end' : this.sortPlayers.direction = 'start'
     } else {
       this.sortPlayers.field = field
+      this.sortPlayers.direction = 'start'
     }
     this.userService.sortUsers(this.sortPlayers.field, this.sortPlayers.direction)
   }

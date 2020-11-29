@@ -36,10 +36,14 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
   optionSub: Subscription
 
   inputChange() {
-    if (this.hourService.setRow(this.timeEnd.value) - this.hourService.setRow(this.timeStart.value) < 1) { this.wrongTime = true } else { this.wrongTime = false }
+    if (this.hourService.setRow(this.timeEnd.value) - this.hourService.setRow(this.timeStart.value) < 1 && !(this.hourService.setRow(this.timeEnd.value) === 2)) {
+      this.wrongTime = true
+    } else {
+      this.wrongTime = false
+    }
   }
 
-  submit() {
+  async submit() {
     let reservation: Reservation = null;
     let user: User = null;
     let year: string;
@@ -78,15 +82,32 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
     timeEnd = this.timeEnd.value
     rowStart = this.hourService.setRow(timeStart)
     rowEnd = this.hourService.setRow(timeEnd)
+    if (rowStart > rowEnd && rowEnd === 2) { rowEnd = 50 }
     duration = (rowEnd - rowStart) / 2
 
     if (this.option.value === 'list') {
       user = this.userService.findUserById(this.fullName.value)
     } else {
+      let addUser = []
       user = {
         firstName: this.firstName.value.trim(),
-        lastName: this.lastName.value.trim()
+        lastName: this.lastName.value.trim(),
+        price: 0
       }
+      this.users.map(
+        el => {
+          if (el.firstName === user.firstName && el.lastName === user.lastName) {
+            user = el
+          }
+        }
+      )
+      addUser = [...this.users.filter(el => el.firstName === user.firstName && el.lastName === user.lastName && this.users.length < 10)]
+      addUser.length === 0 && this.apiService.addUser(user).subscribe(
+        (res) => {
+          user.userId = res.name;
+          this.userService.addUser(user);
+        }
+      )
     }
 
     reservation = {
@@ -134,13 +155,16 @@ export class AddComponent implements OnInit, DoCheck, OnDestroy, AfterContentIni
     return this.reservationForm.get('searchUser')
   }
 
-  constructor(private fb: FormBuilder, public dataService: DataService, private userService : UsersService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
+  constructor(private fb: FormBuilder, public dataService: DataService, private userService: UsersService, public addService: AddService, private hourService: HourService, private apiService: ApiService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.addSub = this.addService.addReservation$.subscribe(
       (res) => {
         this.isOpen = res.isOpen;
         this.date.setValue(res.date)
+        this.timeStart.setValue(res.time.timeStart)
+        this.timeEnd.setValue(res.time.timeEnd)
+        this.court.setValue(res.court)
       }
     );
     this.reservationForm = this.fb.group({

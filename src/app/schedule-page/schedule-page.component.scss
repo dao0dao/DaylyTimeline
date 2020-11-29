@@ -45,6 +45,7 @@
   grid-template-rows: repeat(49, 65px);
   row-gap: 0;
   column-gap: 0;
+  cursor: pointer;
 }
 .hour {
   .number {
@@ -125,6 +126,7 @@
 .cell--active {
   min-height: 130px;
   transform: scale(1.05) translateX(-30%);
+  z-index: 2;
   box-shadow: 3px 0 6px $blueColor;
   .cell_top .time {
     background-color: $blueColor;
@@ -152,9 +154,23 @@
   border-color: transparent $greenColor;
   transform: skewX(20deg);
   text-transform: uppercase;
+  color: $basicColor;
   background-color: #fff;
   .actions--fixed & {
-    border-color: $greenColor;
+    border-color: transparent;
+    border-radius: 50%;
+    transform: unset;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: $greenColor;
+    &:hover{
+      color: $greenColor;
+      background-color: #ffffff;
+      box-shadow: 0 0 5px 2px $greenColor;
+    }
+    .btn_text{
+      transform: unset;
+    }
   }
   .btn_text {
     display: inline-block;

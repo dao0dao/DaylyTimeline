@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
 
   menuActive: boolean = false
 
+  onScroll(){
+    console.log('działa');
+  }
   constructor(public authService: AuthService, private userService : UsersService, private hourService: HourService) { }
 
   ngOnInit() {
