@@ -1,0 +1,59 @@
+@import "src/assets/colors";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+        margin-top: 3rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    p {
+        margin: 1rem;
+    }
+    .btn {
+        position: relative;
+        margin-top: 3rem;
+        padding: 0.2rem 0.4rem;
+        border: unset;
+        overflow: hidden;
+        font-size: 1rem;
+        text-transform: uppercase;
+        background-color: transparent;
+        transform: skewX(-20deg);
+        cursor: pointer;
+        .text {
+            display: inline-block;
+            text-decoration: none;
+            color: $basicColor;
+            transform: skewX(20deg);
+
+        }
+        &::after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 100%;
+            left: 0;
+            display: block;
+            z-index: -1;
+            content: "";
+            background-color: $greenColor;
+            transition: $animationCell;
+        }
+        &:hover {
+            .text {
+                color: #ffffff;
+            }
+            box-shadow: 0 0 5px 5px $greenColor;
+            &::after {
+                top: 0;
+            }
+        }
+    }
+    .btn, .btn .text, .btn::after{
+        transition: $animationCell;
+    }
+}

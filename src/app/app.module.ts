@@ -22,6 +22,7 @@ import { TelephonePipePipe } from './pipes/telephone-pipe.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SchdulePageVersion2Component } from './schdule-page-version2/schdule-page-versio2.component'
 import { SearchPipePipe } from './pipes/search-pipe.pipe';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const INCEPTOR_PROVIDERS: Provider = {
@@ -45,7 +46,8 @@ const INCEPTOR_PROVIDERS: Provider = {
     TelephonePipePipe,
     HomePageComponent,
     SchdulePageVersion2Component,
-    SearchPipePipe
+    SearchPipePipe,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
