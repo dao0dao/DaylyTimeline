@@ -1,3 +1,3 @@
-## TThis demo version is live
+## This demo version is live
 
 Still in progress
